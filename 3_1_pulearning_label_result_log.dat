@@ -1,0 +1,1524 @@
+Anomaly -1.0  alarmid chang cid down ge ifnam ifnet interfac link linkdown_act mainifnam nov operstatu physic reason statu up
+Anomaly -1.0  attr bom ce dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever cid cleartyp entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_clear interfac physic pic reason sep service_resum slot statu up vs
+Anomaly -1.0  attr bc bom dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam nov operstatu physic reason service_resum statu up
+Anomaly -1.0  alarmid chang cid down eth ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason sep statu trunk up
+Anomaly -1.0  ha if_stat ifpdt jun state turn xgigabitethernet
+Anomaly -1.0  af alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac jul physic pic reason service_resum slot statu up vs
+Anomaly -1.0  down gigabitethernet nov phy phy_status_up slot statu vcpu
+Anomaly -1.0  adminstatu alarmid chang cid down gigabitethernet ifnam ifnet interfac jun link linkdown_act mainnam operstatu physic reason statu up vs
+Anomaly -1.0  gigabitethernet interfac link sp state up updown
+Anomaly -1.0  ha if_stat ifpdt interfac state turn up xgigabitethernet
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mai mainnam operstatu physic reason service_resum statu trunk up
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp eth gigabitethernet ifnam ifnet interfac jul link linkdown_clear mainnam operstatu physic reason service_resum statu trunk up vs
+Anomaly -1.0  af alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac nov physic pic reason service_resum slot statu up vs
+Anomaly -1.0  alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc feb gigabitethernet hwportdown_clear interfac physic pic reason service_resum statu up vs
+Anomaly -1.0  arg attr bom dce dd desc down fortygigabitethernet info interfac interfacenam log msgid nsm protocol raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  arg attr bom dce desc eb info interfac interfacenam log msgid nsm raslog raslogd seqnum sever swname tengigabitethernet timestamp up valu wwn
+Anomaly -1.0  alarmid chang cid down eth ge ifnam ifnet interfac link linkdown_act mainnam mar operstatu physic reason statu trunk up
+Anomaly -1.0  interfac state up
+Anomaly -1.0  arg attr bom dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid chang cid down eth fail ge ifnam ifnet interfac lacp linkdown_act mainifnam negoti operstatu reason sep statu trunk up
+Anomaly -1.0  down gigabitethernet mar phy phy_status_up slot statu vcpu
+Anomaly -1.0  attr bom cd dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever cid cleartyp entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_clear interfac mar physic pic reason service_resum statu up vs
+Anomaly -1.0  attr bom dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  attr bom dce desc down fb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac jun physic pic reason service_resum slot statu up vs
+Anomaly -1.0  adminstatu alarmid chang cid dec down gigabitethernet ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu up vs
+Anomaly -1.0  alarmid aug chang cid down ge ifnam ifnet interfac linkdown_act mainnam operstatu reason shut statu
+Anomaly -1.0  ha if_stat ifpdt interfac mai state turn xgigabitethernet
+Anomaly -1.0  if_stat ifpdt interfac mar state turn up xgigabitethernet
+Anomaly -1.0  admin alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc feb gigabitethernet hwportdown_clear interfac physic pic reason service_resum statu up vs
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp eth gigabitethernet ifnam ifnet interfac link linkdown_clear mainnam nov operstatu physic reason service_resum statu trunk up vs
+Anomaly -1.0  adminstatu alarmid chang cid down eth gigabitethernet ifnam ifnet interfac link linkdown_act mai mainnam operstatu physic reason statu trunk up vs
+Anomaly -1.0  ifnet link phy_updown statu ten up
+Anomaly -1.0  down interfac link sp state tengigabitethernet updown
+Anomaly -1.0  down ethernet interfac state
+Anomaly -1.0  attr bom dc dce desc down eb fortygigabitethernet info interfac interfacenam log msgid nsm protocol raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  attr bom ce dce desc down fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  attr bom dce desc down eb info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname tengigabitethernet timestamp valu wwn
+Anomaly -1.0  gigabitethernet ifnet interfac line link_updown protocol ten
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac jan link linkdown_clear mainnam operstatu physic reason service_resum statu trunk up
+Anomaly -1.0  ethernet ethport gmt if_down_non interfac none
+Anomaly -1.0  down ethernet ethport gmt if_down_non interfac transceiv
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever chang cid down entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_act interfac jun physic pic port reason state statu vs
+Anomaly -1.0  card caus chang cid down driver hwportdownreason local_fault mai physic port possibl slot statu vs xfc
+Anomaly -1.0  alarmid chang cid down eth ge ifnam ifnet interfac link linkdown_act mainnam nov operstatu physic reason statu trunk up
+Anomaly -1.0  ethport gmt if_up interfac mode monitor up
+Anomaly -1.0  down interfac link state tengigabitethernet updown
+Anomaly -1.0  card caus chang cid down driver hwportdownreason jan local_fault physic port possibl slot statu vs xfc
+Anomaly -1.0  drv jul layer link linkup port up xgigabitethernet
+Anomaly -1.0  alarmid apr cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac physic pic reason statu vs
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainnam nov operstatu protocol reason service_resum statu trunk up
+Anomaly -1.0  fortygig ifnet interfac phy_updown physic state up
+Anomaly -1.0  if_stat ifpdt interfac jul state turn up xgigabitethernet
+Anomaly -1.0  alarmid aug chang cid down ge ifnam ifnet interfac link linkdown_act mainifnam operstatu physic reason statu up
+Anomaly -1.0  admin alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac physic pic reason sep statu vs
+Anomaly -1.0  cardopticalinfo cid cr dbm down driver fc inform jan lfxfe optic power rx tx vs
+Anomaly -1.0  attr bom dce desc down eb fc fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever chang cid dec down entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_act interfac physic pic port reason state statu vs
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever cid cleartyp entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_clear interfac jun physic pic reason service_resum statu up vs
+Anomaly -1.0  adminstatu alarmid chang cid down gigabitethernet ifnam ifnet interfac link linkdown_act mai mainnam operstatu physic reason statu up vs
+Anomaly -1.0  alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac jul physic pic reason service_resum slot statu up vs
+Anomaly -1.0  card caus chang cid down driver hwportdownreason jan physic port possibl remote_fault slot statu vs xfc
+Anomaly -1.0  attr ba bom dce desc down eb info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname tengigabitethernet timestamp valu wwn
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp gigabitethernet ifnam ifnet interfac link linkdown_clear mainnam oct operstatu physic reason service_resum statu up vs
+Anomaly -1.0  cardopticalinfo cid cr dbm down driver fc inform jun lfxfe optic power rx tx vs
+Anomaly -1.0  cardopticalinfo cid cr dbm down driver fc inform lfxfe nov optic power rx slot tx vs
+Anomaly -1.0  ethernet interfac state system up
+Anomaly -1.0  alarmid chang cid down eth fail ge ifnam ifnet interfac lacp linkdown_act mainnam mar negoti operstatu reason statu trunk up
+Anomaly -1.0  admin alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac mai physic pic reason statu vs
+Anomaly -1.0  admin alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac mar physic pic reason statu vs
+Anomaly -1.0  ethport gmt if_up interfac layer up
+Anomaly -1.0  ethport gmt if_up interfac mode trunk up
+Anomaly -1.0  alarmid aug chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu up
+Anomaly -1.0  alarmid aug cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac physic pic reason statu vs
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainifnam operstatu protocol reason sep service_resum statu trunk up
+Anomaly -1.0  alarmid chang cid down eth ge ifnam ifnet interfac link linkdown_act mai mainnam operstatu physic reason statu trunk up
+Anomaly -1.0  adminstatu alarmid aug chang cid down eth gigabitethernet ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu trunk up vs
+Anomaly -1.0  cardopticalinfo cid cr dbm down driver fc inform lfxfe oct optic power rx tx vs
+Anomaly -1.0  adminstatu alarmid chang cid down gigabitethernet ifnam ifnet interfac link linkdown_act mainnam nov operstatu physic reason statu up vs
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainnam oct operstatu protocol reason service_resum statu trunk up
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp eth feb gigabitethernet ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu trunk up vs
+Anomaly -1.0  cardopticalinfo cid cr dbm down driver fc inform jun lbxf optic power rx tx vs
+Anomaly -1.0  attr bom dce desc df down eb fortygigabitethernet info interfac interfacenam log msgid nsm protocol raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  attr bom ce dce desc down eb fortygigabitethernet info interfac interfacenam log msgid nsm protocol raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  down ha if_stat ifpdt interfac state turn xgigabitethernet
+Anomaly -1.0  alarmid apr basetrapeventtyp basetrapprobablecaus basetrapsever cid cleartyp entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_clear interfac physic pic reason service_resum statu up vs
+Anomaly -1.0  alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac mar physic pic reason statu vs
+Anomaly -1.0  if_stat ifpdt interfac mai state turn up xgigabitethernet
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever chang cid down entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_act interfac nov physic pic port reason state statu vs
+Anomaly -1.0  card caus chang cid down driver hwportdownreason jul local_fault pcs_fault physic port possibl slot statu vs xfc
+Anomaly -1.0  alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac physic pic reason sep slot statu vs
+Anomaly -1.0  down interfac line lineproto protocol state tengigabitethernet updown
+Anomaly -1.0  if_stat ifpdt interfac jan state turn up xgigabitethernet
+Anomaly -1.0  down gigabitethernet interfac link sp state updown
+Anomaly -1.0  alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac nov physic pic reason statu vs
+Anomaly -1.0  down ethernet ethport gmt if_down_channel_membership_update_in_progress interfac membership progress updat
+Anomaly -1.0  arg attr bc bom dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid aug chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainifnam operstatu physic reason service_resum statu up
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac jul link linkdown_clear mainifnam operstatu protocol reason service_resum statu trunk up
+Anomaly -1.0  attr bd bom dce desc down fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  adminstatu alarmid chang cid down eth gigabitethernet ifnam ifnet interfac jun link linkdown_act mainnam operstatu physic reason statu trunk up vs
+Anomaly -1.0  down ifnet interfac line link_updown protocol state vlan
+Anomaly -1.0  alarmid chang cid dec down ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu up
+Anomaly -1.0  attr bb bom dce desc down fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid chang cid dec down eth ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu trunk up
+Anomaly -1.0  alarmid chang cid down eth ge ifnam ifnet interfac jul link linkdown_act mainifnam operstatu physic reason statu trunk up
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever chang cid down entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_act interfac jan physic pic port reason state statu vs
+Anomaly -1.0  alarmid apr cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac physic pic reason service_resum statu up vs
+Anomaly -1.0  attr bd bom cf dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac jul physic pic reason service_resum statu up vs
+Anomaly -1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason sep service_resum statu up
+Anomaly -1.0  alarmid aug chang cid down eth fail ge ifnam ifnet interfac lacp linkdown_act mainifnam negoti operstatu reason statu trunk up
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp eth gigabitethernet ifnam ifnet interfac link linkdown_clear mainnam nov operstatu protocol reason service_resum statu trunk up vs
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp gigabitethernet ifnam ifnet interfac link linkdown_clear mai mainnam operstatu physic reason service_resum statu up vs
+Anomaly -1.0  ifadminstatu ifindex ifnam ifoperstatu mib snmp_trap_link_down up xe
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainnam operstatu protocol reason sep service_resum statu trunk up
+Anomaly -1.0  admin alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac jul physic pic reason slot statu vs
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainifnam oct operstatu protocol reason service_resum statu trunk up
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever chang cid down entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_act interfac physic pic port reason sep state statu vs
+Anomaly -1.0  adminstatu alarmid aug chang cid down gigabitethernet ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu up vs
+Anomaly -1.0  gigabitethernet ha if_stat ifnet ilo interfac state turn up
+Anomaly -1.0  apr card caus chang cid down driver hwportdownreason local_fault pcs_fault physic port possibl slot statu vs xfc
+Anomaly -1.0  alarmid cid cleartyp dec entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac physic pic reason service_resum slot statu up vs
+Anomaly -1.0  attr bom cf dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  arg attr bom dce desc eb fortygigabitethernet info interfac interfacenam log msgid nsm raslog raslogd seqnum sever swname timestamp up valu wwn
+Anomaly -1.0  alarmid aug chang cid down eth ge ifnam ifnet interfac link linkdown_act mainifnam operstatu physic reason statu trunk up
+Anomaly -1.0  alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac jul physic pic reason slot statu vs
+Anomaly -1.0  chang down gigabitethernet phy phy_status_up slot statu vcpu
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever cid cleartyp dec entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_clear interfac physic pic reason service_resum slot statu up vs
+Anomaly -1.0  card caus chang cid down driver hwportdownreason local_fault mai physic port possibl remote_fault slot statu vs xfc
+Anomaly -1.0  ethernet interfac link state system
+Anomaly -1.0  card caus chang cid dec down driver hwportdownreason physic port possibl remote_fault slot statu vs xfc
+Anomaly -1.0  attr bom dce desc down ea eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  down interfac sif state te
+Anomaly -1.0  alarmid chang cid cleartyp dec ge ifnam ifnet interfac link linkdown_clear mainifnam operstatu physic reason service_resum statu up
+Anomaly -1.0  alarmid chang cid down ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason sep statu up
+Anomaly -1.0  gigabitethernet ifnet link phy_updown statu ten
+Anomaly -1.0  attr bom cc dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  card caus chang cid dec down driver hwportdownreason local_fault pcs_fault physic port possibl slot statu vs xfc
+Anomaly -1.0  aug card caus chang cid down driver hwportdownreason physic port possibl remote_fault slot statu vs xfc
+Anomaly -1.0  alarmid chang cid cleartyp eth feb ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu trunk up
+Anomaly -1.0  ifnet link phy_updown statu up
+Anomaly -1.0  alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac mai physic pic reason service_resum statu up vs
+Anomaly -1.0  card caus chang cid down driver feb hwportdownreason physic port possibl remote_fault slot statu vs xfc
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp eth gigabitethernet ifnam ifnet interfac link linkdown_clear mai mainnam operstatu physic reason service_resum statu trunk up vs
+Anomaly -1.0  chang cid down ge ifnam ifnet interfac link linkdown mainnam nov oid operstatu physic reason statu up
+Anomaly -1.0  ifindex ifnam ifoperstatu mib snmp_trap_link_up up xe
+Anomaly -1.0  af alarmid aug cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac physic pic reason slot statu vs
+Anomaly -1.0  adminstatu alarmid chang cid down feb gigabitethernet ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu up vs
+Anomaly -1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainifnam nov operstatu physic reason service_resum statu up
+Anomaly -1.0  down error ethernet ethport gmt if_down_error_dis interfac intern reason
+Anomaly -1.0  fortygig ifnet interfac line link_updown protocol
+Anomaly -1.0  devip down gigabitethernet ifnet link link_updown statu ten
+Anomaly -1.0  attr bom dce dd desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  card caus chang cid down driver hwportdownreason local_fault mar physic port possibl slot statu vs xfc
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever cid cleartyp entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_clear interfac oct physic pic reason service_resum statu up vs
+Anomaly -1.0  gigabitethernet jul phy phy_status_up slot statu up vcpu
+Anomaly -1.0  ifnet interfac line link_updown protocol state up vlan
+Anomaly -1.0  devip gigabitethernet ifnet link link_updown statu ten up
+Anomaly -1.0  card caus chang cid down driver feb hwportdownreason physic port possibl slot statu vs xfc
+Anomaly -1.0  alarmid chang cid down ge ifnam ifnet interfac jul link linkdown_act mainnam operstatu physic reason statu up
+Anomaly -1.0  gigabitethernet ifnet interfac line link_updown protocol ten up
+Anomaly -1.0  attr bom dce desc down eb ee fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid aug chang cid down eth ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu trunk up
+Anomaly -1.0  alarmid chang cid down ge ifnam ifnet interfac link linkdown_act mainifnam operstatu physic reason sep statu up
+Anomaly -1.0  alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac jun physic pic reason service_resum statu up vs
+Anomaly -1.0  interfac pica_sif sif state te up
+Anomaly -1.0  attr bom dce desc df down fortygigabitethernet info interfac interfacenam log msgid nsm protocol raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  attr bom dce desc df down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid aug basetrapeventtyp basetrapprobablecaus basetrapsever chang cid down entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_act interfac physic pic port reason state statu vs
+Anomaly -1.0  alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac oct physic pic reason slot statu vs
+Anomaly -1.0  interfac qe sif state up
+Anomaly -1.0  card caus chang cid down driver hwportdownreason mar pcs_fault physic port possibl slot statu vs xfc
+Anomaly -1.0  arg attr bc bom dce desc down eb fortygigabitethernet info interfac interfacenam log msgid nsm protocol raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid chang cid down ge ifnam ifnet interfac link linkdown_act mainnam nov operstatu physic reason statu up
+Anomaly -1.0  alarmid aug chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainnam operstatu protocol reason service_resum statu trunk up
+Anomaly -1.0  alarmid chang cid dec down ge ifnam ifnet interfac link linkdown_act mainifnam operstatu physic reason statu up
+Anomaly -1.0  arg attr bom dce desc down eb fortygigabitethernet info interfac interfacenam log msgid nsm protocol raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  feb gigabitethernet phy phy_status_up slot statu up vcpu
+Anomaly -1.0  cardopticalinfo cid cr dbm dec down driver fc inform lbxf optic power rx tx vs
+Anomaly -1.0  ifnet link statu ten up updown
+Anomaly -1.0  attr bc bom dce desc down fd fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp dec eth gigabitethernet ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu trunk up vs
+Anomaly -1.0  gigabitethernet ifnet link link_updown statu ten
+Anomaly -1.0  alarmid chang cid cleartyp eth feb ge ifnam ifnet interfac link linkdown_clear mainnam operstatu protocol reason service_resum statu trunk up
+Anomaly -1.0  alarmid chang cid down eth ge ifnam ifnet interfac jan link linkdown_act mainnam operstatu physic reason statu trunk up
+Anomaly -1.0  fortygig ifnet link phy_updown statu
+Anomaly -1.0  adminstatu alarmid chang cid down gigabitethernet ifnam ifnet interfac link linkdown_act mainnam mar operstatu physic reason statu up vs
+Anomaly -1.0  alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac jun physic pic reason statu vs
+Anomaly -1.0  admin alarmid apr cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac physic pic reason statu vs
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp dec gigabitethernet ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu up vs
+Anomaly -1.0  arg attr bom dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  ethernet ethport gmt if_down_initi initi interfac
+Anomaly -1.0  ifnet link link_updown statu ten up
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever cid cleartyp entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_clear interfac nov physic pic reason service_resum slot statu up vs
+Anomaly -1.0  card caus chang cid down driver hwportdownreason lo mai physic port possibl slot statu vs xfc
+Anomaly -1.0  admin alarmid cid dec down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac physic pic reason slot statu vs
+Anomaly -1.0  chang cid ge ifnam ifnet interfac link linkup mainnam nov oid operstatu physic reason statu up
+Anomaly -1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac jan link linkdown_clear mainnam operstatu physic reason service_resum statu up
+Anomaly -1.0  adminstatu alarmid chang cid down gigabitethernet ifnam ifnet interfac link linkdown_act mainnam oct operstatu physic reason statu up vs
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp gigabitethernet ifnam ifnet interfac link linkdown_clear mainnam mar operstatu physic reason service_resum statu up vs
+Anomaly -1.0  card caus chang cid down driver feb hwportdownreason pcs_fault physic port possibl slot statu vs xfc
+Anomaly -1.0  gigabitethernet oct phy phy_status_up slot statu up vcpu
+Anomaly -1.0  interfac line lineproto protocol sp state tengigabitethernet up updown
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp gigabitethernet ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason sep service_resum statu up vs
+Anomaly -1.0  apr card caus chang cid down driver hwportdownreason physic port possibl remote_fault slot statu vs xfc
+Anomaly -1.0  af alarmid aug cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac physic pic reason service_resum slot statu up vs
+Anomaly -1.0  attr bom cd dce desc down ea fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  admin alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac jul physic pic reason statu vs
+Anomaly -1.0  chang gigabitethernet phy phy_status_up slot statu up vcpu
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever chang cid down entityphysicalindex entphysicalnam fc feb gigabitethernet hwportphysicaldown_act interfac physic pic port reason state statu vs
+Anomaly -1.0  admin alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac mar physic pic reason service_resum statu up vs
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac jan link linkdown_clear mainnam operstatu protocol reason service_resum statu trunk up
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp eth gigabitethernet ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason sep service_resum statu trunk up vs
+Anomaly -1.0  alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac nov physic pic reason service_resum statu up vs
+Anomaly -1.0  arg attr bom dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  down interfac pica_sif sif state te
+Anomaly -1.0  alarmid chang cid down ge ifnam ifnet interfac linkdown_act mainifnam operstatu reason sep shut statu
+Anomaly 1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac jan link linkdown_clear mainnam operstatu physic reason service_resum statu up
+Anomaly 1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainnam mar operstatu physic reason service_resum statu trunk up
+Anomaly 1.0  gigabitethernet ilo port port_up statu turn up
+Anomaly 1.0  alarmid chang cid down feb ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu up
+Anomaly 1.0  ethernet ethport failur gmt if_down_link_failur interfac link
+Anomaly 1.0  alarmid chang cid down eth ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason sep statu trunk up
+Anomaly 1.0  interfac line lineproto protocol sp state tengigabitethernet up updown
+Anomaly 1.0  interfac other state system up
+Anomaly 1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac jul link linkdown_clear mainnam operstatu physic reason service_resum statu up
+Anomaly 1.0  alarmid chang cid down eth ge ifnam ifnet interfac linkdown_act mainnam mar operstatu reason shut statu trunk
+Anomaly 1.0  alarmid chang cid down ge ifnam ifnet interfac linkdown_act mainnam mar operstatu reason shut statu
+Anomaly 1.0  ethernet interfac link state
+Anomaly 1.0  ifnet link phy_updown statu ten up
+Anomaly 1.0  down interfac link sp state tengigabitethernet updown
+Anomaly 1.0  alarmid chang cid cleartyp dec ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu up
+Anomaly 1.0  alarmid chang cid dec down ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu up
+Anomaly 1.0  down ethernet interfac state system
+Anomaly 1.0  ethernet interfac state system up
+Anomaly 1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam nov operstatu physic reason service_resum statu up
+Anomaly 1.0  alarmid chang cid down eth ge ifnam ifnet interfac jul link linkdown_act mainnam operstatu physic reason statu trunk up
+Anomaly 1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainnam oct operstatu physic reason service_resum statu trunk up
+Anomaly 1.0  down ethernet interfac state
+Anomaly 1.0  alarmid chang cid down ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason sep statu up
+Anomaly 1.0  alarmid chang cid down eth fail ge ifnam ifnet interfac lacp linkdown_act mainnam mar negoti operstatu reason statu trunk up
+Anomaly 1.0  alarmid chang cid down eth feb ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu trunk up
+Anomaly 1.0  alarmid aug chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu trunk up
+Anomaly 1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason sep service_resum statu up
+Anomaly 1.0  gigabitethernet ifnet link phy_updown statu ten
+Anomaly 1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac jan link linkdown_clear mainnam operstatu protocol reason service_resum statu trunk up
+Anomaly 1.0  ethport gmt if_up interfac layer up
+Anomaly 1.0  alarmid chang cid down ge ifnam ifnet interfac jan linkdown_act mainnam operstatu reason shut statu
+Anomaly 1.0  alarmid aug chang cid down eth ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu trunk up
+Anomaly 1.0  alarmid aug chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu up
+Anomaly 1.0  alarmid chang cid cleartyp eth feb ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu trunk up
+Anomaly 1.0  alarmid chang cid cleartyp feb ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu up
+Anomaly 1.0  alarmid chang cid cleartyp eth feb ge ifnam ifnet interfac link linkdown_clear mainnam operstatu protocol reason service_resum statu trunk up
+Anomaly 1.0  alarmid chang cid down eth ge ifnam ifnet interfac jan link linkdown_act mainnam operstatu physic reason statu trunk up
+Anomaly 1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam mar operstatu physic reason service_resum statu up
+Anomaly 1.0  gigabitethernet ifnet interfac line link_updown protocol ten
+Anomaly 1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac jan link linkdown_clear mainnam operstatu physic reason service_resum statu trunk up
+Anomaly 1.0  down ethernet ethport gmt if_down_non interfac transceiv
+Anomaly 1.0  alarmid chang cid down eth ge ifnam ifnet interfac link linkdown_act mainnam nov operstatu physic reason statu trunk up
+Anomaly 1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainnam nov operstatu physic reason service_resum statu trunk up
+Anomaly 1.0  fortygig ifnet interfac line link_updown protocol
+Anomaly 1.0  alarmid chang cid down eth ge ifnam ifnet interfac link linkdown_act mainnam mar operstatu physic reason statu trunk up
+Anomaly 1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam oct operstatu physic reason service_resum statu up
+Anomaly 1.0  alarmid chang cid down ge ifnam ifnet interfac jan link linkdown_act mainnam operstatu physic reason statu up
+Anomaly 1.0  alarmid chang cid cleartyp dec eth ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu trunk up
+Anomaly 1.0  interfac state up
+Anomaly 1.0  ethernet interfac other state system
+Anomaly 1.0  alarmid chang cid dec down eth ge ifnam ifnet interfac linkdown_act mainnam operstatu reason shut statu trunk
+Anomaly 1.0  interfac state system up
+Anomaly 1.0  ifnet interfac line link_updown protocol ten up
+Anomaly 1.0  alarmid chang cid down ge ifnam ifnet interfac link linkdown_act mainnam nov operstatu physic reason statu up
+Anomaly 1.0  alarmid aug chang cid down ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu up
+Anomaly 1.0  alarmid chang cid down ge ifnam ifnet interfac link linkdown_act mainnam oct operstatu physic reason statu up
+Anomaly 1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason sep service_resum statu trunk up
+Anomaly 1.0  discov down gigabitethernet interfac lldp lldp_pvid_inconsist mismatch pvid sif slot state te ten
+Anomaly 1.0  alarmid chang cid down ge ifnam ifnet interfac link linkdown_act mainnam mar operstatu physic reason statu up
+Anomaly 1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainnam mar operstatu protocol reason service_resum statu trunk up
+Anomaly 1.0  down ethernet ethport gmt if_down_admin_down interfac
+Anomaly 1.0  alarmid chang cid down ge ifnam ifnet interfac jul link linkdown_act mainnam operstatu physic reason statu up
+Anomaly 1.0  ethernet interfac state system
+Anomaly 1.0  ifnet interfac line link_updown protocol up
+Anomaly 1.0  alarmid chang cid dec down eth ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu trunk up
+Anomaly 1.0  code down error modul reason slot system
+Anomaly 1.0  board_state_norm chang dev fc lsx normal qg slot state type
+Anomaly 1.0  cid driver fc lpu mai regist slot successfulli wboardstschang
+Anomaly 1.0  board_state_norm chang dev fab lsx normal slot state type
+Anomaly 1.0  cpu ifmgr interfac lc line lineproto pkt_infra protocol state tengig up updown
+Anomaly 1.0  code down error modul reason slot system
+Anomaly 1.0  board cid devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fa fail hwboardinvalid_act jul lpu reason regist slot total
+Anomaly 1.0  alarmid aug board cid devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fail fc hwboardfail_act partial power reason suppli
+Anomaly 1.0  gmt jaf mod_remov modul number platform remov serial
+Anomaly 1.0  been board board_en ha ifnet mar
+Anomaly 1.0  db dev dev_log frame gt lsb remov slot type
+Anomaly 1.0  board cid dec devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fa fail hwboardinvalid_act lpu reason regist slot total
+Anomaly 1.0  ethernet interfac shutdown state tm
+Anomaly 1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam nov operstatu physic reason service_resum statu up
+Anomaly 1.0  dec driver fc regist sfu slot successfulli wboardstschang
+Anomaly 1.0  driver fc jun lpu regist slot successfulli wboardstschang
+Anomaly 1.0  alarmid chang cid down ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason sep statu up
+Anomaly 1.0  alarmid board cid cleartyp cr devm entityphysicalindex entitytrapfaultid entitytyp entphysicalindex entphysicalnam failur fc from hwboardinvalid_clear jul reason regist resum service_resum sfu slot total vs
+Anomaly 1.0  alarmid becaus board cid cleartyp devm entityphysicalindex entitytrapfaultid entitytyp entphysicalindex entphysicalnam except fa failur from hwboardinvalid_clear mpu oct reason reset resum service_resum slot total vs
+Anomaly 1.0  gigabitethernet ifnet link phy_updown statu ten
+Anomaly 1.0  board_state_fault chang dev fault lst reb slot state type xp
+Anomaly 1.0  board chip cid cleartyp devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam failur fc from hwboardfail_clear instabl lanswitch lpu partial reason resum sep service_resum slot
+Anomaly 1.0  interfac state up
+Anomaly 1.0  board_state_fault chang dev fault leb lst slot state type xp
+Anomaly 1.0  ha if_stat ifpdt interfac mar state turn xgigabitethernet
+Anomaly 1.0  board cid devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fa fail hwboardinvalid_act mar mpu reason regist slot total
+Anomaly 1.0  board cid cleartyp devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fa failur from hwboardinvalid_clear mar mpu reason regist resum service_resum slot total
+Anomaly 1.0  driver fa jun lpu plug slot wboardstschang
+Anomaly 1.0  board cid cleartyp devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fa failur from hwboardinvalid_clear lpu reason regist resum sep service_resum slot total
+Anomaly 1.0  board_state_norm chang dev mpu normal slot state type
+Anomaly 1.0  gigabitethernet ifnet link statu ten updown
+Anomaly 1.0  down modul reason slot system
+Anomaly 1.0  driver ee fc lpu mai regist slot successfulli wboardstschang
+Anomaly 1.0  dev dev_log frame insert slot
+Anomaly 1.0  down gmt jaf mod_pwrdn modul number platform power serial
+Anomaly 1.0  down ge hello interfac interv isi last local mai maximum neighbor packet peer_down_circ_down receiv router send sent time type
+Anomaly 1.0  board cid cleartyp devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fa failur from hwboardinvalid_clear jun mpu reason regist resum service_resum slot total
+Anomaly 1.0  board cid cleartyp devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fa failur from hwboardinvalid_clear jun lpu reason regist resum service_resum slot total
+Anomaly 1.0  board cid cleartyp devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fa failur from hwboardinvalid_clear mpu nov reason regist resum service_resum slot total
+Anomaly 1.0  gmt jaf mod_remov modul number platform remov serial
+Anomaly 1.0  down error ethernet ethport gmt if_down_error_dis interfac intern reason
+Anomaly 1.0  fortygig ifnet interfac line link_updown protocol
+Anomaly 1.0  cid driver fc mai regist sfu slot successfulli wboardstschang
+Anomaly 1.0  ha if_stat ifpdt interfac jul state turn xgigabitethernet
+Anomaly 1.0  gigabitethernet mai phy phy_status_up slot statu up vcpu
+Anomaly 1.0  slot system up
+Anomaly 1.0  slot up
+Anomaly 1.0  board cid devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fa fail hwboardinvalid_act mpu nov reason regist slot total
+Anomaly 1.0  ethernet interfac link state
+Anomaly 1.0  dnld fail kpwr modul off power scp set slot sp
+Anomaly 1.0  cid driver fc lpu mai regist slot successfulli wboardstschang
+Anomaly 1.0  alarmid board cid cleartyp devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam failur fc from hwboardfail_clear nov partial power reason resum service_resum suppli
+Anomaly 1.0  board_state_norm chang dev lst normal reb slot state type xp
+Anomaly 1.0  board cid cleartyp devm entitytrapfaultid entphysicalindex entphysicalnam fa hwboardremove_clear insert lpu nov reason service_resum slot
+Anomaly 1.0  alarmid chang cid down eth fail ge ifnam ifnet interfac lacp linkdown_act mainnam negoti nov operstatu reason statu trunk up
+Anomaly 1.0  driver ed fc lpu mai regist slot successfulli wboardstschang
+Anomaly 1.0  board_state_fault chang dev fab fault lsx slot state type
+Anomaly 1.0  if_stat ifpdt interfac mar state turn up xgigabitethernet
+Anomaly 1.0  driver fc lpu mai regist slot successfulli wboardstschang
+Anomaly 1.0  dev dev_log frame remov slot
+Anomaly 1.0  chang db dev dev_log frame gt lsb ok slot state type
+Anomaly 1.0  adminstatu alarmid chang cid cleartyp eth gigabitethernet ifnam ifnet interfac link linkdown_clear mainnam nov operstatu physic reason service_resum statu trunk up vs
+Anomaly 1.0  alarmid board cid devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fail fc hwboardfail_act oct partial power reason suppli test
+Anomaly 1.0  down ifnet interfac jul state updown xgigabitethernet
+Anomaly 1.0  board_state_norm chang dev hb lsxm normal qg slot state type
+Anomaly 1.0  alarmid board cid dec devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fail fc hwboardfail_act partial power reason suppli
+Anomaly 1.0  board board_dis ha ifnet jan unavail
+Anomaly 1.0  boardremov entityphysicalindex entitytrapfaultid entitytyp entphysicalnam lpu mar oid remov slot srm_entiti
+Anomaly 1.0  alarmid chang cid down ge ifnam ifnet interfac link linkdown_act mainnam nov operstatu physic reason statu up
+Anomaly 1.0  board_remov dev from remov slot type unknown
+Anomaly 1.0  asic_reg_check_fail asicregcheck devic device_test due error fail frontpanel gmt gold ha instanc modul naxo port regist scratchpad slot test time
+Anomaly 1.0  dev dev_log finish frame load slot softwar
+Anomaly 1.0  driver fc lpu regist sep slot successfulli wboardstschang
+Anomaly 1.0  board_state_norm chang chassi devm main_board_type_ normal slot state type
+Anomaly 1.0  adminstatu alarmid chang cid cleartyp gigabitethernet ifnam ifnet interfac link linkdown_clear mainnam nov operstatu physic reason service_resum statu up vs
+Anomaly 1.0  board_reboot dev reboot slot
+Anomaly 1.0  channel chassi cid faulti hwchannelfault lcm sep slot
+Anomaly 1.0  gmt jaf mod_pwrup modul number platform power serial up
+Anomaly 1.0  ifnet link statu ten up updown
+Anomaly 1.0  gigabitethernet ifnet link link_updown statu ten
+Anomaly 1.0  board cid cleartyp clock devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fa failur from hwboardinvalid_clear incorrect jan mpu reason resum service_resum signal slot total were
+Anomaly 1.0  board_state_norm chang dev main_board_type_ normal qf slot state type
+Anomaly 1.0  driver fc mai regist sfu slot successfulli wboardstschang
+Anomaly 1.0  board_state_norm chang dev lsxm normal sfh slot state type
+Anomaly 1.0  gmt jaf mod_remov modul number platform remov serial
+Anomaly 1.0  ethernet ethport gmt if_down_interface_remov interfac remov
+Anomaly 1.0  gigabitethernet ifnet interfac line link_updown protocol ten
+Anomaly 1.0  cid driver fc lpu mai regist slot successfulli wboardstschang
+Anomaly 1.0  board_state_norm chang dev lst normal sf slot state type
+Anomaly 1.0  channel cid ec faulti frame hwchannelfault lcm nov slot
+Anomaly 1.0  down ethernet ethport gmt if_down_non interfac transceiv
+Anomaly 1.0  board_state_norm chang dev lfd lst normal slot state type xp
+Anomaly 1.0  board_remov cp dev from lst remov rfd slot type
+Anomaly 1.0  board cid devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fa fail hwboardinvalid_act lpu reason regist sep slot total
+Anomaly 1.0  board_state_norm chang chassi devm lst mrpnc normal slot state type
+Anomaly 1.0  channel chassi cid faulti hwchannelfault lcm mar slot
+Anomaly 1.0  alarmid chang cid down eth ge ifnam ifnet interfac link linkdown_act mainnam nov operstatu physic reason statu trunk up
+Anomaly 1.0  drv jul layer link linkup port up xgigabitethernet
+Anomaly 1.0  been board board_en ha ifnet mai
+Anomaly 1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainnam nov operstatu protocol reason service_resum statu trunk up
+Anomaly 1.0  board cid cleartyp devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fa failur from hwboardinvalid_clear jul lpu reason regist resum service_resum slot total
+Anomaly 1.0  gmt jaf mod_pwrup modul number platform power serial up
+Anomaly 1.0  if_stat ifpdt interfac jul state turn up xgigabitethernet
+Anomaly 1.0  gmt jaf mod_remov modul number platform remov serial
+Anomaly 1.0  ifnet interfac line link_updown protocol up
+Anomaly 1.0  channel cid ec faulti frame hwchannelfault jun lcm slot
+Anomaly 1.0  ifnet link link_updown statu ten up
+Anomaly 1.0  alarmid board cid cleartyp devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam failur fc from hwboardfail_clear partial power reason resum sep service_resum suppli
+Anomaly 1.0  crc dram ha lp reg shutdown system tm valu xa
+Anomaly 1.0  board_state_fault chang dev fault lst nsm slot state type
+Anomaly 1.0  alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac nov physic pic reason slot statu vs
+Anomaly 1.0  driver fc lpu nov regist slot successfulli wboardstschang
+Anomaly 1.0  driver fc mai mpu regist slot successfulli wboardstschang
+Anomaly 1.0  control devic device_test due error fail gmt ha mgmt modul number power pwr_mgmt_bus_fail slot spine spinecontrolbu test time
+Anomaly 1.0  board_state_norm chang dev leb lst normal slot state type xp
+Anomaly 1.0  alarmid board cid cleartyp cr devm entityphysicalindex entitytrapfaultid entitytyp entphysicalindex entphysicalnam failur fc from hwboardinvalid_clear nov reason regist resum service_resum srua total vs
+Anomaly 1.0  ethernet ethport failur gmt if_down_link_failur interfac link
+Anomaly 1.0  area cpu default detach down from full interfac nbr neighbor ospf process rout rp rsp tengig vrf vrfid
+Anomaly 1.0  control devic device_test due error fail gmt ha mgmt modul number power pwr_mgmt_bus_fail slot spine spinecontrolbu standbi test time
+Anomaly 1.0  board_state_norm chang cp dev lst normal rfd slot state type
+Anomaly 1.0  driver fa lpu nov plug slot wboardstschang
+Anomaly 1.0  been board card card_en ha ifnet jun
+Anomaly 1.0  been board board_en ha ifnet jan
+Anomaly 1.0  boardremov entityphysicalindex entitytrapfaultid entitytyp entphysicalnam jan lpu oid remov slot srm_entiti
+Anomaly 1.0  board board_dis ha ifnet mar unavail
+Anomaly 1.0  alarmid board cid cleartyp clk devm entityphysicalindex entitytrapfaultid entitytyp entphysicalindex entphysicalnam failur fc from hwboardinvalid_clear oct reason regist resum service_resum slot total vs
+Anomaly 1.0  board_state_norm chang dev lst normal rfg slot state type xp
+Anomaly 1.0  ha mai mode normal slot srm startup
+Anomaly 1.0  board_state_norm chang dev lst mrpnc normal slot state type
+Anomaly 1.0  board_remov dev from leb lst remov slot type xp
+Anomaly 1.0  ha mar mode normal slot srm startup
+Anomaly 1.0  gmt jaf number platform remov serial xbar xbar_remov
+Anomaly 1.0  alarmid aug board cid cleartyp devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam failur fc from hwboardfail_clear partial power reason resum service_resum suppli
+Anomaly 1.0  alarmid bf board cid cleartyp cr devm entityphysicalindex entitytrapfaultid entitytyp entphysicalindex entphysicalnam failur fc from hwboardinvalid_clear jul reason regist resum service_resum sfu slot total vs
+Anomaly 1.0  db driver fc lpu mai regist slot successfulli wboardstschang
+Anomaly 1.0  ethport gmt if_up interfac layer up
+Anomaly 1.0  detect egress error health lp monitor system tm
+Anomaly 1.0  ethport gmt if_up interfac mode trunk up
+Anomaly 1.0  board cid devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fa fail hwboardinvalid_act jun lpu reason regist slot total
+Anomaly 1.0  been board board_dis ha ifnet unavail
+Anomaly 1.0  alarmid board cid devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fail fc hwboardfail_act oct partial power reason suppli
+Anomaly 1.0  chang dev dev_log fault frame ldb lsb slot state type xp
+Anomaly 1.0  area cpu default down from hello init nbr ospf process receiv rout rp rsp tengig vrf vrfid
+Anomaly 1.0  cid driver fc lpu mai regist slot successfulli wboardstschang
+Anomaly 1.0  alarmid board cid cleartyp cr devm entityphysicalindex entitytrapfaultid entitytyp entphysicalindex entphysicalnam failur fc from hwboardinvalid_clear oct reason regist resum service_resum slot srua total vs
+Anomaly 1.0  download dure kpwr modul off power reload reset set slot sp
+Anomaly 1.0  cid driver fc jun lpu regist slot successfulli wboardstschang
+Anomaly 1.0  code down error modul reason slot system
+Anomaly 1.0  chang dev dev_log frame ldb lsb ok slot state type xp
+Anomaly 1.0  fabric fe link lp monitor sfm tm
+Anomaly 1.0  board_state_fault chang dev fault slot state type unknown
+Anomaly 1.0  ifnet interfac line link_updown protocol ten up
+Anomaly 1.0  board chip cid devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fail fc hwboardfail_act instabl lanswitch lpu partial reason sep slot
+Anomaly 1.0  alarmid beat becaus board cid devm entityphysicalindex entitytrapfaultid entitytyp entphysicalindex entphysicalnam fa fail heart hwboardinvalid_act jul loss reason reset sfu slot total vs
+Anomaly 1.0  board_remov chassi devm from lst mrpnc remov slot type
+Anomaly 1.0  board cid devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fail fc hwboardfail_act iic instabl oct partial power reason
+Anomaly 1.0  gigabitethernet jan phy phy_status_up slot statu up vcpu
+Anomaly 1.0  gmt jaf mod_remov modul number platform remov serial
+Anomaly 1.0  board_state_norm chang dev fx lsvm normal qg slot state type
+Anomaly 1.0  driver fc jun mpu regist slot successfulli wboardstschang
+Anomaly 1.0  gmt jaf number platform power serial up xbar xbar_pwrup
+Anomaly 1.0  boardremov entityoperstatu entityphysicalindex entitytrapfaultid entitytyp entphysicalnam lpu mai oid remov slot srm_entiti
+Anomaly 1.0  board_state_fault chang cp dev fault lst rfd slot state type
+Anomaly 1.0  da driver fc lpu mai regist slot successfulli wboardstschang
+Anomaly 1.0  board board_state_fault chang chassi cp devm fault slot state test.int type unknown
+Anomaly 1.0  alarmid board cid devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fail fc hwboardfail_act partial power reason sep suppli
+Anomaly 1.0  driver fc ff lpu nov regist slot successfulli wboardstschang
+Anomaly 1.0  disabl failur kpwr modul off power set slot sp
+Anomaly 1.0  gmt jaf mod_pwrup modul number platform power serial up
+Anomaly 1.0  gmt jaf mod_pwrup modul number platform power serial up
+Anomaly 1.0  channel cid faulti frame hwchannelfault lcm nov slot
+Anomaly 1.0  board board_state_norm chang chassi cp devm main_board_type_ normal slot state test.int type
+Anomaly 1.0  channel cid faulti frame hwchannelfault jun lcm slot
+Anomaly 1.0  board_remov dev from lst mrpnc remov slot type
+Anomaly 1.0  driver fa jun lpu out pull slot wboardstschang
+Anomaly 1.0  avail been board board_en ha ifnet
+Anomaly 1.0  alarmid board cid cleartyp clk devm entityphysicalindex entitytrapfaultid entitytyp entphysicalindex entphysicalnam failur fc from hwboardinvalid_clear nov reason regist resum service_resum total vs
+Anomaly 1.0  chang cpu down ifmgr interfac lc link pkt_infra state tengig
+Anomaly 1.0  alarmid board cid cleartyp devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam failur fc from hwboardfail_clear oct partial power reason resum service_resum suppli test
+Anomaly 1.0  code down error modul reason slot system
+Anomaly 1.0  alarmid board cid cleartyp cr devm entityphysicalindex entitytrapfaultid entitytyp entphysicalindex entphysicalnam failur fc from hwboardinvalid_clear lmxfe nov reason regist resum service_resum slot total vs
+Anomaly 1.0  board cid cleartyp devm entitytrapfaultid entphysicalindex entphysicalnam fa hwboardremove_clear insert jun lpu reason service_resum slot
+Anomaly 1.0  cpu down ifmgr interfac lc line lineproto pkt_infra protocol state tengig updown
+Anomaly 1.0  alarmid board cid cleartyp cr devm entityphysicalindex entitytrapfaultid entitytyp entphysicalindex entphysicalnam failur fc from hwboardinvalid_clear nov reason regist resum service_resum sfu slot total vs
+Anomaly 1.0  board cid clock devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fa fail hwboardinvalid_act incorrect jan mpu reason signal slot total were
+Anomaly 1.0  board_state_fault chang dev fault fc lsx qg slot state type
+Anomaly 1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason sep service_resum statu up
+Anomaly 1.0  channel chassi cid faulti hwchannelfault jun lcm slot
+Anomaly 1.0  channel cid dec ec faulti frame hwchannelfault lcm slot
+Anomaly 1.0  ge node_state_chang platform present rp rsp shelfmgr state
+Anomaly 1.0  cid driver fc lpu mai regist slot successfulli wboardstschang
+Anomaly 1.0  ifnet interfac jul state up updown xgigabitethernet
+Anomaly 1.0  dev dev_log frame ldb lsb remov slot type xp
+Anomaly 1.0  board cid devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fa hwboardremove_act lpu nov reason remov slot
+Anomaly 1.0  driver fc mar mpu regist slot successfulli wboardstschang
+Anomaly 1.0  down gigabitethernet inf link port statu
+Anomaly 1.0  board cid cleartyp dec devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fa failur from hwboardinvalid_clear lpu reason regist resum service_resum slot total
+Anomaly 1.0  driver fa lpu nov out pull slot wboardstschang
+Anomaly 1.0  ethernet interfac state
+Anomaly 1.0  gigabitethernet mar phy phy_status_up slot statu up vcpu
+Anomaly 1.0  node_state_chang platform present rp rsp shelfmgr state
+Anomaly 1.0  number platform remov serial xbar xbar_remov
+Anomaly 1.0  bootmod ha mode normal slot srm startup
+Anomaly 1.0  channel cid ec faulti frame hwchannelfault lcm mai slot
+Anomaly 1.0  ifnet link phy_updown statu up
+Anomaly 1.0  board cid devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fa fail hwboardinvalid_act jun mpu reason regist slot total
+Anomaly 1.0  alarmid board cid cleartyp clk devm entityphysicalindex entitytrapfaultid entitytyp entphysicalindex entphysicalnam failur fc from hwboardinvalid_clear nov reason regist resum service_resum slot total vs
+Anomaly 1.0  gigabitethernet inf link port statu up
+Anomaly 1.0  board_state_fault chang chassi devm fault slot state type unknown
+Anomaly 1.0  dev dev_log frame load slot softwar
+Anomaly 1.0  board cid cleartyp devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam failur fc from hwboardfail_clear iic instabl oct partial power reason resum service_resum
+Anomaly 1.0  board cid devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fa hwboardremove_act jun lpu reason remov slot
+Anomaly 1.0  alarmid board cid devm entityphysicalindex entitytrapfaultid entitytyp entphysicalindex entphysicalnam fa hwboardremove_act lpu mar reason remov slot vs
+Anomaly 1.0  alarmid chang cid down eth ge ifnam ifnet interfac linkdown_act mainnam nov operstatu reason shut statu trunk
+Anomaly 1.0  ifnet link phy_updown statu ten up
+Anomaly 1.0  board_state_norm chang dev lst normal nsm slot state type
+Anomaly 1.0  alarmid board cid cleartyp cr devm entityphysicalindex entitytrapfaultid entitytyp entphysicalindex entphysicalnam failur fc fra from hwboardinvalid_clear jul reason regist resum service_resum slot ta total vs
+Anomaly 1.0  ha jan mode normal slot srm startup
+Anomaly 1.0  alarmid board cid devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fail fc hwboardfail_act nov partial power reason suppli
+Anomaly 1.0  board_state_norm chang dev leb lst normal slot state type xp
+Anomaly 1.0  ethernet ethport failur gmt if_down_link_failur interfac link
+Anomaly 1.0  board_state_norm chang cp dev lst normal rfd slot state type
+Anomaly -1.0  area cpu default down from gigabitethernet hello init nbr ospf process receiv rout rp rsp vrf vrfid
+Anomaly -1.0  cardopticalinfo cid cr dbm down driver fc inform jul lbxf optic power rx tx vs
+Anomaly -1.0  fortygig ifnet interfac line link_updown protocol state up
+Anomaly -1.0  gigabitethernet mai phy phy_status_up slot statu up vcpu
+Anomaly -1.0  gigabitethernet jan phy phy_status_up slot statu up vcpu
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever chang cid down entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_act interfac mar physic pic port reason state statu vs
+Anomaly -1.0  down ethernet ethport gmt if_down_admin_down interfac
+Anomaly -1.0  down gigabitethernet ifnet link link_updown statu ten
+Anomaly -1.0  ethernet interfac state system
+Anomaly -1.0  attr bom dce desc down ec fd fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  admin alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac physic pic reason sep service_resum slot statu up vs
+Anomaly -1.0  ilo oct port port_up statu turn up
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp feb gigabitethernet ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu up vs
+Anomaly -1.0  af alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac nov physic pic reason slot statu vs
+Anomaly -1.0  attr bom cc dce desc down eb fortygigabitethernet info interfac interfacenam log msgid nsm protocol raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid chang cid cleartyp dec ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu up
+Anomaly -1.0  alarmid aug cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac physic pic reason service_resum slot statu up vs
+Anomaly -1.0  attr bom cb dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid chang cid down eth ge ifnam ifnet interfac link linkdown_act mainnam oct operstatu physic reason statu trunk up
+Anomaly -1.0  apr card caus chang cid down driver hwportdownreason lo local_fault physic port possibl slot statu vs xfc
+Anomaly -1.0  down fortygig ifnet interfac phy_updown physic state
+Anomaly -1.0  cardopticalinfo cid cr dbm down driver fc inform lfxfe nov optic power rx tx vs
+Anomaly -1.0  apr cardopticalinfo cid cr dbm down driver fc inform lfxfe optic power rx tx vs
+Anomaly -1.0  down fortygig ifnet interfac line link_updown protocol state
+Anomaly -1.0  alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac oct physic pic reason service_resum statu up vs
+Anomaly -1.0  alarmid chang cid down eth fail ge ifnam ifnet interfac jul lacp linkdown_act mainnam negoti operstatu reason statu trunk up
+Anomaly -1.0  ethernet fault interfac remot state system
+Anomaly -1.0  ilo jul port port_up statu turn up
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever cid cleartyp entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_clear interfac oct physic pic reason service_resum slot statu up vs
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp gigabitethernet ifnam ifnet interfac link linkdown_clear mainnam nov operstatu physic reason service_resum statu up vs
+Anomaly -1.0  admin alarmid apr cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac physic pic reason service_resum statu up vs
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp eth gigabitethernet ifnam ifnet interfac jun link linkdown_clear mainnam operstatu physic reason service_resum statu trunk up vs
+Anomaly -1.0  interfac line lineproto protocol state tengigabitethernet up updown
+Anomaly -1.0  ha if_stat ifpdt interfac nov state turn xgigabitethernet
+Anomaly -1.0  card caus chang cid down driver hwportdownreason local_fault oct pcs_fault physic port possibl slot statu vs xfc
+Anomaly -1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam oct operstatu physic reason service_resum statu up
+Anomaly -1.0  alarmid aug chang cid down ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu up
+Anomaly -1.0  gigabitethernet inf link port statu up
+Anomaly -1.0  admin alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc feb gigabitethernet hwportdown_act interfac physic pic reason statu vs
+Anomaly -1.0  adminstatu alarmid chang cid down gigabitethernet ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason sep statu up vs
+Anomaly -1.0  adminstatu alarmid aug chang cid cleartyp eth gigabitethernet ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu trunk up vs
+Anomaly -1.0  card caus chang cid down driver hwportdownreason nov physic port possibl remote_fault slot statu vs xfc
+Anomaly -1.0  gigabitethernet interfac link state up updown
+Anomaly -1.0  card caus chang cid down driver hwportdownreason jan local_fault pcs_fault physic port possibl slot statu vs xfc
+Anomaly -1.0  alarmid chang cid down ge ifnam ifnet interfac link linkdown_act mainnam mar operstatu physic reason statu up
+Anomaly -1.0  admin alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac oct physic pic reason service_resum statu up vs
+Anomaly -1.0  alarmid chang cid down feb ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu up
+Anomaly -1.0  chang gigabitethernet phy phy_status_up slot statu up vcpu
+Anomaly -1.0  adminstatu alarmid apr chang cid cleartyp eth gigabitethernet ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu trunk up vs
+Anomaly -1.0  cardopticalinfo cid cr dbm dec down driver fc inform lfxfe optic power rx slot tx vs
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever cid dec down entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_act interfac physic pic reason slot statu vs
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever cid cleartyp entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_clear interfac nov physic pic reason service_resum statu up vs
+Anomaly -1.0  card caus chang cid down driver hwportdownreason jun local_fault pcs_fault physic port possibl slot statu vs xfc
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever cid cleartyp entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_clear interfac physic pic reason sep service_resum statu up vs
+Anomaly -1.0  attr bom da dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  attr bom dce desc down eb ed fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever chang cid down entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_act interfac oct physic pic port reason state statu vs
+Anomaly -1.0  arg attr bom dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid chang cid cleartyp feb ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu up
+Anomaly -1.0  arg attr bom dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  af alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac oct physic pic reason service_resum slot statu up vs
+Anomaly -1.0  interfac link sp state tengigabitethernet up updown
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp gigabitethernet ifnam ifnet interfac jul link linkdown_clear mainnam operstatu physic reason service_resum statu up vs
+Anomaly -1.0  attr bom dce desc down eb ed fortygigabitethernet info interfac interfacenam log msgid nsm protocol raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  admin alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac oct physic pic reason service_resum slot statu up vs
+Anomaly -1.0  alarmid chang cid down eth ge ifnam ifnet interfac link linkdown_act mainifnam operstatu physic reason sep statu trunk up
+Anomaly -1.0  card caus chang cid down driver hwportdownreason link_fail local_fault mai physic port possibl slot statu vs xfc
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainnam nov operstatu physic reason service_resum statu trunk up
+Anomaly -1.0  alarmid aug basetrapeventtyp basetrapprobablecaus basetrapsever cid down entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_act interfac physic pic reason slot statu vs
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever cid down entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_act interfac physic pic reason sep slot statu vs
+Anomaly -1.0  attr ba bom dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid chang cid down feb ge ifnam ifnet interfac linkdown_act mainnam operstatu reason shut statu
+Anomaly -1.0  down interfac line lineproto protocol sp state tengigabitethernet updown
+Anomaly -1.0  aug cardopticalinfo cid cr dbm down driver fc inform lfxfe optic power rx slot tx vs
+Anomaly -1.0  card caus chang cid down driver feb hwportdownreason local_fault pcs_fault physic port possibl slot statu vs xfc
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason sep service_resum statu trunk up
+Anomaly -1.0  card caus chang cid down driver hwportdownreason local_fault nov pcs_fault physic port possibl slot statu vs xfc
+Anomaly -1.0  attr bom dce desc down eb ec fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  ifnet interfac line link_updown protocol up
+Anomaly -1.0  down ifnet interfac phy_updown physic state vlan
+Anomaly -1.0  ha if_stat ifpdt interfac state turn up xgigabitethernet
+Anomaly -1.0  gigabitethernet interfac line lineproto protocol sp state up updown
+Anomaly -1.0  alarmid chang cid down ge ifnam ifnet interfac linkdown_act mainnam mar operstatu reason shut statu
+Anomaly -1.0  ext gigabitethernet ifnet interfac line link_updown protocol ten
+Anomaly -1.0  down ifnet interfac jul state updown xgigabitethernet
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp eth gigabitethernet ifnam ifnet interfac link linkdown_clear mainnam oct operstatu physic reason service_resum statu trunk up vs
+Anomaly -1.0  chang down gigabitethernet phy phy_status_up slot statu vcpu
+Anomaly -1.0  admin alarmid aug cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac physic pic reason slot statu vs
+Anomaly -1.0  down gigabitethernet inf link port statu
+Anomaly -1.0  attr bom dce dd desc down eb fortygigabitethernet info interfac interfacenam log msgid nsm protocol raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainnam oct operstatu physic reason service_resum statu trunk up
+Anomaly -1.0  cardopticalinfo cid cr dbm down driver fc inform lbxf oct optic power rx tx vs
+Anomaly -1.0  alarmid chang cid down ge ifnam ifnet interfac linkdown_act mainnam operstatu reason sep shut statu
+Anomaly -1.0  alarmid chang cid down ge ifnam ifnet interfac jan linkdown_act mainnam operstatu reason shut statu
+Anomaly -1.0  down gigabitethernet jul phy phy_status_up slot statu vcpu
+Anomaly -1.0  alarmid chang cid down eth fail ge ifnam ifnet interfac lacp linkdown_act mainnam negoti oct operstatu reason statu trunk up
+Anomaly -1.0  cardopticalinfo cid cr dbm down driver fc inform lfxfe optic power rx sep tx vs
+Anomaly -1.0  down feb gigabitethernet phy phy_status_up slot statu vcpu
+Anomaly -1.0  card caus chang cid down driver feb hwportdownreason link_fail local_fault physic port possibl slot statu vs xfc
+Anomaly -1.0  alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac physic pic reason sep service_resum statu up vs
+Anomaly -1.0  attr bom cc dc dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  card caus chang cid down driver feb hwportdownreason local_fault physic port possibl slot statu vs xfc
+Anomaly -1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac jul link linkdown_clear mainifnam operstatu physic reason service_resum statu up
+Anomaly -1.0  gigabitethernet ilo port port_up statu turn up
+Anomaly -1.0  af alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac physic pic reason sep slot statu vs
+Anomaly -1.0  down ge hello interfac interv isi jan last local maximum neighbor packet peer_down_circ_down receiv router send sent time type
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever cid cleartyp entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_clear interfac mai physic pic reason service_resum statu up vs
+Anomaly -1.0  alarmid aug basetrapeventtyp basetrapprobablecaus basetrapsever cid cleartyp entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_clear interfac physic pic reason service_resum slot statu up vs
+Anomaly -1.0  alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac nov physic pic reason slot statu vs
+Anomaly -1.0  alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac oct physic pic reason statu vs
+Anomaly -1.0  ethernet ethport failur gmt if_down_link_failur interfac link
+Anomaly -1.0  aug cardopticalinfo cid cr dbm down driver fc inform lfxfe optic power rx tx vs
+Anomaly -1.0  admin alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac oct physic pic reason slot statu vs
+Anomaly -1.0  adminstatu alarmid aug chang cid cleartyp gigabitethernet ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu up vs
+Anomaly -1.0  alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac physic pic reason sep statu vs
+Anomaly -1.0  down gigabitethernet mai phy phy_status_up slot statu vcpu
+Anomaly -1.0  attr bd bom dce desc down eb info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname tengigabitethernet timestamp valu wwn
+Anomaly -1.0  gigabitethernet phy phy_status_up sep slot statu up vcpu
+Anomaly -1.0  ha if_stat ifpdt interfac state turn up xgigabitethernet
+Anomaly -1.0  admin alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac nov physic pic reason slot statu vs
+Anomaly -1.0  interfac sif state te up
+Anomaly -1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainifnam operstatu physic reason sep service_resum statu up
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp gigabitethernet ifnam ifnet interfac jan link linkdown_clear mainnam operstatu physic reason service_resum statu up vs
+Anomaly -1.0  alarmid chang cid down eth fail ge ifnam ifnet interfac lacp linkdown_act mainnam negoti operstatu reason sep statu trunk up
+Anomaly -1.0  admin alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac oct physic pic reason statu vs
+Anomaly -1.0  attr bom dce desc down eb fd fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  card caus chang cid down driver hwportdownreason local_fault mai pcs_fault physic port possibl remote_fault slot statu vs xfc
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac jul link linkdown_clear mainnam operstatu physic reason service_resum statu trunk up
+Anomaly -1.0  alarmid chang cid down ge ifnam ifnet interfac linkdown_act mainnam nov operstatu reason shut statu
+Anomaly -1.0  alarmid chang cid down eth ge ifnam ifnet interfac link linkdown_act mainifnam oct operstatu physic reason statu trunk up
+Anomaly -1.0  alarmid chang cid down ge ifnam ifnet interfac jul link linkdown_act mainifnam operstatu physic reason statu up
+Anomaly -1.0  cardopticalinfo cid cr dbm down driver fc inform lfxfe optic power rx sep slot tx vs
+Anomaly -1.0  alarmid chang cid down ge ifnam ifnet interfac link linkdown_act mainnam oct operstatu physic reason statu up
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever cid down entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_act interfac oct physic pic reason slot statu vs
+Anomaly -1.0  alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac mai physic pic reason statu vs
+Anomaly -1.0  down gigabitethernet jun phy phy_status_up slot statu vcpu
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever chang cid down entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_act interfac jul physic pic port reason state statu vs
+Anomaly -1.0  alarmid chang cid down eth fail ge ifnam ifnet interfac jan lacp linkdown_act mainnam negoti operstatu reason statu trunk up
+Anomaly -1.0  down gigabitethernet interfac link state updown
+Anomaly -1.0  alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac oct physic pic reason service_resum slot statu up vs
+Anomaly -1.0  admin alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac jul physic pic reason service_resum statu up vs
+Anomaly -1.0  alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac physic pic reason sep service_resum slot statu up vs
+Anomaly -1.0  attr bom dce desc down eb fd fortygigabitethernet info interfac interfacenam log msgid nsm protocol raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever cid down entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_act interfac nov physic pic reason slot statu vs
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever cid cleartyp entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_clear interfac jul physic pic reason service_resum statu up vs
+Anomaly -1.0  aug card caus chang cid down driver hwportdownreason local_fault physic port possibl slot statu vs xfc
+Anomaly -1.0  arg attr bom dce desc down eb fortygigabitethernet info interfac interfacenam log msgid nsm protocol raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  attr bf bom dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  down ha if_stat ifpdt interfac state turn xgigabitethernet
+Anomaly -1.0  cardopticalinfo cid cr dbm down driver fc inform jun lfxfe optic power rx slot tx vs
+Anomaly -1.0  cpu down ifmgr interfac lc line lineproto pkt_infra protocol state tengig updown
+Anomaly -1.0  card caus chang cid down driver hwportdownreason jan link_fail lo local_fault physic port possibl slot statu vs xfc
+Anomaly -1.0  alarmid chang cid down eth fail ge ifnam ifnet interfac jul lacp linkdown_act mainifnam negoti operstatu reason statu trunk up
+Anomaly -1.0  alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac mar physic pic reason service_resum statu up vs
+Anomaly -1.0  ifnet interfac jul state up updown xgigabitethernet
+Anomaly -1.0  alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc feb gigabitethernet hwportdown_act interfac physic pic reason statu vs
+Anomaly -1.0  cardopticalinfo cid cr dbm down driver fc inform jul lfxfe optic power rx tx vs
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp gigabitethernet ifnam ifnet interfac jun link linkdown_clear mainnam operstatu physic reason service_resum statu up vs
+Anomaly -1.0  admin alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac physic pic reason sep slot statu vs
+Anomaly -1.0  chang cid down ge ifnam ifnet interfac jan link linkdown mainnam oid operstatu physic reason statu up
+Anomaly -1.0  cardopticalinfo cid cr dbm down driver fc inform lfxfe mai optic power rx tx vs
+Anomaly -1.0  admin alarmid aug cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac physic pic reason service_resum slot statu up vs
+Anomaly -1.0  alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac jul physic pic reason statu vs
+Anomaly -1.0  alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac nov physic pic reason service_resum slot statu up vs
+Anomaly -1.0  adminstatu alarmid chang cid down gigabitethernet ifnam ifnet interfac jan link linkdown_act mainnam operstatu physic reason statu up vs
+Anomaly -1.0  attr bom dce desc down eb fe fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  card caus chang cid down driver hwportdownreason link_fail local_fault mar physic port possibl slot statu vs xfc
+Anomaly -1.0  admin alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac jun physic pic reason service_resum statu up vs
+Anomaly -1.0  if_stat ifpdt interfac sep state turn up xgigabitethernet
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever cid cleartyp entityphysicalindex entphysicalnam fc feb gigabitethernet hwportphysicaldown_clear interfac physic pic reason service_resum statu up vs
+Anomaly -1.0  cpu ifmgr interfac lc line lineproto pkt_infra protocol state tengig up updown
+Anomaly -1.0  cardopticalinfo cid cr dbm down driver fc inform lfxfe oct optic power rx slot tx vs
+Anomaly -1.0  devip gigabitethernet ifnet interfac line lineproto_updown protocol ten up
+Anomaly -1.0  gigabitethernet ifnet link link_updown statu ten up
+Anomaly -1.0  card caus chang cid down driver hwportdownreason jan link_fail local_fault physic port possibl slot statu vs xfc
+Anomaly -1.0  config down ethernet ethport gmt if_down_cfg_chang interfac
+Anomaly -1.0  adminstatu alarmid chang cid down eth gigabitethernet ifnam ifnet interfac link linkdown_act mainnam mar operstatu physic reason statu trunk up vs
+Anomaly -1.0  alarmid chang cid dec down eth fail ge ifnam ifnet interfac lacp linkdown_act mainnam negoti operstatu reason statu trunk up
+Anomaly -1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainifnam oct operstatu physic reason service_resum statu up
+Anomaly -1.0  attr bom cb ce dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  card caus chang cid down driver hwportdownreason lo oct physic port possibl remote_fault slot statu vs xfc
+Anomaly -1.0  attr bom cc ce dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  cardopticalinfo cid cr dbm down driver fc feb inform lfxfe optic power rx tx vs
+Anomaly -1.0  attr bom db dce desc down fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  chang cid ge ifnam ifnet interfac jan link linkup mainnam oid operstatu physic reason statu up
+Anomaly -1.0  ha if_stat ifpdt interfac mar state turn xgigabitethernet
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac jul link linkdown_clear mainnam operstatu protocol reason service_resum statu trunk up
+Anomaly -1.0  attr bom dce desc down fc fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  adminstatu alarmid chang cid down eth gigabitethernet ifnam ifnet interfac jan link linkdown_act mainnam operstatu physic reason statu trunk up vs
+Anomaly -1.0  cardopticalinfo cid cr dbm down driver fc inform lfxfe mar optic power rx tx vs
+Anomaly -1.0  alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac jan physic pic reason statu vs
+Anomaly -1.0  ha if_stat ifpdt interfac jul state turn xgigabitethernet
+Anomaly -1.0  card caus chang cid down driver hwportdownreason mar physic port possibl remote_fault slot statu vs xfc
+Anomaly -1.0  gigabitethernet ifnet link statu ten updown
+Anomaly -1.0  admin alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac jun physic pic reason statu vs
+Anomaly -1.0  adminstatu alarmid apr chang cid down gigabitethernet ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu up vs
+Anomaly -1.0  ethernet interfac link state
+Anomaly -1.0  interfac link state tengigabitethernet up updown
+Anomaly -1.0  alarmid aug chang cid down ge ifnam ifnet interfac linkdown_act mainifnam operstatu reason shut statu
+Anomaly -1.0  admin alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac physic pic reason sep service_resum statu up vs
+Anomaly -1.0  attr bom dce desc down eb fortygigabitethernet info interfac interfacenam log msgid nsm protocol raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  card caus chang cid down driver hwportdownreason jun physic port possibl remote_fault slot statu vs xfc
+Anomaly -1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac jul link linkdown_clear mainnam operstatu physic reason service_resum statu up
+Anomaly -1.0  attr bom dce desc down eb ec fortygigabitethernet info interfac interfacenam log msgid nsm protocol raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  gigabitethernet interfac line lineproto protocol state up updown
+Anomaly -1.0  admin alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac jan physic pic reason statu vs
+Anomaly -1.0  alarmid aug chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainifnam operstatu protocol reason service_resum statu trunk up
+Anomaly -1.0  down interfac qe sif state
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever chang cid down entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_act interfac mai physic pic port reason state statu vs
+Anomaly -1.0  arg attr bom dce desc down ea eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  admin alarmid cid cleartyp dec entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac physic pic reason service_resum slot statu up vs
+Anomaly -1.0  attr bom dce desc down eb ef fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid chang cid down eth fail feb ge ifnam ifnet interfac lacp linkdown_act mainnam negoti operstatu reason statu trunk up
+Anomaly -1.0  gigabitethernet nov phy phy_status_up slot statu up vcpu
+Anomaly -1.0  ethernet ethport gmt if_down_interface_remov interfac remov
+Anomaly -1.0  cardopticalinfo cid cr dbm down driver fc feb inform lbxf optic power rx tx vs
+Anomaly -1.0  alarmid chang cid down ge ifnam ifnet interfac linkdown_act mainifnam oct operstatu reason shut statu
+Anomaly -1.0  alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac jun physic pic reason slot statu vs
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever cid cleartyp entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_clear interfac jan physic pic reason service_resum statu up vs
+Anomaly -1.0  alarmid chang cid down ge ifnam ifnet interfac link linkdown_act mainifnam oct operstatu physic reason statu up
+Anomaly -1.0  if_stat ifpdt interfac jun state turn up xgigabitethernet
+Anomaly 1.0  alarmid aug chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainifnam operstatu protocol reason service_resum statu trunk up
+Anomaly 1.0  board_remov dev from remov slot type unknown
+Anomaly 1.0  due except kpwr modul off power request reset set slot sp user
+Anomaly 1.0  cid driver fc lpu regist slot successfulli wboardstschang
+Anomaly 1.0  gmt jaf mod_pwrup modul number platform power serial up
+Anomaly 1.0  board_remov dev from leb lst remov slot type xp
+Anomaly 1.0  board_state_norm chang dev lst normal nsm slot state type
+Anomaly 1.0  ethport gmt if_up interfac layer up
+Anomaly 1.0  board_state_fault chang dev fault leb lst slot state type xp
+Anomaly 1.0  gmt jaf mod_remov modul number platform remov serial
+Anomaly 1.0  ethernet ethport gmt if_down_interface_remov interfac remov
+Anomaly 1.0  gigabitethernet ifnet interfac line link_updown protocol ten
+Anomaly 1.0  from heartbeat kpwr messag modul off power receiv set slot sp
+Anomaly 1.0  down modul reason slot system
+Anomaly 1.0  driver fc lpu oct regist slot successfulli wboardstschang
+Anomaly 1.0  ethernet interfac state
+Anomaly 1.0  interfac line lineproto protocol state tengigabitethernet up updown
+Anomaly 1.0  gmt jaf mod_remov modul number platform remov serial
+Anomaly 1.0  gmt jaf mod_remov modul number platform remov serial
+Anomaly 1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam oct operstatu physic reason service_resum statu up
+Anomaly 1.0  interfac state up
+Anomaly 1.0  board_state_fault chang dev fault slot state type unknown
+Anomaly 1.0  ifnet interfac line link_updown protocol ten up
+Anomaly 1.0  alarmid chang cid down ge ifnam ifnet interfac link linkdown_act mainnam oct operstatu physic reason statu up
+Anomaly 1.0  slot up
+Anomaly 1.0  board_state_fault chang dev fault lst nsm slot state type
+Anomaly 1.0  alarmid aug chang cid down eth ge ifnam ifnet interfac link linkdown_act mainifnam operstatu physic reason statu trunk up
+Anomaly 1.0  down interfac link state tengigabitethernet updown
+Anomaly 1.0  crc dram ha lp reg shutdown system tm valu xa
+Anomaly 1.0  alarmid aug chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainifnam operstatu physic reason service_resum statu trunk up
+Anomaly 1.0  fwddlyexpiri port state stp vlan
+Anomaly 1.0  forward fwddlyexpiri port state stp vlan
+Anomaly 1.0  disabl port portdown state stp vlan
+Anomaly 1.0  port portdown state stp vlan
+Anomaly 1.0  from present_no_pow present_norm rpsu state
+Anomaly 1.0  frame ilo off power powersupply_off pwr sep suppli
+Anomaly 1.0  board cid devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fail fc hwboardfail_act iic partial power reason sep
+Anomaly 1.0  from left power row st suppli top
+Anomaly 1.0  cid cleartyp complet devm entitytrapfaultid entphysicalindex entphysicalnam fa failur from hwpowerinvalid_clear instal jan modul power reason recov service_resum
+Anomaly 1.0  oct power powon srm suppli unit work
+Anomaly 1.0  devm power power_recov psu recov
+Anomaly 1.0  alarm card cardopticalrxpowerhigh cid cr current dbm driver fail fmea high lfxfe mar modul optic port power receiv rx sfp threshold too valu vs warn xfc
+Anomaly 1.0  eq gmt number ok platform power ps_ok serial suppli
+Anomaly 1.0  dtm gmt number platform power ps_detect serial shutdown suppli
+Anomaly 1.0  cid cleartyp devm entitytrapfaultid entphysicalindex entphysicalnam fa failur from hwpowerfail_clear modul partial power reason recov sep service_resum
+Anomaly 1.0  chassisd_snmp_trap gener index jnxcontentscontainerindex jnxcontentsdescr jnxcontentsl jnxoperatingst ok pem power snmp suppli temp trap
+Anomaly 1.0  ok power power_ok
+Anomaly 1.0  fail ha k_iosmodportman off power powersupplybad suppli turn
+Anomaly 1.0  chassisd_snmp_trap fail gener index jnxcontentscontainerindex jnxcontentsdescr jnxcontentsl jnxoperatingst pem power snmp suppli temp trap
+Anomaly 1.0  basetrapeventtyp basetrapprobablecaus basetrapsever board entityphysicalindex entphysicalcontainedin entphysicalnam mpu normal oid power powerresum reasondescript relativeresourc srm subcard
+Anomaly 1.0  basetrapeventtyp basetrapprobablecaus basetrapsever current dbm dec default detail entityphysicalindex entphysicalcontainedin entphysicalnam follow inform interfac low lower modul oid optic optpwrabnorm power reasondescript relativeresourc rx set srm threshold too xgigabitethernet
+Anomaly 1.0  power rear right slot suppli system up when
+Anomaly 1.0  basetrapeventtyp basetrapprobablecaus basetrapsever board entityphysicalindex entphysicalcontainedin entphysicalnam feb mpu oid power powerfault reasondescript relativeresourc srm subcard
+Anomaly 1.0  detect dtm gmt number platform power ps_detect serial shutdown suppli
+Anomaly 1.0  down fail gmt number platform power ps_fail qk serial shut suppli
+Anomaly 1.0  apr chuanke.int current input power powexc slot srm suppli
+Anomaly 1.0  bottom from left nd ok power row suppli
+Anomaly 1.0  fail power power_fail
+Anomaly 1.0  dtm eq gmt number platform power ps_detect serial shutdown suppli
+Anomaly 1.0  basetrapeventtyp basetrapprobablecaus basetrapsever board entityphysicalindex entphysicalcontainedin entphysicalnam mpu oct oid power powerfault reasondescript relativeresourc srm subcard
+Anomaly 1.0  alarm card cardopticalrxpowerlow cid cr current dbm driver fail fmea jan lfxfe low modul optic port power receiv resum rx sfp threshold too valu vs warn xfc
+Anomaly 1.0  dev_log fail power
+Anomaly 1.0  dtm fail gmt number platform power ps_fail serial shut suppli
+Anomaly 1.0  normal power powon slot srm suppli work
+Anomaly 1.0  stack suppli system unit up
+Anomaly 1.0  from gmt minor nohm nohms_diag_err_ps_recov power recov suppli system
+Anomaly 1.0  bottom from left nd power row suppli
+Anomaly 1.0  basetrapeventtyp basetrapprobablecaus basetrapsever board entityphysicalindex entphysicalcontainedin entphysicalnam mpu oid power powerfault reasondescript relativeresourc sep srm subcard
+Anomaly 1.0  aug board cid devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fail fc hwboardfail_act iic partial power reason
+Anomaly 1.0  basetrapeventtyp basetrapprobablecaus basetrapsever board entityphysicalindex entphysicalcontainedin entphysicalnam mar mpu oid power powerfault reasondescript relativeresourc srm subcard
+Anomaly 1.0  normal power powon slot srm suppli work
+Anomaly 1.0  aug cid cleartyp complet devm entitytrapfaultid entphysicalindex entphysicalnam fa failur from hwpowerinvalid_clear instal modul power reason recov service_resum
+Anomaly 1.0  cpowernorm devm hh id normal power state trap
+Anomaly 1.0  basetrapprobablecaus basetrapsever board entityphysicalindex entphysicalcontainedin entphysicalnam jun mpu normal oid power powerresum reasondescript relativeresourc srm subcard
+Anomaly 1.0  basetrapeventtyp basetrapprobablecaus basetrapsever current dbm default detail entityphysicalindex entphysicalcontainedin entphysicalnam follow inform interfac jul low lower modul oid optic optpwrabnorm power reasondescript relativeresourc rx set srm threshold too xgigabitethernet
+Anomaly 1.0  basetrapprobablecaus basetrapsever board entityphysicalindex entphysicalcontainedin entphysicalnam mpu normal oct oid power powerresum reasondescript relativeresourc srm subcard
+Anomaly 1.0  fail power power_fail powersuppli
+Anomaly 1.0  gmt gq number ok platform power ps_ok serial suppli
+Anomaly 1.0  cid cleartyp complet devm entitytrapfaultid entphysicalindex entphysicalnam fa failur from hwpowerinvalid_clear instal mai modul power reason recov service_resum
+Anomaly 1.0  bottom from left nd power row suppli system
+Anomaly 1.0  from left ok power row st suppli top
+Anomaly 1.0  fan ha k_iosmodportman power powersupplyfanbad suppli
+Anomaly 1.0  dl dtm gmt number platform power ps_detect serial shutdown suppli
+Anomaly 1.0  down face from left other power side suppli system when
+Anomaly 1.0  alarm apr card cardopticalrxpowerhigh cid cr current dbm driver fail fmea high lfxfe modul optic port power receiv resum rx sfp threshold too valu vs warn xfc
+Anomaly 1.0  basetrapeventtyp basetrapprobablecaus basetrapsever board entityphysicalindex entphysicalcontainedin entphysicalnam mpu normal oid power powerresum reasondescript relativeresourc srm subcard
+Anomaly 1.0  alarm card cardopticalrxpowerlow cid cr current dbm driver fail fmea lfxfe low mai modul optic port power receiv rx sfp threshold too valu vs warn xfc
+Anomaly 1.0  devm fail power power_fail psu
+Anomaly 1.0  from left power row suppli th top
+Anomaly 1.0  basetrapeventtyp basetrapprobablecaus basetrapsever board entityphysicalindex entphysicalcontainedin entphysicalnam mpu nov oid power powerfault reasondescript relativeresourc srm subcard
+Anomaly 1.0  from libcomm pica_login present_no_pow present_norm rpsu state
+Anomaly 1.0  js number plug power redund rpsu serial suppli unit
+Anomaly 1.0  power stack suppli system unit
+Anomaly 1.0  number ok platform power ps_ok serial suppli utc
+Anomaly 1.0  alarm card cardopticalrxpowerlow cid cr current dbm driver fail fmea jul lfxfe low modul optic port power receiv rx sfp threshold too valu vs warn xfc
+Anomaly 1.0  power
+Anomaly 1.0  board cid cleartyp devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fail failur fc from hwboardfail_clear iic jun partial power reason resum service_resum
+Anomaly 1.0  current feb input power powexc slot srm suppli
+Anomaly 1.0  basetrapeventtyp basetrapprobablecaus basetrapsever current dbm detail entityphysicalindex entphysicalcontainedin entphysicalnam follow from ha higher inform interfac jul lower modul oid optic optpwrresum power reasondescript recov relativeresourc resum rx set srm threshold xgigabitethernet
+Anomaly 1.0  basetrapprobablecaus basetrapsever board entityphysicalindex entphysicalcontainedin entphysicalnam jan mpu normal oid power powerresum reasondescript relativeresourc srm subcard
+Anomaly 1.0  fail mon power
+Anomaly 1.0  nov power powon slot srm suppli work
+Anomaly 1.0  current input mar power powexc slot srm suppli
+Anomaly 1.0  gmt number ok platform power ps_ok serial suppli
+Anomaly 1.0  current input oct power powexc srm suppli unit
+Anomaly 1.0  alarm card cardopticalrxpowerlow cid cr current dbm driver fail fmea jun lfxfe low modul optic port power receiv resum rx sfp threshold too valu vs warn xfc
+Anomaly 1.0  basetrapeventtyp basetrapprobablecaus basetrapsever current dbm default detail entityphysicalindex entphysicalcontainedin entphysicalnam follow inform interfac jan low lower modul oid optic optpwrabnorm power reasondescript relativeresourc rx set srm threshold too xgigabitethernet
+Anomaly 1.0  apr current input power powexc slot srm suppli
+Anomaly 1.0  alarm apr card cardopticalrxpowerhigh cid cr current dbm driver fail fmea high lfxfe modul optic port power receiv rx sfp threshold too valu vs warn xfc
+Anomaly 1.0  cpowernorm dev hh id normal power state trap
+Anomaly 1.0  aug basetrapeventtyp basetrapprobablecaus basetrapsever board entityphysicalindex entphysicalcontainedin entphysicalnam mpu oid power powerfault reasondescript relativeresourc srm subcard
+Anomaly 1.0  fail power power_fail slot
+Anomaly 1.0  okai power powersupplygood suppli
+Anomaly 1.0  chang link_statu linkandnopow power rg slot statu suppli
+Anomaly 1.0  dtm dv gmt number platform power ps_detect serial shutdown suppli
+Anomaly 1.0  basetrapeventtyp basetrapprobablecaus basetrapsever current dbm default detail entityphysicalindex entphysicalcontainedin entphysicalnam follow inform interfac low lower modul nov oid optic optpwrabnorm power reasondescript relativeresourc rx set srm threshold too xgigabitethernet
+Anomaly 1.0  gmt ok platform power ps_fanok suppli
+Anomaly 1.0  fail k_chassi power powersupplyseepromreadfail read serial suppli
+Anomaly 1.0  power power_recov powersuppli recov
+Anomaly 1.0  fail power
+Anomaly 1.0  normal power powon slot srm suppli work
+Anomaly 1.0  from left power rd row suppli top
+Anomaly 1.0  alarm card cardopticalrxpowerhigh cid cr current dbm driver fail fmea high lfxfe mai modul optic port power receiv resum rx sfp threshold too valu vs warn xfc
+Anomaly 1.0  cid complet devm entitytrapfaultid entphysicalindex entphysicalnam exceed failur fc from hwpowerinvalidresum mai modul oid power rate reason recov
+Anomaly 1.0  power recov
+Anomaly 1.0  dev_log power recov
+Anomaly 1.0  gmt mn number ok platform power ps_ok serial suppli
+Anomaly 1.0  error gmt journal kern kernel system_msg
+Anomaly 1.0  from left nd power row suppli top
+Anomaly 1.0  alarm card cardopticalrxpowerlow cid cr current dbm driver fail fmea lfxfe low mai modul optic port power receiv resum rx sfp threshold too valu vs warn xfc
+Anomaly 1.0  fail power power_fail psu
+Anomaly 1.0  power power_recov recov
+Anomaly 1.0  gmt hm number ok platform power ps_ok serial suppli
+Anomaly 1.0  gmt platform powersuppli ps_ok ps_statu statu
+Anomaly 1.0  board cid devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fail fc hwboardfail_act iic jun partial power reason
+Anomaly 1.0  down face from left power side suppli system when
+Anomaly 1.0  basetrapeventtyp basetrapprobablecaus basetrapsever board entityphysicalindex entphysicalcontainedin entphysicalnam jun mpu oid power powerfault reasondescript relativeresourc srm subcard
+Anomaly 1.0  normal power powon slot srm suppli work
+Anomaly 1.0  affect gmt might platform power ps ps_absent redund shutdown suppli
+Anomaly 1.0  dtm gmt number ok platform power ps_ok serial suppli
+Anomaly 1.0  chuanke.int normal power powon slot srm suppli work
+Anomaly 1.0  gmt hh number ok platform power ps_ok serial suppli
+Anomaly 1.0  dev hwpowernorm id normal power state trap
+Anomaly 1.0  k_iosmodportman okai power powersupplyfangood suppli
+Anomaly 1.0  current input jun power powexc slot srm suppli
+Anomaly 1.0  aug board cid cleartyp devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fail failur fc from hwboardfail_clear iic partial power reason resum service_resum
+Anomaly 1.0  cid complet devm entitytrapfaultid entphysicalindex entphysicalnam exceed failur fc from hwpowerinvalidresum modul oct oid power rate reason recov
+Anomaly 1.0  normal power powon slot srm suppli work
+Anomaly 1.0  bottom from left power rd row suppli
+Anomaly 1.0  off power
+Anomaly 1.0  power pull redund rpsu suppli unit
+Anomaly 1.0  face from left other power side suppli system up when
+Anomaly 1.0  alarm card cardopticalrxpowerlow cid cr current dbm driver fail fmea jul lfxfe low modul optic port power receiv resum rx sfp threshold too valu vs warn xfc
+Anomaly 1.0  gmt number ok platform power ps_ok serial ss suppli
+Anomaly 1.0  basetrapeventtyp basetrapprobablecaus basetrapsever board entityphysicalindex entphysicalcontainedin entphysicalnam jul mpu oid power powerfault reasondescript relativeresourc srm subcard
+Anomaly 1.0  basetrapprobablecaus basetrapsever board entityphysicalindex entphysicalcontainedin entphysicalnam mar mpu normal oid power powerresum reasondescript relativeresourc srm subcard
+Anomaly 1.0  fail power power_fail
+Anomaly 1.0  dtm fail gmt number platform power ps_fail qr serial shut suppli
+Anomaly 1.0  from pica_login picalibcomm present_no_pow present_norm rpsu state
+Anomaly 1.0  current input jul power powexc slot srm suppli
+Anomaly 1.0  cid cleartyp complet devm entitytrapfaultid entphysicalindex entphysicalnam fa failur feb from hwpowerinvalid_clear instal modul power reason recov service_resum
+Anomaly 1.0  bottom from left power row suppli th
+Anomaly 1.0  fail gmt minor nohm nohms_diag_err_ps_fail power suppli system
+Anomaly 1.0  ok platform power ps_fanok suppli utc
+Anomaly 1.0  gmt number ok platform power ps_ok qk serial suppli
+Anomaly 1.0  basetrapeventtyp basetrapprobablecaus basetrapsever current dbm detail entityphysicalindex entphysicalcontainedin entphysicalnam follow from ha higher inform interfac lower modul nov oid optic optpwrresum power reasondescript recov relativeresourc resum rx set srm threshold xgigabitethernet
+Anomaly 1.0  chang link_statu linkandpow power rg slot statu suppli
+Anomaly 1.0  aug current input power powexc slot srm suppli
+Anomaly 1.0  board cid cleartyp devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fail failur fc from hwboardfail_clear iic partial power reason resum sep service_resum
+Anomaly 1.0  power power_recov recov slot
+Anomaly 1.0  alarmid cid complet devm entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam experienc failur fc hwpowerinvalid_act instal modul nov power reason vs
+Anomaly 1.0  alarm card cardopticalrxpowerlow cid cr current dbm driver fail fmea jun lfxfe low modul optic port power receiv rx sfp threshold too valu vs warn xfc
+Anomaly 1.0  basetrapeventtyp basetrapprobablecaus basetrapsever current dbm default detail entityphysicalindex entphysicalcontainedin entphysicalnam follow inform interfac jan low lower modul oid optic optpwrabnorm power reasondescript relativeresourc set srm threshold too tx xgigabitethernet
+Anomaly 1.0  alarm card cardopticalrxpowerlow cid cr current dbm driver fail fmea jan lfxfe low modul optic port power receiv rx sfp threshold too valu vs warn xfc
+Anomaly 1.0  power power_recov psu recov
+Anomaly 1.0  current input nov power powexc slot srm suppli
+Anomaly 1.0  board cid devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fail fc hwboardfail_act iic mar partial power reason
+Anomaly 1.0  basetrapeventtyp basetrapprobablecaus basetrapsever current dbm dec detail entityphysicalindex entphysicalcontainedin entphysicalnam follow from ha higher inform interfac lower modul oid optic optpwrresum power reasondescript recov relativeresourc resum rx set srm threshold xgigabitethernet
+Anomaly 1.0  ext power recov
+Anomaly 1.0  board cid cleartyp devm entitytrapfaultid entitytyp entphysicalindex entphysicalnam fail failur fc from hwboardfail_clear iic mar partial power reason resum service_resum
+Anomaly 1.0  alarmid cid cleartyp complet devm entitytrapfaultid entphysicalindex entphysicalnam exceed failur fc from hwpowerinvalid_clear modul oct power rate reason recov service_resum
+Anomaly 1.0  devm hwpowernorm id normal power state trap
+Anomaly 1.0  number plug power redund rpsu serial suppli unit
+Anomaly 1.0  basetrapprobablecaus basetrapsever board entityphysicalindex entphysicalcontainedin entphysicalnam jul mpu normal oid power powerresum reasondescript relativeresourc srm subcard
+Anomaly 1.0  alarmid aug basetrapeventtyp basetrapprobablecaus basetrapsever cid devm did entiti entityphysicalindex entphysicalcontainedin entphysicalnam fail fc gigabitethernet hwentityinvalid_act interfac match modul optic physic reasondescript relativeresourc vs
+Anomaly 1.0  dtm gmt number ok platform power ps_ok serial suppli
+Anomaly 1.0  from left power row st suppli system top
+Anomaly 1.0  dtm gmt number platform power ps_detect serial shutdown ss suppli
+Anomaly 1.0  basetrapeventtyp basetrapprobablecaus basetrapsever board entityphysicalindex entphysicalcontainedin entphysicalnam jan mpu oid power powerfault reasondescript relativeresourc srm subcard
+Anomaly 1.0  ext fail power
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down from fsm gigabitethernet higher interfac jul localifnam lower move number reason state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid configur down from fsm higher lead localifnam lower move number oct peer reason state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db enter establish feb fsm localifnam reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid from fsm higher jun localifnam lower move notif number reason receiv state vs
+Anomaly 1.0  admin alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm gigabitethernet localifnam mai reason service_resum state vs
+Anomaly 1.0  chang dec establish from instancenam openconfirm peer public state_chg_updown statechangereason statu up
+Anomaly 1.0  admin alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm localifnam mar reason service_resum state vs
+Anomaly 1.0  alarmid allow bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid exce from fsm higher localifnam lower maximum move nov number reason rout state vs
+Anomaly 1.0  chang establish from instancenam openconfirm peer public sep state_chg_updown statechangereason statu up
+Anomaly 1.0  alarmid aug bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down from fsm higher interfac localifnam lower move number reason state tunnel vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher jun localifnam lower move notif number reason receiv state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down from fsm gigabitethernet higher interfac localifnam lower mai move number reason state vs
+Anomaly 1.0  alarm alarmid apr bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid clear cleartyp enter establish fsm localifnam reason service_resum state tunnel vs
+Anomaly 1.0  bgp chang establish expir from hold idl instancenam peer public state_chg_updown statechangereason statu timer
+Anomaly 1.0  alarm alarmid apr bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db enter establish fsm localifnam reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid connect direct down from fsm higher interfac localifnam lower mar move number reason state tunnel vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid from fsm higher jan localifnam lower move number peer reachabl reason remot state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm localifnam oct reason service_resum state tunnel vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid expir feb from fsm higher hold localifnam lower move number reason state timer vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid fb from fsm higher jun localifnam lower move notif number reason receiv state vs
+Anomaly 1.0  chang establish expir from hold idl instancenam peer public sep state_chg_updown statechangereason statu timer
+Anomaly 1.0  alarmid aug bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid fb from fsm higher localifnam lower move notif number reason receiv state vs
+Anomaly 1.0  alarm alarmid apr bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm gigabitethernet localifnam reason service_resum state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm jun localifnam reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher localifnam lower mai move notif number reason receiv state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down from fsm higher interfac jul localifnam lower move number reason state tunnel vs
+Anomaly 1.0  admin alarm alarmid apr bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm localifnam reason service_resum state tunnel vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm jan localifnam object_delet reason state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid clear cleartyp enter establish fsm localifnam mai reason service_resum state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm gigabitethernet localifnam nov reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down from fsm gigabitethernet higher interfac localifnam lower move number reason sep state vs
+Anomaly 1.0  ceas chang configur establish from idl instancenam jun other peer public state_chg_updown statechangereason statu
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid expir from fsm higher hold localifnam lower mar move number reason state timer vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect db direct down from fsm gigabitethernet higher interfac jan localifnam lower move number reason state vs
+Anomaly 1.0  ceas chang configur de establish from idl instancenam jan peer public state_chg_updown statechangereason statu
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid connect direct down from fsm higher interfac localifnam lower mai move number reason state tunnel vs
+Anomaly 1.0  chang establish expir from hold idl instancenam mai peer public state_chg_updown statechangereason statu timer
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm localifnam nov reason service_resum state vs
+Anomaly 1.0  admin alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down from fsm higher interfac jun localifnam lower move number reason state tunnel vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid expir from fsm higher hold localifnam lower move number oct reason state timer vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db dec enter establish fsm gigabitethernet localifnam reason service_resum state vs
+Anomaly 1.0  ceas chang configur establish from idl instancenam jul other peer public state_chg_updown statechangereason statu
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid connect direct down from fsm gigabitethernet higher interfac jun localifnam lower move number reason state vs
+Anomaly 1.0  alarm alarmid apr bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid clear cleartyp enter establish fsm gigabitethernet localifnam reason service_resum state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm jul localifnam reason service_resum state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish feb fsm localifnam reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid connect direct down from fsm gigabitethernet higher interfac localifnam lower mai move number reason state vs
+Anomaly 1.0  bgp cpu default neighbor rout rp rsp up vrf
+Anomaly 1.0  chang establish event extern from openconfirm peer recvkeepal rpd rpd_bgp_neighbor_state_chang state
+Anomaly 1.0  admin alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down from fsm gigabitethernet higher interfac localifnam lower mai move number reason state vs
+Anomaly 1.0  bgp chang establish expir from hold idl instancenam peer public state_chg_updown statechangereason statu timer
+Anomaly 1.0  admin alarmid apr bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid configur down from fsm higher lead localifnam lower move number peer reason state vs
+Anomaly 1.0  bgp ceas chang configur establish from idl instancenam other peer public state_chg_updown statechangereason statu
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down from fsm gigabitethernet higher interfac localifnam lower mar move number reason state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid clear cleartyp enter establish fsm gigabitethernet jan localifnam reason service_resum state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db enter establish fsm gigabitethernet localifnam mar reason service_resum state vs
+Anomaly 1.0  alarmid aug bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down eth from fsm higher interfac localifnam lower move number reason state trunk vs
+Anomaly 1.0  alarmid aug bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher localifnam lower move number peer reachabl reason remot state vs
+Anomaly 1.0  ceas chang configur establish from idl instancenam mar other peer public state_chg_updown statechangereason statu
+Anomaly 1.0  bgp down neighbor notif sent
+Anomaly 1.0  chang establish expir from hold idl instancenam jun peer public state_chg_updown statechangereason statu timer
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db enter establish fsm gigabitethernet localifnam mai reason service_resum state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db enter establish fsm localifnam nov reason service_resum state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db enter establish fsm jun localifnam reason service_resum state vs
+Anomaly 1.0  alarmid apr bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher localifnam lower move notif number reason receiv state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher jun localifnam lower move number peer reachabl reason remot state vs
+Anomaly 1.0  alarmid apr bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid db from fsm higher localifnam lower move notif number reason receiv state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid expir from fsm higher hold jun localifnam lower move number reason state timer vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fb fsm jul localifnam reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid connect direct down from fsm gigabitethernet higher interfac jul localifnam lower move number reason state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid dec from fsm higher localifnam lower move notif number reason receiv state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect da direct down eth from fsm higher interfac localifnam lower move nov number reason state trunk vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid db from fsm higher localifnam lower mai move notif number reason receiv state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect db direct down from fsm gigabitethernet higher interfac localifnam lower mai move number reason state vs
+Anomaly 1.0  admin alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish feb fsm localifnam reason service_resum state vs
+Anomaly 1.0  admin alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid feb from fsm higher localifnam lower move notif number reason receiv state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db enter establish fsm gigabitethernet jun localifnam reason service_resum state vs
+Anomaly 1.0  alarm alarmid apr bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db enter establish fsm gigabitethernet localifnam reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid db from fsm higher localifnam lower move number oct peer reachabl reason remot state vs
+Anomaly 1.0  chang establish from idl instancenam jun messag notif peer public receiv state_chg_updown statechangereason statu
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm localifnam nov reason service_resum state tunnel vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect db direct down from fsm gigabitethernet higher interfac jul localifnam lower move number reason state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down from fsm higher interfac localifnam lower move number reason sep state tunnel vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid clear cleartyp enter establish fsm gigabitethernet localifnam mar reason service_resum state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm localifnam reason sep service_resum state vs
+Anomaly 1.0  chang establish expir from hold idl instancenam jan peer public state_chg_updown statechangereason statu timer
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid db from fsm higher localifnam lower move nov number peer reachabl reason remot state vs
+Anomaly 1.0  admin alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher jun localifnam lower move number peer reachabl reason remot state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down from fsm gigabitethernet higher interfac jan localifnam lower move number reason state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher localifnam lower move notif number oct reason receiv state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid db expir from fsm higher hold jul localifnam lower move number reason state timer vs
+Anomaly 1.0  admin alarm alarmid apr bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm localifnam object_delet reason state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid db from fsm higher jul localifnam lower move number peer reachabl reason remot state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid clear cleartyp enter establish fsm jan localifnam reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher localifnam lower move number oct peer reachabl reason remot state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher localifnam lower mai move number peer reachabl reason remot state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid configur down from fsm higher jun lead localifnam lower move number peer reason state vs
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp eth gigabitethernet ifnam ifnet interfac link linkdown_clear mainnam mar operstatu physic reason service_resum statu trunk up vs
+Anomaly -1.0  alarmid chang cid down eth fail ge ifnam ifnet interfac lacp linkdown_act mainifnam negoti nov operstatu reason statu trunk up
+Anomaly -1.0  card caus chang cid down driver hwportdownreason local_fault oct physic port possibl slot statu vs xfc
+Anomaly -1.0  attr bd bom dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  interfac pica_sif qe sif state up
+Anomaly -1.0  attr bom dce desc down fe fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam mar operstatu physic reason service_resum statu up
+Anomaly -1.0  arg attr bom dce dd desc down fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainnam mar operstatu protocol reason service_resum statu trunk up
+Anomaly -1.0  alarmid aug cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac physic pic reason service_resum statu up vs
+Anomaly -1.0  cardopticalinfo cid cr dbm down driver fc inform jul lfxfe optic power rx slot tx vs
+Anomaly -1.0  arg attr bom dce desc down eb fortygigabitethernet info interfac interfacenam log msgid nsm protocol raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid chang cid down eth fail ge ifnam ifnet interfac lacp linkdown_act mainnam negoti nov operstatu reason statu trunk up
+Anomaly -1.0  card caus chang cid down driver hwportdownreason lo local_fault mar pcs_fault physic port possibl slot statu vs xfc
+Anomaly -1.0  attr bom cd dce desc down fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  cpu down ifmgr interfac lc link pkt_infra state tengig updown
+Anomaly -1.0  devip down gigabitethernet ifnet interfac line lineproto_updown protocol ten
+Anomaly -1.0  alarmid cid dec down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac physic pic reason slot statu vs
+Anomaly -1.0  alarmid chang cid down ge ifnam ifnet interfac jan link linkdown_act mainnam operstatu physic reason statu up
+Anomaly -1.0  alarmid chang cid down eth feb ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu trunk up
+Anomaly -1.0  down gigabitethernet phy phy_status_up sep slot statu vcpu
+Anomaly -1.0  af alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac oct physic pic reason slot statu vs
+Anomaly -1.0  card caus chang cid down driver hwportdownreason mai physic port possibl remote_fault slot statu vs xfc
+Anomaly -1.0  if_stat ifpdt jun state turn up xgigabitethernet
+Anomaly -1.0  adminstatu alarmid chang cid down eth gigabitethernet ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason sep statu trunk up vs
+Anomaly -1.0  card caus chang cid down driver hwportdownreason local_fault mai pcs_fault physic port possibl slot statu vs xfc
+Anomaly -1.0  alarmid basetrapeventtyp basetrapprobablecaus basetrapsever cid cleartyp dec entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_clear interfac physic pic reason service_resum statu up vs
+Anomaly -1.0  down ethernet interfac state system
+Anomaly -1.0  alarmid aug basetrapeventtyp basetrapprobablecaus basetrapsever cid cleartyp entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_clear interfac physic pic reason service_resum statu up vs
+Anomaly -1.0  alarmid aug cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac physic pic reason slot statu vs
+Anomaly -1.0  card caus chang cid down driver hwportdownreason local_fault mar pcs_fault physic port possibl slot statu vs xfc
+Anomaly -1.0  alarmid chang cid down eth fail ge ifnam ifnet interfac lacp linkdown_act mainifnam negoti oct operstatu reason statu trunk up
+Anomaly -1.0  attr bom dce desc down eb fa fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  admin alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac nov physic pic reason service_resum slot statu up vs
+Anomaly -1.0  admin alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac jan physic pic reason service_resum statu up vs
+Anomaly -1.0  attr bom dce de desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  card caus chang cid down driver hwportdownreason mar physic port possibl slot statu vs xfc
+Anomaly -1.0  adminstatu alarmid apr chang cid cleartyp gigabitethernet ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu up vs
+Anomaly -1.0  ifnet interfac line link_updown protocol ten up
+Anomaly -1.0  alarmid chang cid down ge ifnam ifnet interfac linkdown_act mainnam oct operstatu reason shut statu
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainifnam nov operstatu protocol reason service_resum statu trunk up
+Anomaly -1.0  ha if_stat ifpdt interfac jun state turn xgigabitethernet
+Anomaly -1.0  down gigabitethernet interfac line lineproto protocol sp state updown
+Anomaly -1.0  arg attr bom dce de desc eb fortygigabitethernet info interfac interfacenam log msgid nsm raslog raslogd seqnum sever swname timestamp up valu wwn
+Anomaly -1.0  adminstatu alarmid chang cid down gigabitethernet ifnam ifnet interfac jul link linkdown_act mainnam operstatu physic reason statu up vs
+Anomaly -1.0  duplex ethernet ethport full gmt if_duplex interfac mode oper
+Anomaly -1.0  ilo mar port port_up statu turn up
+Anomaly -1.0  attr bom db dce desc down eb fc fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid chang cid dec down ge ifnam ifnet interfac linkdown_act mainnam operstatu reason shut statu
+Anomaly -1.0  attr bom ca dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  dec gigabitethernet phy phy_status_up slot statu up vcpu
+Anomaly -1.0  aug card caus chang cid down driver hwportdownreason link_fail local_fault physic port possibl slot statu vs xfc
+Anomaly -1.0  attr bom dce desc down eb fa fortygigabitethernet info interfac interfacenam log msgid nsm protocol raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  ethernet ethport failur gmt hardwar if_down_hw_failur interfac
+Anomaly -1.0  alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac jan physic pic reason service_resum statu up vs
+Anomaly -1.0  adminstatu alarmid chang cid down eth gigabitethernet ifnam ifnet interfac link linkdown_act mainnam nov operstatu physic reason statu trunk up vs
+Anomaly -1.0  card caus chang cid down driver hwportdownreason local_fault pcs_fault physic port possibl sep slot statu vs xfc
+Anomaly -1.0  attr bom db dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  card caus chang cid down driver hwportdownreason jun local_fault physic port possibl slot statu vs xfc
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp gigabitethernet ifnam ifnet interfac link linkdown_clear mainnam nov operstatu protocol reason service_resum statu up vs
+Anomaly -1.0  alarmid chang cid down eth ge ifnam ifnet interfac jul link linkdown_act mainnam operstatu physic reason statu trunk up
+Anomaly -1.0  af alarmid cid down entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_act interfac jul physic pic reason slot statu vs
+Anomaly -1.0  alarmid apr basetrapeventtyp basetrapprobablecaus basetrapsever chang cid down entityphysicalindex entphysicalnam fc gigabitethernet hwportphysicaldown_act interfac physic pic port reason state statu vs
+Anomaly -1.0  attr bom dc dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  attr ba bom dce desc down eb fortygigabitethernet info interfac interfacenam log msgid nsm protocol raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  attr bom dce desc down eb ec ee fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  cardopticalinfo cid cr dbm down driver fc inform lbxf mai optic power rx tx vs
+Anomaly -1.0  adminstatu alarmid chang cid down eth gigabitethernet ifnam ifnet interfac jul link linkdown_act mainnam operstatu physic reason statu trunk up vs
+Anomaly -1.0  ifnet interfac phy_updown physic state up vlan
+Anomaly -1.0  alarmid aug chang cid down eth fail ge ifnam ifnet interfac lacp linkdown_act mainnam negoti operstatu reason statu trunk up
+Anomaly -1.0  attr bom dce desc down eb fb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  gigabitethernet mar phy phy_status_up slot statu up vcpu
+Anomaly -1.0  admin alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac mai physic pic reason service_resum statu up vs
+Anomaly -1.0  adminstatu alarmid chang cid down eth gigabitethernet ifnam ifnet interfac link linkdown_act mainnam oct operstatu physic reason statu trunk up vs
+Anomaly -1.0  gigabitethernet jun phy phy_status_up slot statu up vcpu
+Anomaly -1.0  down interfac pica_sif qe sif state
+Anomaly -1.0  interfac state system up
+Anomaly -1.0  af alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac physic pic reason sep service_resum slot statu up vs
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp eth gigabitethernet ifnam ifnet interfac jan link linkdown_clear mainnam operstatu physic reason service_resum statu trunk up vs
+Anomaly -1.0  if_stat ifpdt interfac nov state turn up xgigabitethernet
+Anomaly -1.0  adminstatu alarmid chang cid down fail gigabitethernet ifnam ifnet interfac lacp linkdown_act mainnam negoti nov operstatu reason statu up vs
+Anomaly -1.0  admin alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac jul physic pic reason service_resum slot statu up vs
+Anomaly -1.0  ilo oct port port_up statu turn up
+Anomaly -1.0  interfac pica_sif sif state te up
+Anomaly -1.0  ethernet ethport failur gmt if_down_link_failur interfac link
+Anomaly -1.0  attr bom cf dce desc down info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname tengigabitethernet timestamp valu wwn
+Anomaly -1.0  ifnet link phy_updown statu ten up
+Anomaly -1.0  alarmid chang cid down ge ifnam ifnet interfac link linkdown_act mainnam nov operstatu physic reason statu up
+Anomaly -1.0  down ifnet interfac line link_updown protocol state vlan
+Anomaly -1.0  down interfac sif state te
+Anomaly -1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam nov operstatu physic reason service_resum statu up
+Anomaly -1.0  alarmid chang cid down eth ge ifnam ifnet interfac jul link linkdown_act mainnam operstatu physic reason statu trunk up
+Anomaly -1.0  gigabitethernet ifnet link phy_updown statu ten
+Anomaly -1.0  attr bd bom dce desc down eb info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname tengigabitethernet timestamp valu wwn
+Anomaly -1.0  interfac sif state te up
+Anomaly -1.0  down fortygig ifnet interfac line link_updown protocol state
+Anomaly -1.0  ethport gmt if_up interfac layer up
+Anomaly -1.0  alarmid aug chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu up
+Anomaly -1.0  fortygig ifnet link phy_updown statu
+Anomaly -1.0  attr bom dce desc down eb info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname tengigabitethernet timestamp valu wwn
+Anomaly -1.0  ilo jul port port_up statu turn up
+Anomaly -1.0  gigabitethernet ifnet interfac line link_updown protocol ten
+Anomaly -1.0  down interfac pica_sif sif state te
+Anomaly -1.0  adminstatu alarmid chang cid cleartyp eth gigabitethernet ifnam ifnet interfac jul link linkdown_clear mainnam operstatu physic reason service_resum statu trunk up vs
+Anomaly -1.0  ifnet link link_updown statu ten up
+Anomaly -1.0  interfac line lineproto protocol state tengigabitethernet up updown
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac jul link linkdown_clear mainnam operstatu physic reason service_resum statu trunk up
+Anomaly -1.0  gigabitethernet jun phy phy_status_up slot statu up vcpu
+Anomaly -1.0  down interfac pica_sif qe sif state
+Anomaly -1.0  alarmid aug chang cid down ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu up
+Anomaly -1.0  fortygig ifnet interfac line link_updown protocol
+Anomaly -1.0  fortygig ifnet interfac line link_updown protocol state up
+Anomaly -1.0  ha if_stat ifpdt interfac jul state turn xgigabitethernet
+Anomaly -1.0  ifnet interfac line link_updown protocol ten up
+Anomaly -1.0  interfac pica_sif qe sif state up
+Anomaly -1.0  gigabitethernet ilo port port_up statu turn up
+Anomaly -1.0  down gigabitethernet jun phy phy_status_up slot statu vcpu
+Anomaly -1.0  ifnet interfac line link_updown protocol state up vlan
+Anomaly -1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam mar operstatu physic reason service_resum statu up
+Anomaly -1.0  alarmid chang cid down ge ifnam ifnet interfac link linkdown_act mainnam mar operstatu physic reason statu up
+Anomaly -1.0  down interfac line lineproto protocol state tengigabitethernet updown
+Anomaly -1.0  if_stat ifpdt interfac jul state turn up xgigabitethernet
+Anomaly -1.0  alarmid cid cleartyp entityphysicalindex entitytrapfaultid entphysicalindex entphysicalnam fc gigabitethernet hwportdown_clear interfac jul physic pic reason service_resum statu up vs
+Anomaly -1.0  ifnet interfac line link_updown protocol up
+Anomaly -1.0  alarmid chang cid down ge ifnam ifnet interfac link linkdown_act mainifnam nov operstatu physic reason statu up
+Anomaly -1.0  board_state_norm chang dev fc lsx normal qg slot state type
+Anomaly -1.0  board_state_norm chang dev fab lsx normal slot state type
+Anomaly -1.0  cid dec driver fc lpu regist slot successfulli wboardstschang
+Anomaly -1.0  down interfac sif state te
+Anomaly -1.0  administr arg attr bc bom dce desc eb fortygigabitethernet info interfac interfacenam log msgid nsm raslog raslogd seqnum sever swname timestamp up valu wwn
+Anomaly -1.0  dec driver fc regist sfu slot successfulli wboardstschang
+Anomaly -1.0  alarmid chang cid cleartyp dec ge ifnam ifnet interfac link linkdown_clear mainifnam operstatu physic reason service_resum statu up
+Anomaly -1.0  alarmid chang cid down eth ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason sep statu trunk up
+Anomaly -1.0  attr bom dce desc down eb ed fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  gigabitethernet ifnet link phy_updown statu ten
+Anomaly -1.0  ifnet link phy_updown statu up
+Anomaly -1.0  alarmid chang cid down eth ge ifnam ifnet interfac link linkdown_act mainifnam operstatu physic reason sep statu trunk up
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainnam nov operstatu physic reason service_resum statu trunk up
+Anomaly -1.0  ifindex ifnam ifoperstatu mib snmp_trap_link_up up xe
+Anomaly -1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainifnam nov operstatu physic reason service_resum statu up
+Anomaly -1.0  interfac state up
+Anomaly -1.0  fortygig ifnet interfac line link_updown protocol
+Anomaly -1.0  alarmid aug board cf cid cleartyp cr devm entityphysicalindex entitytrapfaultid entitytyp entphysicalindex entphysicalnam failur fc fra from hwboardinvalid_clear reason regist resum service_resum slot ta total vs
+Anomaly -1.0  gigabitethernet ifnet link statu ten updown
+Anomaly -1.0  ha if_stat ifpdt interfac jul state turn xgigabitethernet
+Anomaly -1.0  alarmid chang cid down eth fail ge ifnam ifnet interfac lacp linkdown_act mainifnam negoti operstatu reason sep statu trunk up
+Anomaly -1.0  slot up
+Anomaly -1.0  ethernet interfac link state
+Anomaly -1.0  ifnet interfac line link_updown protocol state up vlan
+Anomaly -1.0  interfac link state tengigabitethernet up updown
+Anomaly -1.0  attr bom dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  ifnet interfac line link_updown protocol up
+Anomaly -1.0  interfac pica_sif sif state te up
+Anomaly -1.0  board_state_fault chang dev fab fault lsx slot state type
+Anomaly -1.0  chang db dev dev_log frame gt lsb ok slot state type
+Anomaly -1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac jul link linkdown_clear mainnam operstatu physic reason service_resum statu up
+Anomaly -1.0  interfac qe sif state up
+Anomaly -1.0  ifnet link phy_updown statu ten up
+Anomaly -1.0  down interfac link sp state tengigabitethernet updown
+Anomaly -1.0  alarmid chang cid dec down ge ifnam ifnet interfac link linkdown_act mainifnam operstatu physic reason statu up
+Anomaly -1.0  down gigabitethernet inf link port statu
+Anomaly -1.0  ifnet link statu ten up updown
+Anomaly -1.0  gigabitethernet ifnet link link_updown statu ten
+Anomaly -1.0  ethernet ethport gmt if_down_non interfac none
+Anomaly -1.0  board_state_norm chang dev lsx normal slot state sup type
+Anomaly -1.0  gigabitethernet ifnet interfac line link_updown protocol ten
+Anomaly -1.0  due except kpwr modul off power request reset set slot sp user
+Anomaly -1.0  dev dev_log finish frame load slot softwar
+Anomaly -1.0  channel cid ec faulti frame hwchannelfault lcm nov slot
+Anomaly -1.0  down ethernet ethport gmt if_down_admin_down interfac
+Anomaly -1.0  alarmid chang cid down eth ge ifnam ifnet interfac link linkdown_act mainnam nov operstatu physic reason statu trunk up
+Anomaly -1.0  arg attr bom dce desc eb ed fortygigabitethernet info interfac interfacenam log msgid nsm raslog raslogd seqnum sever swname timestamp up valu wwn
+Anomaly -1.0  ifnet link link_updown statu ten up
+Anomaly -1.0  been board board_en ha ifnet mai
+Anomaly -1.0  driver fc nov regist sfu slot successfulli wboardstschang
+Anomaly -1.0  fortygig ifnet interfac phy_updown physic state up
+Anomaly -1.0  if_stat ifpdt interfac jul state turn up xgigabitethernet
+Anomaly -1.0  avail been board card card_en ha ifnet
+Anomaly -1.0  ethernet ethport failur gmt if_down_link_failur interfac link
+Anomaly -1.0  ethport if_up interfac layer up utc
+Anomaly -1.0  alarmid aug board cid cleartyp cr devm entityphysicalindex entitytrapfaultid entitytyp entphysicalindex entphysicalnam failur fc from hwboardinvalid_clear reason regist resum service_resum sfu slot total vs
+Anomaly -1.0  interfac sif state te up
+Anomaly -1.0  chang dev dev_log frame gt lsb ok slot state type
+Anomaly -1.0  ethport gmt if_up interfac layer up
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainifnam operstatu protocol reason sep service_resum statu trunk up
+Anomaly -1.0  alarmid chang cid down eth fail ge ifnam ifnet interfac lacp linkdown_act mainnam negoti operstatu reason sep statu trunk up
+Anomaly -1.0  down interfac pica_sif sif state te
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainnam oct operstatu protocol reason service_resum statu trunk up
+Anomaly -1.0  alarmid aug board cid cleartyp cr devm entityphysicalindex entitytrapfaultid entitytyp entphysicalindex entphysicalnam failur fc fra from hwboardinvalid_clear reason regist resum service_resum slot ta total vs
+Anomaly -1.0  dec driver fc lpu regist slot successfulli wboardstschang
+Anomaly -1.0  ifnet interfac line link_updown protocol ten up
+Anomaly -1.0  gigabitethernet mai phy phy_status_up slot statu up vcpu
+Anomaly -1.0  alarmid chang cid down ge ifnam ifnet interfac link linkdown_act mainnam oct operstatu physic reason statu up
+Anomaly -1.0  down interfac line lineproto protocol state tengigabitethernet updown
+Anomaly -1.0  alarmid chang cid down eth fail ge ifnam ifnet interfac lacp linkdown_act mainnam negoti oct operstatu reason statu trunk up
+Anomaly -1.0  interfac pica_sif qe sif state up
+Anomaly -1.0  down interfac link state tengigabitethernet updown
+Anomaly -1.0  ha mai mode normal slot srm startup
+Anomaly -1.0  arg attr bc bom dce desc down eb fortygigabitethernet info interfac interfacenam link log msgid nsm raslog raslogd seqnum sever swname timestamp valu wwn
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac jul link linkdown_clear mainifnam operstatu protocol reason service_resum statu trunk up
+Anomaly -1.0  channel chassi cid ec faulti hwchannelfault lcm nov slot
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac jul link linkdown_clear mainnam operstatu protocol reason service_resum statu trunk up
+Anomaly -1.0  down ifnet interfac line link_updown protocol state vlan
+Anomaly -1.0  ethernet ethport if_down_non interfac none utc
+Anomaly -1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainnam operstatu protocol reason sep service_resum statu trunk up
+Anomaly -1.0  board_state_fault chang dev fault fc lsx qg slot state type
+Anomaly -1.0  down fortygig ifnet interfac line link_updown protocol state
+Anomaly -1.0  alarmid chang cid down eth fail ge ifnam ifnet interfac jul lacp linkdown_act mainifnam negoti operstatu reason statu trunk up
+Anomaly -1.0  alarmid chang cid down eth fail ge ifnam ifnet interfac jul lacp linkdown_act mainnam negoti operstatu reason statu trunk up
+Anomaly -1.0  ifnet interfac phy_updown physic state up vlan
+Anomaly -1.0  ifnet interfac oct state up updown xgigabitethernet
+Anomaly -1.0  chang dev dev_log frame lsb ok slot state type xp
+Anomaly -1.0  interfac line lineproto protocol state tengigabitethernet up updown
+Anomaly -1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam oct operstatu physic reason service_resum statu up
+Anomaly -1.0  down interfac pica_sif qe sif state
+Anomaly -1.0  gigabitethernet inf link port statu up
+Anomaly -1.0  down modul reason slot system
+Anomaly -1.0  dev dev_log frame load slot softwar
+Anomaly -1.0  if_stat ifpdt interfac nov state turn up xgigabitethernet
+Anomaly -1.0  arg attr bom dce desc eb fortygigabitethernet info interfac interfacenam log msgid nsm raslog raslogd seqnum sever swname timestamp up valu wwn
+Anomaly -1.0  fortygig ifnet interfac line link_updown protocol state up
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db enter establish fsm jul localifnam object_delet reason state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid clear cleartyp enter establish fsm jun localifnam reason service_resum state tunnel vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid clear cleartyp enter establish fsm gigabitethernet jul localifnam reason service_resum state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp dec enter establish fsm localifnam reason service_resum state tunnel vs
+Anomaly 1.0  ceas chang configur establish from idl instancenam oct other peer public state_chg_updown statechangereason statu
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid from fsm higher localifnam lower mai move notif number reason receiv state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid clear cleartyp enter establish fsm jan localifnam reason service_resum state tunnel vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid db from fsm higher jan localifnam lower move notif number reason receiv state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db enter establish fsm jan localifnam reason service_resum state vs
+Anomaly 1.0  admin alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm gigabitethernet jun localifnam reason service_resum state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm localifnam oct reason service_resum state vs
+Anomaly 1.0  alarmid apr bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher localifnam lower move number peer reachabl reason remot state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid expir from fsm higher hold localifnam lower mai move number reason state timer vs
+Anomaly 1.0  chang establish from instancenam jul openconfirm peer public state_chg_updown statechangereason statu up
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect db direct down from fsm gigabitethernet higher interfac localifnam lower move nov number reason state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid clear cleartyp enter establish fsm gigabitethernet jun localifnam reason service_resum state vs
+Anomaly 1.0  admin alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm jun localifnam reason service_resum state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid clear cleartyp enter establish fsm jun localifnam reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down from fsm higher interfac localifnam lower move number oct reason state tunnel vs
+Anomaly 1.0  bgp chang establish from instancenam openconfirm peer public state_chg_updown statechangereason statu up
+Anomaly 1.0  ceas chang configur dec establish from idl instancenam other peer public state_chg_updown statechangereason statu
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid clear cleartyp enter establish feb fsm localifnam reason service_resum state vs
+Anomaly 1.0  admin alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm localifnam mar reason service_resum state tunnel vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid expir from fsm higher hold localifnam lower mai move number reason state timer vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect db direct down feb from fsm gigabitethernet higher interfac localifnam lower move number reason state vs
+Anomaly 1.0  chang establish from idl instancenam messag notif nov peer public receiv state_chg_updown statechangereason statu
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid db from fsm higher jan localifnam lower move number peer reachabl reason remot state vs
+Anomaly 1.0  admin alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid expir from fsm higher hold jun localifnam lower move number reason state timer vs
+Anomaly 1.0  alarmid aug bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down from fsm gigabitethernet higher interfac localifnam lower move number reason state vs
+Anomaly 1.0  admin alarm alarmid apr bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm localifnam reason service_resum state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid clear cleartyp enter establish fsm localifnam mar reason service_resum state tunnel vs
+Anomaly 1.0  alarm alarmid apr bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm localifnam reason service_resum state vs
+Anomaly 1.0  alarm alarmid aug bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm gigabitethernet localifnam reason service_resum state vs
+Anomaly 1.0  admin alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher localifnam lower mar move notif number reason receiv state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid dec from fsm higher localifnam lower move number peer reachabl reason remot state vs
+Anomaly 1.0  admin alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher localifnam lower mai move notif number reason receiv state vs
+Anomaly 1.0  alarm alarmid aug bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm localifnam reason service_resum state vs
+Anomaly 1.0  bgp neighbor up
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid expir from fsm higher hold localifnam lower move nov number reason state timer vs
+Anomaly 1.0  bgp chang establish fail from idl instancenam peer public read socket state_chg_updown statechangereason statu
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid connect direct down feb from fsm gigabitethernet higher interfac localifnam lower move number reason state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm localifnam mai reason service_resum state vs
+Anomaly 1.0  alarm alarmid apr bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid clear cleartyp enter establish fsm localifnam object_delet reason state vs
+Anomaly 1.0  alarm alarmid aug bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db enter establish fsm localifnam reason service_resum state vs
+Anomaly 1.0  alarmid apr bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down from fsm gigabitethernet higher interfac localifnam lower move number reason state vs
+Anomaly 1.0  bgp chang establish from instancenam openconfirm peer public state_chg_updown statechangereason statu up
+Anomaly 1.0  bgp chang establish from idl instancenam messag notif peer public receiv state_chg_updown statechangereason statu
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid configur down from fsm higher lead localifnam lower move nov number peer reason state vs
+Anomaly 1.0  alarmid apr bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid connect direct down from fsm higher interfac localifnam lower move number reason state tunnel vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid connect direct down from fsm gigabitethernet higher interfac jan localifnam lower move number reason state vs
+Anomaly 1.0  bgp da down initi neighbor protocol
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect db direct down from fsm gigabitethernet higher interfac localifnam lower mar move number reason state vs
+Anomaly 1.0  chang establish expir from hold idl instancenam oct peer public state_chg_updown statechangereason statu timer
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm localifnam reason sep service_resum state tunnel vs
+Anomaly 1.0  admin alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down from fsm gigabitethernet higher interfac jun localifnam lower move number reason state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm jan localifnam reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down from fsm gigabitethernet higher interfac jun localifnam lower move number reason state vs
+Anomaly 1.0  bgp down flap interfac neighbor
+Anomaly 1.0  alarmid aug bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid configur down from fsm higher lead localifnam lower move number peer reason state vs
+Anomaly 1.0  chang establish from instancenam oct openconfirm peer public state_chg_updown statechangereason statu up
+Anomaly 1.0  alarm alarmid apr bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish eth fsm localifnam reason service_resum state trunk vs
+Anomaly 1.0  bgp ceas chang configur establish from idl instancenam other peer public state_chg_updown statechangereason statu
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect db direct down from fsm gigabitethernet higher interfac jun localifnam lower move number reason state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db enter establish fsm gigabitethernet jan localifnam reason service_resum state vs
+Anomaly 1.0  chang establish from instancenam jan openconfirm peer public state_chg_updown statechangereason statu up
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish feb fsm gigabitethernet localifnam reason service_resum state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db enter establish fsm localifnam mai reason service_resum state vs
+Anomaly 1.0  admin alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid configur down from fsm higher jun lead localifnam lower move number peer reason state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid connect direct down from fsm higher interfac jun localifnam lower move number reason state tunnel vs
+Anomaly 1.0  ceas chang configur establish from idl instancenam jan other peer public state_chg_updown statechangereason statu
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid configur down from fsm higher lead localifnam lower move number peer reason sep state vs
+Anomaly 1.0  ceas chang configur de establish from idl instancenam mai peer public state_chg_updown statechangereason statu
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm gigabitethernet localifnam oct reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher localifnam lower move notif nov number reason receiv state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm gigabitethernet localifnam reason sep service_resum state vs
+Anomaly 1.0  admin alarmid apr bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher localifnam lower move notif number reason receiv state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm jul localifnam reason service_resum state tunnel vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect dec direct down eth from fsm higher interfac localifnam lower move number reason state trunk vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid db from fsm higher jul localifnam lower move notif number reason receiv state vs
+Anomaly 1.0  alarm alarmid aug bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fb fsm localifnam reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid feb from fsm higher localifnam lower move notif number reason receiv state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid connect direct down from fsm gigabitethernet higher interfac localifnam lower mar move number reason state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid db dec expir from fsm higher hold localifnam lower move number reason state timer vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid from fsm higher localifnam lower mai move number peer reachabl reason remot state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher jan localifnam lower move notif number reason receiv state vs
+Anomaly 1.0  alarmid apr bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid expir from fsm higher hold localifnam lower move number reason state timer vs
+Anomaly 1.0  admin alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm jan localifnam reason service_resum state vs
+Anomaly 1.0  bgp cpu default down flap interfac neighbor rout rp rsp vrf
+Anomaly 1.0  admin alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid feb from fsm higher localifnam lower move number peer reachabl reason remot state vs
+Anomaly 1.0  alarmid allow bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid exce from fsm higher localifnam lower maximum move number reason rout sep state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid configur down fb from fsm higher jun lead localifnam lower move number peer reason state vs
+Anomaly 1.0  admin alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid expir from fsm higher hold localifnam lower mar move number reason state timer vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect dec direct down from fsm gigabitethernet higher interfac localifnam lower move number reason state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db enter establish feb fsm gigabitethernet localifnam reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect dec direct down from fsm higher interfac localifnam lower move number reason state tunnel vs
+Anomaly 1.0  chang establish from instancenam nov openconfirm peer public state_chg_updown statechangereason statu up
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid expir from fsm higher hold jul localifnam lower move number reason state timer vs
+Anomaly 1.0  admin alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down from fsm higher interfac jan localifnam lower move number reason state tunnel vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fb fsm localifnam mai reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect db dec direct down from fsm gigabitethernet higher interfac localifnam lower move number reason state vs
+Anomaly 1.0  alarmid apr bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid configur down from fsm higher lead localifnam lower move number peer reason state vs
+Anomaly 1.0  chang establish from instancenam mar openconfirm peer public state_chg_updown statechangereason statu up
+Anomaly 1.0  alarmid apr bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect db direct down from fsm gigabitethernet higher interfac localifnam lower move number reason state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid clear cleartyp enter establish fsm localifnam mai reason service_resum state tunnel vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid expir from fsm higher hold jan localifnam lower move number reason state timer vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish eth fsm localifnam reason sep service_resum state trunk vs
+Anomaly 1.0  alarmid aug bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher localifnam lower move notif number reason receiv state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm gigabitethernet localifnam mai reason service_resum state vs
+Anomaly 1.0  admin alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm localifnam mai reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid db expir from fsm higher hold localifnam lower mar move number reason state timer vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid db from fsm higher jun localifnam lower move number peer reachabl reason remot state vs
+Anomaly 1.0  ceas chang configur establish from idl instancenam other peer public sep state_chg_updown statechangereason statu
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db enter establish fsm localifnam oct reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid expir fb from fsm higher hold jul localifnam lower move number reason state timer vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fb fsm jun localifnam reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect db direct down from fsm gigabitethernet higher interfac localifnam lower move number oct reason state vs
+Anomaly 1.0  chang establish expir from hold idl instancenam mar peer public state_chg_updown statechangereason statu timer
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid clear cleartyp enter establish feb fsm gigabitethernet localifnam reason service_resum state vs
+Anomaly 1.0  alarmid aug bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid expir from fsm higher hold localifnam lower move number reason state timer vs
+Anomaly 1.0  alarmid apr bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid from fsm higher localifnam lower move notif number reason receiv state vs
+Anomaly 1.0  bgp da neighbor up
+Anomaly 1.0  chang establish fail from idl instancenam peer public read sep socket state_chg_updown statechangereason statu
+Anomaly 1.0  admin alarmid apr bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down from fsm higher interfac localifnam lower move number reason state tunnel vs
+Anomaly 1.0  alarmid aug bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect db direct down from fsm gigabitethernet higher interfac localifnam lower move number reason state vs
+Anomaly 1.0  chang establish fail from idl instancenam nov peer public read socket state_chg_updown statechangereason statu
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid clear cleartyp enter establish fsm localifnam mar reason service_resum state vs
+Anomaly 1.0  alarm alarmid apr bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid clear cleartyp enter establish fsm localifnam reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down from fsm gigabitethernet higher interfac localifnam lower move nov number reason state vs
+Anomaly 1.0  alarmid apr bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down eth from fsm higher interfac localifnam lower move number reason state trunk vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid feb from fsm higher localifnam lower move number peer reachabl reason remot state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid connect direct down from fsm higher interfac jan localifnam lower move number reason state tunnel vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher localifnam lower move nov number peer reachabl reason remot state vs
+Anomaly 1.0  bgp close down neighbor peer session
+Anomaly 1.0  admin alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm jan localifnam reason service_resum state tunnel vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db dec enter establish fsm localifnam reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down from fsm higher interfac localifnam lower move nov number reason state tunnel vs
+Anomaly 1.0  chang establish expir from hold idl instancenam jul peer public state_chg_updown statechangereason statu timer
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down eth from fsm higher interfac localifnam lower move number oct reason state trunk vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher jan localifnam lower move number peer reachabl reason remot state vs
+Anomaly 1.0  admin alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down from fsm higher interfac localifnam lower mar move number reason state tunnel vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid from fsm higher jun localifnam lower move number peer reachabl reason remot state vs
+Anomaly 1.0  chang establish event extern from idl peer rpd rpd_bgp_neighbor_state_chang state stop
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher localifnam lower mar move notif number reason receiv state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm localifnam mar reason service_resum state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm gigabitethernet jan localifnam reason service_resum state vs
+Anomaly 1.0  admin alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm jun localifnam reason service_resum state tunnel vs
+Anomaly 1.0  alarmid apr bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid expir from fsm higher hold localifnam lower move number reason state timer vs
+Anomaly 1.0  alarmid aug bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid db from fsm higher localifnam lower move number peer reachabl reason remot state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db enter establish fsm gigabitethernet localifnam nov reason service_resum state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm gigabitethernet jun localifnam reason service_resum state vs
+Anomaly 1.0  admin alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid expir from fsm higher hold localifnam lower mai move number reason state timer vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher localifnam lower move number peer reachabl reason remot sep state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down eth from fsm higher interfac localifnam lower move number reason sep state trunk vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid dec expir from fsm higher hold localifnam lower move number reason state timer vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid fb from fsm higher jul localifnam lower move notif number reason receiv state vs
+Anomaly 1.0  admin alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid expir from fsm higher hold jan localifnam lower move number reason state timer vs
+Anomaly 1.0  alarmid aug bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid db from fsm higher localifnam lower move notif number reason receiv state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher jul localifnam lower move notif number reason receiv state vs
+Anomaly 1.0  chang establish from instancenam mai openconfirm peer public state_chg_updown statechangereason statu up
+Anomaly 1.0  bgp chang establish fail from idl instancenam peer public read socket state_chg_updown statechangereason statu
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm gigabitethernet jul localifnam reason service_resum state vs
+Anomaly 1.0  admin alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down from fsm higher interfac localifnam lower mai move number reason state tunnel vs
+Anomaly 1.0  bgp down initi neighbor protocol
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid clear cleartyp enter establish fsm gigabitethernet localifnam mai reason service_resum state vs
+Anomaly 1.0  admin alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm localifnam mai reason service_resum state tunnel vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid expir from fsm higher hold localifnam lower move number reason sep state timer vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db enter establish fsm gigabitethernet localifnam oct reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid db dec from fsm higher localifnam lower move number peer reachabl reason remot state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down from fsm gigabitethernet higher interfac localifnam lower move number oct reason state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid configur db down from fsm higher jul lead localifnam lower move number peer reason state vs
+Anomaly 1.0  alarm alarmid aug bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish eth fsm localifnam reason service_resum state trunk vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp dec enter establish fsm gigabitethernet localifnam reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher jul localifnam lower move number peer reachabl reason remot state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish eth fsm localifnam oct reason service_resum state trunk vs
+Anomaly 1.0  alarm alarmid aug bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm localifnam reason service_resum state tunnel vs
+Anomaly 1.0  alarmid apr bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid db expir from fsm higher hold localifnam lower move number reason state timer vs
+Anomaly 1.0  chang establish from instancenam jun openconfirm peer public state_chg_updown statechangereason statu up
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish eth fsm localifnam nov reason service_resum state trunk vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down feb from fsm gigabitethernet higher interfac localifnam lower move number reason state vs
+Anomaly 1.0  alarmid apr bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat ca cid connect direct down from fsm gigabitethernet higher interfac localifnam lower move number reason state vs
+Anomaly 1.0  ceas chang configur establish from idl instancenam nov other peer public state_chg_updown statechangereason statu
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid expir from fsm higher hold localifnam lower mar move number reason state timer vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher localifnam lower move notif number reason receiv sep state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher localifnam lower mar move number peer reachabl reason remot state vs
+Anomaly 1.0  admin alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid from fsm higher jun localifnam lower move notif number reason receiv state vs
+Anomaly 1.0  bgp da down flap interfac neighbor
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db enter establish fsm jul localifnam reason service_resum state vs
+Anomaly 1.0  chang establish from idl instancenam jan messag notif peer public receiv state_chg_updown statechangereason statu
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp enter establish fsm gigabitethernet localifnam mar reason service_resum state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp dec enter establish fsm localifnam reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid db from fsm higher localifnam lower mai move number peer reachabl reason remot state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp da enter establish eth fsm localifnam nov reason service_resum state trunk vs
+Anomaly 1.0  ceas chang configur establish from idl instancenam mai other peer public state_chg_updown statechangereason statu
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid expir fb from fsm higher hold jun localifnam lower move number reason state timer vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db enter establish fsm localifnam mar reason service_resum state vs
+Anomaly 1.0  alarm alarmid aug bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db enter establish fsm gigabitethernet localifnam reason service_resum state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid db from fsm higher localifnam lower mar move number peer reachabl reason remot state vs
+Anomaly 1.0  alarmid apr bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid db from fsm higher localifnam lower move number peer reachabl reason remot state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid db from fsm higher localifnam lower mar move notif number reason receiv state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid db from fsm higher jun localifnam lower move notif number reason receiv state vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid connect direct down eth from fsm higher interfac localifnam lower move nov number reason state trunk vs
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid expir from fsm higher hold jan localifnam lower move number reason state timer vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp db enter establish fsm gigabitethernet jul localifnam reason service_resum state vs
+Anomaly 1.0  alarm alarmid bgp bgpbackwardtransition_clear bgppeerlasterror bgppeerremoteaddr bgppeerstat cid clear cleartyp dec enter establish eth fsm localifnam reason service_resum state trunk vs
+Anomaly 1.0  chang establish expir from hold idl instancenam nov peer public state_chg_updown statechangereason statu timer
+Anomaly 1.0  chang establish from idl instancenam mar messag notif peer public receiv state_chg_updown statechangereason statu
+Anomaly 1.0  chang establish from idl instancenam mai messag notif peer public receiv state_chg_updown statechangereason statu
+Anomaly 1.0  alarmid bgp bgpbackwardtransition_act bgppeerlasterror bgppeerremoteaddr bgppeerstat cid db feb from fsm higher localifnam lower move notif number reason receiv state vs
+Anomaly 1.0  isi neighbor up
+Anomaly 1.0  due eth interfac isi neighbor
+Anomaly 1.0  fail fan fan_fail
+Anomaly 1.0  fan fan_recov recov
+Anomaly 1.0  fail fan fan_fail
+Anomaly 1.0  fan from pica_login picalibcomm present_norm state unpres
+Anomaly 1.0  fan from present_norm state unpres
+Anomaly 1.0  fantraygood k_iosmodportman okai trai
+Anomaly 1.0  fan fantraybad ha k_iosmodportman trai
+Anomaly 1.0  fan fan_recov recov
+Anomaly 1.0  chassi commun devd drv_dev_fan_chang fan recov state
+Anomaly 1.0  cold cpu lc notic os start sysmgr
+Anomaly 1.0  ethernet ethport gmt if_down_module_remov interfac modul remov
+Anomaly 1.0  ethernet ethport gmt if_down_interface_remov interfac remov
+Anomaly 1.0  ethernet ethport failur gmt if_down_link_failur interfac link
+Anomaly 1.0  area cpu default detach down from full interfac nbr neighbor ospf process rout rp rsp tengig vrf vrfid
+Anomaly 1.0  ethernet ethport gmt if_down_non interfac none
+Anomaly 1.0  down ethernet ethport gmt if_down_non interfac transceiv
+Anomaly 1.0  area cpu default down from hello init nbr ospf process receiv rout rp rsp tengig vrf vrfid
+Anomaly 1.0  alarmid aug chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainifnam operstatu physic reason service_resum statu up
+Anomaly 1.0  cpu ifmgr interfac lc line lineproto pkt_infra protocol state tengig up updown
+Anomaly 1.0  ethernet ethport gmt if_down_initi initi interfac
+Anomaly 1.0  alarmid aug chang cid down ge ifnam ifnet interfac link linkdown_act mainifnam operstatu physic reason statu up
+Anomaly 1.0  ethport gmt if_up interfac layer up
+Anomaly 1.0  if_stat ifpdt interfac mar state turn up xgigabitethernet
+Anomaly 1.0  alarmid aug chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu up
+Anomaly 1.0  alarmid aug chang cid down ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu up
+Anomaly 1.0  ha if_stat ifpdt interfac mar state turn xgigabitethernet
+Anomaly 1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac jan link linkdown_clear mainnam operstatu physic reason service_resum statu up
+Anomaly 1.0  alarmid aug chang cid down eth ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu trunk up
+Anomaly 1.0  alarmid chang cid down feb ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu up
+Anomaly 1.0  ethernet ethport failur gmt if_down_link_failur interfac link
+Anomaly 1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac jul link linkdown_clear mainnam operstatu physic reason service_resum statu up
+Anomaly 1.0  ifnet link phy_updown statu ten up
+Anomaly 1.0  alarmid chang cid down ge ifnam ifnet interfac link linkdown_act mainnam nov operstatu physic reason statu up
+Anomaly 1.0  alarmid chang cid cleartyp dec ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu up
+Anomaly 1.0  alarmid aug chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu trunk up
+Anomaly 1.0  alarmid chang cid dec down eth ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu trunk up
+Anomaly 1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam nov operstatu physic reason service_resum statu up
+Anomaly 1.0  alarmid chang cid down eth ge ifnam ifnet interfac link linkdown_act mainnam oct operstatu physic reason statu trunk up
+Anomaly 1.0  alarmid chang cid down eth ge ifnam ifnet interfac jul link linkdown_act mainnam operstatu physic reason statu trunk up
+Anomaly 1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainnam oct operstatu physic reason service_resum statu trunk up
+Anomaly 1.0  alarmid chang cid down ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason sep statu up
+Anomaly 1.0  alarmid chang cid down eth ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason sep statu trunk up
+Anomaly 1.0  alarmid chang cid dec down ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu up
+Anomaly 1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainnam nov operstatu physic reason service_resum statu trunk up
+Anomaly 1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason sep service_resum statu up
+Anomaly 1.0  gigabitethernet ifnet link phy_updown statu ten
+Anomaly 1.0  ethport gmt if_up interfac layer up
+Anomaly 1.0  down ge hello interfac interv isi last local mai maximum neighbor packet peer_down_circ_down receiv router send sent time type
+Anomaly 1.0  alarmid aug chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu up
+Anomaly 1.0  alarmid chang cid dec down eth ge ifnam ifnet interfac linkdown_act mainnam operstatu reason shut statu trunk
+Anomaly 1.0  alarmid chang cid cleartyp feb ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu up
+Anomaly 1.0  ifnet link phy_updown statu up
+Anomaly 1.0  fortygig ifnet link phy_updown statu
+Anomaly 1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam mar operstatu physic reason service_resum statu up
+Anomaly 1.0  gigabitethernet ifnet interfac line link_updown protocol ten
+Anomaly 1.0  alarmid chang cid down eth ge ifnam ifnet interfac link linkdown_act mainnam nov operstatu physic reason statu trunk up
+Anomaly 1.0  ethernet ethport gmt if_down_initi initi interfac
+Anomaly 1.0  ethport gmt if_up interfac mode monitor up
+Anomaly 1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac jul link linkdown_clear mainnam operstatu physic reason service_resum statu trunk up
+Anomaly 1.0  alarmid chang cid cleartyp ge ifnam ifnet interfac link linkdown_clear mainnam oct operstatu physic reason service_resum statu up
+Anomaly 1.0  alarmid chang cid down ge ifnam ifnet interfac jan link linkdown_act mainnam operstatu physic reason statu up
+Anomaly 1.0  alarmid chang cid cleartyp dec eth ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason service_resum statu trunk up
+Anomaly 1.0  fortygig ifnet interfac line link_updown protocol
+Anomaly 1.0  ifnet interfac line link_updown protocol ten up
+Anomaly 1.0  alarmid aug chang cid down ge ifnam ifnet interfac link linkdown_act mainnam operstatu physic reason statu up
+Anomaly 1.0  alarmid chang cid down ge ifnam ifnet interfac link linkdown_act mainnam oct operstatu physic reason statu up
+Anomaly 1.0  alarmid chang cid cleartyp eth ge ifnam ifnet interfac link linkdown_clear mainnam operstatu physic reason sep service_resum statu trunk up
+Anomaly 1.0  alarmid chang cid down ge ifnam ifnet interfac link linkdown_act mainnam mar operstatu physic reason statu up
+Anomaly 1.0  down ethernet ethport gmt if_down_admin_down interfac
+Anomaly 1.0  alarmid chang cid down ge ifnam ifnet interfac jul link linkdown_act mainnam operstatu physic reason statu up
+Anomaly 1.0  ifnet interfac line link_updown protocol up
+Anomaly 1.0  fortygig ifnet interfac line link_updown protocol
+Anomaly 1.0  gigabitethernet ifnet interfac line link_updown protocol ten
+Anomaly 1.0  ifnet interfac line link_updown protocol ten up
+Anomaly 1.0  gigabitethernet ifnet link phy_updown statu ten
+Anomaly 1.0  ifnet link phy_updown statu ten up
+Anomaly 1.0  ifnet interfac line link_updown protocol up

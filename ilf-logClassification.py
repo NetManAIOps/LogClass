@@ -54,7 +54,7 @@ from puLearning.puAdapter import PUAdapter
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import precision_recall_fscore_support
 
-import mail_mwb
+# import mail_mwb
 
 import sys
 
@@ -515,7 +515,7 @@ def benchmark(clf,X_train,y_train,X_test,y_test):
 if __name__ == '__main__':
 
     mail_time=time()
-    input_path='binary_unique_failt_log.dat'
+    input_path='./data/data_for_binary_detection.dat'
     # fig_path='./RSA_sklearn.png'
     k_of_kflod=3
     n_for_gram=1
