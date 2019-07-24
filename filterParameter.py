@@ -5,7 +5,7 @@
 # * Author        : Weibin Meng
 # * Email         : m_weibin@163.com
 # * Create time   : 2017-09-13 12:32
-# * Last modified : 2019-05-28 11:45
+# * Last modified : 2019-07-24 11:45
 # * Filename      : filterParameter.py
 # * Description   :
 '''
@@ -57,6 +57,6 @@ if __name__ == '__main__':
             if len(nen.split())<=1:
                 continue
             f.writelines(nen+'\n')
-    p
+    print('rawlogs:' + input_filename)
     print('variables have been removed')
-    print('')
+    print('logs without variables:' + output_filename)

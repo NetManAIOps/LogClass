@@ -5,22 +5,17 @@
 # * Author        : Weibin Meng
 # * Email         : m_weibin@163.com
 # * Create time   : 2017-09-06 16:48
-# * Last modified : 2017-10-24 11:39
-# * Filename      : ilf-logClassification.py
+# * Last modified : 2019-07-24 15:16
+# * Filename      : ilf_binary_Classification.py
 # * Description   :
 '''
 
-The difference of this version and multi version is reading data. This version has added preprocess before save label in list.
-
-This version can save labels, results and logs
 If change to tfilf, --add_ilf
 '''
 # **********************************************************
 
 from __future__ import print_function
 import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
 
 import matplotlib
 matplotlib.use('Agg')
@@ -96,8 +91,8 @@ op.add_option("--all_categories",
               action="store_true", dest="all_categories",
               help="Whether to use all categories or not.")
 op.add_option("--add_ilf",
-	      action="store_true", dest="add_ilf",
-	      help="add_ilf")
+              action="store_true", dest="add_ilf",
+              help="add_ilf")
 
 op.add_option("--n_features",
               action="store", type=int, default=2 ** 16,
@@ -174,7 +169,7 @@ def testPU(X_train,y_train,X_test,y_test,total_pred_y_pu,total_pred_y_re):
         y_train_pu = np.copy(y_train)
         pos = np.where(y_train == 1.)[0]
         np.random.shuffle(pos)
-        sacrifice = pos[:n_sacrifice]
+        sacrifice = pos[:int(n_sacrifice)]
         y_train_pu[sacrifice] = -1.
 
         print( "PU transformation applied. We now have:")
@@ -255,20 +250,20 @@ def ngramDivide(n,inputData):
         l=line.strip().split()
         cur_len=len(l)
         cur_index=0
-	if cur_len==0:
+        if cur_len==0:
             continue
         #if cur_len==1:
         #    cur_gram=l[0]
-	#    vocabulary.add(cur_gram)
-	if cur_len<n:
-	    cur_gram=' '.join(l)
+        #    vocabulary.add(cur_gram)
+        if cur_len<n:
+            cur_gram=' '.join(l)
             vocabulary.add(cur_gram)
             #print('!!!!!!!cur_len<n!!!!!!!')
-	    continue
+            continue
         loop_num=cur_len-n+1
         for i in range(loop_num):
             cur_gram=' '.join(l[i:i+n])
-	    vocabulary.add(cur_gram)
+            vocabulary.add(cur_gram)
     #print(vocabulary)
     #print(len(vocabulary))
 #    print("cutting gram end")
@@ -281,23 +276,23 @@ def convertLogToVector(n,inputData,vocabulary,y):
 
 #    print("convertLogToVector start")
     for index_data,line in enumerate(inputData):
-	l=line.strip().split()
-	temp=[]
+        l=line.strip().split()
+        temp=[]
         cur_len=len(l)
         cur_index=0
         if cur_len==0:
             continue
         #if cur_len==1:
         #    cur_gram=l[0]
-	#    temp.append(vocabulary.index(cur_gram))
+        #    temp.append(vocabulary.index(cur_gram))
         if cur_len<n:
             cur_gram=' '.join(l)
             if cur_gram not in vocabulary:
                 continue
             else:
                 temp.append(vocabulary.index(cur_gram))
-		x_result.append(line)
-		y_result.append(y[index_data])
+                x_result.append(line)
+                y_result.append(y[index_data])
             #print('!!!!!!!cur_len<n!!!!!!!')
             result.append(temp)
             continue
@@ -305,12 +300,12 @@ def convertLogToVector(n,inputData,vocabulary,y):
         for i in range(loop_num):
             cur_gram=' '.join(l[i:i+n])
             if cur_gram not in vocabulary:
-	        continue
-	    else:
-	        temp.append(vocabulary.index(cur_gram))
-	result.append(temp)
-	x_result.append(line)
-	y_result.append(y[index_data])
+                continue
+            else:
+                temp.append(vocabulary.index(cur_gram))
+        result.append(temp)
+        x_result.append(line)
+        y_result.append(y[index_data])
 #    print("convertLogToVector end")
     return np.array(result),np.array(y_result),x_result
 
@@ -319,7 +314,7 @@ def calculateTfidfForTrain(inputVector,vocabulary):
     '''
         In this version, tf is not normalized. We use frequence value as tf value.
 
-	    RETRUN: tfidf,tfidf_mean,tfidf_std,idf_dict
+            RETRUN: tfidf,tfidf_mean,tfidf_std,idf_dict
     '''
     tfidf=[]
     idf_dict={}
@@ -339,19 +334,19 @@ def calculateTfidfForTrain(inputVector,vocabulary):
     for index,l in enumerate(inputVector):
         if len(line)>max_longth:
             max_longth=len(l)
-	if index%ded==0:
-	    #print("  "+str(index/ded)+'/10 '+str(time()-t1))
-	    t1=time()
-	for location,gram in enumerate(l) :
+        if index%ded==0:
+            #print("  "+str(index/ded)+'/10 '+str(time()-t1))
+            t1=time()
+        for location,gram in enumerate(l) :
             if gram not in gram_index_dict:
                 gram_index_dict[gram]=set()
-	    gram_index_dict[gram].add(index)
-	    if gram not in gram_index_ilf_dict:
-		gram_index_ilf_dict[gram]=set()
-	    gram_index_ilf_dict[gram].add(location)
+            gram_index_dict[gram].add(index)
+            if gram not in gram_index_ilf_dict:
+                gram_index_ilf_dict[gram]=set()
+            gram_index_ilf_dict[gram].add(location)
 
-	    #if index not in gram_index_dict[gram]:
-	    #gram_index_dict[gram].append(index)
+            #if index not in gram_index_dict[gram]:
+            #gram_index_dict[gram].append(index)
     #print(" t1:"+str(time()-t0))
     t0=time()
     #calculating idf
@@ -360,14 +355,14 @@ def calculateTfidfForTrain(inputVector,vocabulary):
     ded=total/divideLap
     t1=time()
     for index,gram in enumerate(gram_index_dict):
-	if index%ded==0:
+        if index%ded==0:
             #print("  "+str(index/ded)+'/10 '+str(time()-t1))
             t1=time()
         cur_idf=math.log(float(total_log_num)/(float( len(gram_index_dict[gram]) +0.01 )))
 
-	cur_ilf=math.log(float(max_longth)/(float( len(gram_index_ilf_dict[gram]) +0.01 )))
-	idf_dict[gram]=cur_idf
-	ilf_dict[gram]=cur_ilf
+        cur_ilf=math.log(float(max_longth)/(float( len(gram_index_ilf_dict[gram]) +0.01 )))
+        idf_dict[gram]=cur_idf
+        ilf_dict[gram]=cur_ilf
         # print(len(gram_index_dict[gram]),cur_idf)
 #    print("t1:"+str(time()-t0))
     #print(" t2:"+str(time()-t0))
@@ -383,7 +378,7 @@ def calculateTfidfForTrain(inputVector,vocabulary):
 #                    # print ("ssssssssss")
 #            cur_tf.append(float(num)*idf_dict[j])
 #
-#	tfidf.append(np.array(cur_tf))
+#       tfidf.append(np.array(cur_tf))
 #    tfidf=np.array(tfidf)
     t0=time()
     total=len(inputVector)
@@ -391,17 +386,17 @@ def calculateTfidfForTrain(inputVector,vocabulary):
     ded=total/divideLap
     t1=time()
     for index,l in enumerate(inputVector):
-	if index%ded==0:
-	    # print("  "+str(index/ded)+'/10 '+str(time()-t1))
-	    t1=time()
-	cur_tfidf=np.zeros(len(vocabulary))
+        if index%ded==0:
+            # print("  "+str(index/ded)+'/10 '+str(time()-t1))
+            t1=time()
+        cur_tfidf=np.zeros(len(vocabulary))
         for gram_index in l:
-	    if opts.add_ilf:
+            if opts.add_ilf:
                 cur_tfidf[gram_index]=float(l.count(gram_index))*ilf_dict[gram_index]
                 #cur_tfidf[gram_index]=float(l.count(gram_index))*idf_dict[gram_index]*ilf_dict[gram_index]
             else:
                 cur_tfidf[gram_index]=float(l.count(gram_index))*idf_dict[gram_index]
-	    #cur_tfidf[gram_index]=float(l.count(gram_index))*idf_dict[gram_index]*ilf_dict[gram_index]
+            #cur_tfidf[gram_index]=float(l.count(gram_index))*idf_dict[gram_index]*ilf_dict[gram_index]
         tfidf.append(cur_tfidf)
 #    print("t2:"+str(time()-t0))
     tfidf=np.array(tfidf)
@@ -425,9 +420,9 @@ def calculateTfidfForTest(idf_dict,ilf_dict,inputVector,vocabulary):
         for gram_index in l:
             if opts.add_ilf:
                 cur_tfidf[gram_index]=float(l.count(gram_index))*ilf_dict[gram_index]
-		#cur_tfidf[gram_index]=float(l.count(gram_index))*idf_dict[gram_index]*ilf_dict[gram_index]
-	    else:
-		cur_tfidf[gram_index]=float(l.count(gram_index))*idf_dict[gram_index]
+                #cur_tfidf[gram_index]=float(l.count(gram_index))*idf_dict[gram_index]*ilf_dict[gram_index]
+            else:
+                cur_tfidf[gram_index]=float(l.count(gram_index))*idf_dict[gram_index]
         tfidf.append(cur_tfidf)
 #    print("t2:"+str(time()-t0))
     tfidf=np.array(tfidf)
@@ -484,7 +479,7 @@ def benchmark(clf,X_train,y_train,X_test,y_test):
                 length=min(len(clf.coef_[i]),10)
                 top10 = np.argsort(clf.coef_[i])[-length:]
                 print(trim("%s: %s" % (label, " ".join(feature_names[top10]))))
-		print()
+                print()
 
     # if opts.print_report:
     #     print("classification report:")
@@ -702,7 +697,7 @@ if __name__ == '__main__':
     for i,k in enumerate(total_y):
         pred = ""
         for j in range(len(pred_list)):
-    	   pred += ' ' + str(pred_list[j][i])
+           pred += ' ' + str(pred_list[j][i])
         f_yyx.writelines(target_names[int(k)] + " " +str(k) + ' ' + pred + ' ' + total_x_save[i]+'\n')
 
     print('total time: '+str(int((time()-t_start)))+'s')
