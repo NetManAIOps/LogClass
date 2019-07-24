@@ -5,7 +5,7 @@
 # * Author        : Weibin Meng
 # * Email         : m_weibin@163.com
 # * Create time   : 2017-09-13 12:32
-# * Last modified : 2019-07-24 11:45
+# * Last modified : 2019-07-24 15:55
 # * Filename      : filterParameter.py
 # * Description   :
 '''
@@ -45,8 +45,8 @@ def getMsgFromNewSyslog(log):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('-input_filename', help = 'input_file', type = str, default = './data/10000_log.txt')
-    parser.add_argument('-output_filename', help = 'output_file', type = str, default = './data/logs_without_paras_1000.txt')
+    parser.add_argument('-input_filename', help = 'input_file', type = str, default = './data/rawlog.txt')
+    parser.add_argument('-output_filename', help = 'output_file', type = str, default = './data/logs_without_paras.txt')
     args = parser.parse_args()
     input_filename = args.input_filename
     output_filename = args.output_filename
@@ -58,5 +58,5 @@ if __name__ == '__main__':
                 continue
             f.writelines(nen+'\n')
     print('rawlogs:' + input_filename)
-    print('variables have been removed')
-    print('logs without variables:' + output_filename)
+    print('Parameter have been removed')
+    print('logs without parameters:' + output_filename)

@@ -103,7 +103,7 @@ op.add_option("--filtered",
                    "headers, signatures, and quoting.")
 
 def testPU(X_train,y_train,X_test,y_test,total_pred_y_pu,total_pred_y_re):
-    np.random.seed(42)
+    np.random.seed(5)
 
     pu_pred=[]
     # print "Loading dataset"
@@ -506,19 +506,25 @@ def benchmark(clf,X_train,y_train,X_test,y_test):
     #results = [[x[i] for x in results] for i in range(5)]
 
 
-
 if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-logs', help = 'input logs', type = str, default = './data/logs_without_paras.txt')
+    parser.add_argument('-kfold', help = 'kfold crossvalidation', type = int, default = 3)
+    parser.add_argument('-iterations', help = 'iterations', type = int, default = 10)
+    parser.add_argument('-unlabel', help = 'the labels of unlabeled logs', type = str, default = "unlabeled")
+    args = parser.parse_args()
 
     mail_time=time()
-    input_path='./data/data_for_binary_detection.dat'
-    # fig_path='./RSA_sklearn.png'
-    k_of_kflod=3
-    n_for_gram=1
-    unlabel_label="Unlabel"
-    pu_iter_time=5 # iters of pu test
-    multiple_for_pu_iter_time=2 # step=len(np.where(y_train == 1.)[0])/(pu_iter_time*multiple_for_pu_iter_time+1)
-    lable_result_log_filename='pulearning_label_result_log.dat'
-    pu_fscore_file='pu_fscore_file'
+    input_path=args.logs
+    k_of_kflod = args.kfold
+    pu_iter_time = args.iterations # iters of pu test
+    unlabel_label = args.unlabel
+
+    n_for_gram = 1
+    multiple_for_pu_iter_time = 2 # step=len(np.where(y_train == 1.)[0])/(pu_iter_time*multiple_for_pu_iter_time+1)
+    # lable_result_log_filename='pulearning_label_result_log.dat'
+    # pu_fscore_file='pu_fscore_file'
     argv = [] if is_interactive() else sys.argv[1:]
     (opts, args) = op.parse_args(argv)
     if len(args) > 0:
@@ -561,7 +567,7 @@ if __name__ == '__main__':
     X_train=[]
 
     #KFold
-    skf=StratifiedKFold(n_splits=k_of_kflod)
+    skf = StratifiedKFold(n_splits = k_of_kflod)
     skf.get_n_splits(X_data,y_data)
     cur_num=1
 
@@ -648,15 +654,15 @@ if __name__ == '__main__':
     for k in x_save_list:
         total_x_save.extend(k)
 
-    if opts.add_length_vector:
-        lable_result_log_filename='./'+str(k_of_kflod)+'_'+str(n_for_gram)+'_add_'+lable_result_log_filename
-    else:
-        lable_result_log_filename='./'+str(k_of_kflod)+'_'+str(n_for_gram)+'_'+lable_result_log_filename
+    # if opts.add_length_vector:
+    #     lable_result_log_filename='./'+str(k_of_kflod)+'_'+str(n_for_gram)+'_add_'+lable_result_log_filename
+    # else:
+    #     lable_result_log_filename='./'+str(k_of_kflod)+'_'+str(n_for_gram)+'_'+lable_result_log_filename
 
-    f_yyx = open(lable_result_log_filename,'w')
+    # f_yyx = open(lable_result_log_filename,'w')
 
 
-    file_score = open(pu_fscore_file+'_'+str(multiple_for_pu_iter_time)+'_'+str(pu_iter_time)+'_'+str(k_of_kflod)+'_total_'+str(len(y_data))+'.dat','w')
+    # file_score = open(pu_fscore_file+'_'+str(multiple_for_pu_iter_time)+'_'+str(pu_iter_time)+'_'+str(k_of_kflod)+'_total_'+str(len(y_data))+'.dat','w')
     for i,n in enumerate(total_pred_y_pu):
             #precision, recall, f1_score, _ = precision_recall_fscore_support(y_test, y_pred)
             print('=' * 80)
@@ -668,7 +674,7 @@ if __name__ == '__main__':
             # print("confusion matrix:" )
             # print(metrics.confusion_matrix(total_y, total_pred_y_pu[i]))
             precision1, recall1, f1_score1, _ = precision_recall_fscore_support(total_y, total_pred_y_pu[i])
-            print("puLearning precision:"+str(round(precision1[1],4))+ " recall:"+str(round(recall1[1],4))+" f1_score:"+str(round(f1_score1[1],4)))
+            print("puLearning classifier: precision:"+str(round(precision1[1],4))+ " recall:"+str(round(recall1[1],4))+" f1_score:"+str(round(f1_score1[1],4)))
             print('-' * 80)
             # print(str(i)+'/'+str(pu_iter_time))
             # print("regular classification report:" )
@@ -678,8 +684,8 @@ if __name__ == '__main__':
             # print("confusion matrix:" )
             # print(metrics.confusion_matrix(total_y, total_pred_y_re[i]))
             precision2, recall2, f1_score2, _ = precision_recall_fscore_support(total_y, total_pred_y_re[i])
-            print("regular precision:"+str(round(precision2[1],4))+ " recall:"+str(round(recall2[1],4))+" f1_score:"+str(round(f1_score2[1],4)))
-            file_score.writelines(str(f1_score1[1])+' '+str(f1_score2[1])+' '+str(int(i*len(y_data)/(multiple_for_pu_iter_time*pu_iter_time)))+'\n')
+            print("regular classifier: precision:"+str(round(precision2[1],4))+ " recall:"+str(round(recall2[1],4))+" f1_score:"+str(round(f1_score2[1],4)))
+            # file_score.writelines(str(f1_score1[1])+' '+str(f1_score2[1])+' '+str(int(i*len(y_data)/(multiple_for_pu_iter_time*pu_iter_time)))+'\n')
 
             print('=' * 80)
 
@@ -698,6 +704,6 @@ if __name__ == '__main__':
         pred = ""
         for j in range(len(pred_list)):
            pred += ' ' + str(pred_list[j][i])
-        f_yyx.writelines(target_names[int(k)] + " " +str(k) + ' ' + pred + ' ' + total_x_save[i]+'\n')
+        # f_yyx.writelines(target_names[int(k)] + " " +str(k) + ' ' + pred + ' ' + total_x_save[i]+'\n')
 
     print('total time: '+str(int((time()-t_start)))+'s')
