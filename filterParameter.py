@@ -45,8 +45,8 @@ def getMsgFromNewSyslog(log):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('-input_filename', help = 'input_file', type = str, default = '../data/rawlog_1000.txt')
-    parser.add_argument('-output_filename', help = 'output_file', type = str, default = '../data/logs_without_paras_1000.txt')
+    parser.add_argument('-input_filename', help = 'input_file', type = str, default = './data/10000_log.txt')
+    parser.add_argument('-output_filename', help = 'output_file', type = str, default = './data/logs_without_paras_1000.txt')
     args = parser.parse_args()
     input_filename = args.input_filename
     output_filename = args.output_filename
@@ -57,4 +57,6 @@ if __name__ == '__main__':
             if len(nen.split())<=1:
                 continue
             f.writelines(nen+'\n')
-    print('finished~~~~~')
+    p
+    print('variables have been removed')
+    print('')
