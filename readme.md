@@ -17,7 +17,7 @@ Weibin Meng, Ying Liu, Shenglin Zhang, Dan Pei, Hui Dong, Lei Song, and Xulong L
 
 
 ### ilf\_binary\_Classification.py
-**intro**: binary classification with TF-ILF
+**intro**: binary classification with TF-ILF.
 
 **run**: python ilf\_binary\_Classification.py -logs ./data/logs\_without\_paras.txt  -kfold 3 -iterations 10 -prefix unlabeled -add_ilf 1
 
@@ -25,7 +25,10 @@ Weibin Meng, Ying Liu, Shenglin Zhang, Dan Pei, Hui Dong, Lei Song, and Xulong L
 
 * **-logs**: input path which is the output of filterParameters.py
 * **-kfold**: k of kfold-crossvalidation
-* **-iterations**: iterations for pulearning evaluation, which is related to Fig.6 in paper. (I have forgot the detailed function, you can try to change it)
-* **-prefix**: the prefix of the lines of unlabeled logs. for example, the following logs are anomalous(belong to error\_2 category) and unlabeled logs respectively.
+* **-add_ilf**: utilize TF-ILF to generate feature vector.
+* **-kfold**: k of kfold-crossvalidation
+* **-prefix**: the prefix of the lines of unlabeled logs. for example, the following logs are anomalous(belong to error\_2 category) and unlabeled logs respectively. You can find more logs in ./data/rawlog.txt
 	*  **error\_2** [SIF pica_sif]Interface te-1/1/56, changed state to down
 	*  **unlabeled** 10LLDP/5/LLDP_PVID_INCONSISTENT: -Slot=5; PVID mismatch discovered on FortyGigE5/0/12 (PVID 512), with YQ-YQ01A423-B-LY2R-135.Int qe-1/1/50 (PVID 21). 
+
+### ilf\_binary\_Classification.py
