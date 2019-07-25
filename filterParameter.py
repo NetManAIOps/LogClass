@@ -45,8 +45,8 @@ def getMsgFromNewSyslog(log):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('-input_filename', help = 'input_file', type = str, default = './data/rawlog.txt')
-    parser.add_argument('-output_filename', help = 'output_file', type = str, default = './data/logs_without_paras.txt')
+    parser.add_argument('-input', help = 'input_file', type = str, default = './data/rawlog.txt')
+    parser.add_argument('-output', help = 'output_file', type = str, default = './data/logs_without_paras.txt')
     args = parser.parse_args()
     input_filename = args.input_filename
     output_filename = args.output_filename
