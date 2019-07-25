@@ -17,12 +17,12 @@ Weibin Meng, Ying Liu, Shenglin Zhang, Dan Pei, Hui Dong, Lei Song, and Xulong L
 
 
 ### ilf\_binary\_Classification.py
-**intro**: remove parameters from raw logs. 
+**intro**: binary classification with TF-ILF
 
-**run**: python ilf\_binary\_Classification.py -rawlog ./data/rawlog.txt -output ./data/logs\_without\_paras.txt
+**run**: python ilf\_binary\_Classification.py -logs ./data/logs\_without\_paras.txt  -kfold 3 -iterations 10 -unlabel unlabeled -add_ilf 1
 
 **parameters**:
 
-* -rawlog: rawlog's path
+* -logs: input path, logs without paremeters
 * -output: output path, which is the logs without paremeters.
 
