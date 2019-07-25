@@ -90,9 +90,9 @@ op.add_option("--top10",
 op.add_option("--all_categories",
               action="store_true", dest="all_categories",
               help="Whether to use all categories or not.")
-op.add_option("--add_ilf",
-              action="store_true", dest="add_ilf",
-              help="add_ilf")
+# op.add_option("--add_ilf",
+#               action="store_true", dest="add_ilf",
+#               help="add_ilf")
 
 op.add_option("--n_features",
               action="store", type=int, default=2 ** 16,
@@ -310,12 +310,13 @@ def convertLogToVector(n,inputData,vocabulary,y):
     return np.array(result),np.array(y_result),x_result
 
 
-def calculateTfidfForTrain(inputVector,vocabulary):
+def calculateTfidfForTrain(inputVector,vocabulary,para):
     '''
         In this version, tf is not normalized. We use frequence value as tf value.
 
             RETRUN: tfidf,tfidf_mean,tfidf_std,idf_dict
     '''
+    ilf_flag = para['ilf'] 
     tfidf=[]
     idf_dict={}
     ilf_dict={}
@@ -391,7 +392,7 @@ def calculateTfidfForTrain(inputVector,vocabulary):
             t1=time()
         cur_tfidf=np.zeros(len(vocabulary))
         for gram_index in l:
-            if opts.add_ilf:
+            if ilf_flag:
                 cur_tfidf[gram_index]=float(l.count(gram_index))*ilf_dict[gram_index]
                 #cur_tfidf[gram_index]=float(l.count(gram_index))*idf_dict[gram_index]*ilf_dict[gram_index]
             else:
@@ -411,14 +412,15 @@ def calculateTfidfForTrain(inputVector,vocabulary):
 
     return tfidf,idf_dict,ilf_dict
 
-def calculateTfidfForTest(idf_dict,ilf_dict,inputVector,vocabulary):
+def calculateTfidfForTest(idf_dict,ilf_dict,inputVector,vocabulary, para):
+    ilf_flag = para['ilf'] 
     tfidf=[]
     #calculating tfidf
     t0=time()
     for index,l in enumerate(inputVector):
         cur_tfidf=np.zeros(len(vocabulary))
         for gram_index in l:
-            if opts.add_ilf:
+            if ilf_flag:
                 cur_tfidf[gram_index]=float(l.count(gram_index))*ilf_dict[gram_index]
                 #cur_tfidf[gram_index]=float(l.count(gram_index))*idf_dict[gram_index]*ilf_dict[gram_index]
             else:
@@ -451,7 +453,8 @@ def addLengthInFeature(X,X_train_bag_vector):
 
 # #############################################################################
 # Benchmark classifiers
-def benchmark(clf,X_train,y_train,X_test,y_test):
+def benchmark(para, clf,X_train,y_train,X_test,y_test):
+    # print_flag = para["print_top10"]
     print('_' * 80)
     print("LinearSVC Training: ")
     # print(clf)
@@ -472,14 +475,7 @@ def benchmark(clf,X_train,y_train,X_test,y_test):
         print("dimensionality: %d" % clf.coef_.shape[1])
         print("density: %f" % density(clf.coef_))
 
-        if opts.print_top10 and feature_names is not None:
-            print("top 10 keywords per class:")
-            for i, label in enumerate(target_names):
-                print(i,label)
-                length=min(len(clf.coef_[i]),10)
-                top10 = np.argsort(clf.coef_[i])[-length:]
-                print(trim("%s: %s" % (label, " ".join(feature_names[top10]))))
-                print()
+
 
     # if opts.print_report:
     #     print("classification report:")
@@ -513,8 +509,15 @@ if __name__ == '__main__':
     parser.add_argument('-kfold', help = 'kfold crossvalidation', type = int, default = 3)
     parser.add_argument('-iterations', help = 'iterations', type = int, default = 10)
     parser.add_argument('-unlabel', help = 'the labels of unlabeled logs', type = str, default = "unlabeled")
+    parser.add_argument('-add_ilf', help = 'if set 1, LogClass will use ilf to generate ferture vector', type = int, default = 0)
+    parser.add_argument('-add_length', help = 'if set 1, LogClass will adding length as feature', type = int, default = 0)
     args = parser.parse_args()
 
+    para = {
+    "ilf": args.add_ilf,
+    "add_length": args.add_length,
+
+    }
     mail_time=time()
     input_path=args.logs
     k_of_kflod = args.kfold
@@ -525,15 +528,15 @@ if __name__ == '__main__':
     multiple_for_pu_iter_time = 2 # step=len(np.where(y_train == 1.)[0])/(pu_iter_time*multiple_for_pu_iter_time+1)
     # lable_result_log_filename='pulearning_label_result_log.dat'
     # pu_fscore_file='pu_fscore_file'
-    argv = [] if is_interactive() else sys.argv[1:]
-    (opts, args) = op.parse_args(argv)
-    if len(args) > 0:
-        op.error("this script takes no arguments.")
-        sys.exit(1)
+    # argv = [] if is_interactive() else sys.argv[1:]
+    # (opts, args) = op.parse_args(argv)
+    # if len(args) > 0:
+    #     op.error("this script takes no arguments.")
+    #     sys.exit(1)
 
-    print(__doc__)
-    op.print_help()
-    print()
+    # print(__doc__)
+    # op.print_help()
+    # print()
 
 
     # #############################################################################
@@ -611,13 +614,13 @@ if __name__ == '__main__':
 
         t0=time()
         print(" calculateTfidfForTrain start")
-        X_train,idf_dict,ilf_dict=calculateTfidfForTrain(X_train_bag_vector,vocabulary)
+        X_train,idf_dict,ilf_dict=calculateTfidfForTrain(X_train_bag_vector,vocabulary, para)
         print("  calculateTfidfForTrain end, time="+str(time()-t0)+"s")
         print(" X_train.shape:"+str(X_train.shape))
 
         t0=time()
         print(" calculateTfidfForTest start")
-        X_test=calculateTfidfForTest(idf_dict,ilf_dict,X_test_bag_vector,vocabulary)
+        X_test=calculateTfidfForTest(idf_dict,ilf_dict,X_test_bag_vector,vocabulary, para)
         print("  calculateTfidfForTest end, time="+str(time()-t0)+"s")
         #print(X_train.shape)
         #print(X_test.shape)
@@ -626,7 +629,7 @@ if __name__ == '__main__':
         y_list.append(y_test)
         x_save_list.append(X_test_save)
         #add length to feature vector
-        if opts.add_length_vector:
+        if args.add_length:
             print(" Adding length as feature")
             X_train=addLengthInFeature(X_train,X_train_bag_vector)
             X_test=addLengthInFeature(X_test,X_test_bag_vector)
@@ -642,7 +645,7 @@ if __name__ == '__main__':
         print('=' * 80)
         testPU(X_train,y_train,X_test,y_test,total_pred_y_pu,total_pred_y_re)
         print('=' * 80)
-        results.append(benchmark(LinearSVC(penalty="l2", dual=False,tol=1e-3),X_train,y_train,X_test,y_test))
+        results.append(benchmark(para,LinearSVC(penalty="l2", dual=False,tol=1e-3),X_train,y_train,X_test,y_test))
 
 
     total_y=[]

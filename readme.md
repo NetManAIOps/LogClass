@@ -16,10 +16,10 @@ Weibin Meng, Ying Liu, Shenglin Zhang, Dan Pei, Hui Dong, Lei Song, and Xulong L
 * -output: output path, which is the logs without paremeters.
 
 
-### filterParameters.py
+### ilf\_binary\_Classification.py
 **intro**: remove parameters from raw logs. 
 
-**run**: python filterParameter.py -rawlog ./data/rawlog.txt -output ./data/logs\_without\_paras.txt
+**run**: python ilf\_binary\_Classification.py -rawlog ./data/rawlog.txt -output ./data/logs\_without\_paras.txt
 
 **parameters**:
 
