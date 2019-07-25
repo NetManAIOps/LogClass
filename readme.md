@@ -6,7 +6,23 @@ Weibin Meng, Ying Liu, Shenglin Zhang, Dan Pei, Hui Dong, Lei Song, and Xulong L
 
 ## Please run following files one by one
 ### filterParameters.py
-python filterParameter.py -input
+**intro**: remove parameters from raw logs. 
 
-* remove parameters from raw logs. The input is rawlog.
+**run**: python filterParameter.py -rawlog ./data/rawlog.txt -output ./data/logs\_without\_paras.txt
+
+**parameters**:
+
+* -rawlog: rawlog's path
+* -output: output path, which is the logs without paremeters.
+
+
+### filterParameters.py
+**intro**: remove parameters from raw logs. 
+
+**run**: python filterParameter.py -rawlog ./data/rawlog.txt -output ./data/logs\_without\_paras.txt
+
+**parameters**:
+
+* -rawlog: rawlog's path
+* -output: output path, which is the logs without paremeters.
 
