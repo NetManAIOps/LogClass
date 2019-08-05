@@ -505,12 +505,12 @@ def benchmark(para, clf,X_train,y_train,X_test,y_test):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('-logs', help = 'input logs', type = str, default = './data/logs_without_paras.txt')
-    parser.add_argument('-kfold', help = 'kfold crossvalidation', type = int, default = 3)
-    parser.add_argument('-iterations', help = 'iterations', type = int, default = 10)
-    parser.add_argument('-prefix', help = 'the labels of unlabeled logs', type = str, default = "unlabeled")
-    parser.add_argument('-add_ilf', help = 'if set 1, LogClass will use ilf to generate ferture vector', type = int, default = 1)
-    parser.add_argument('-add_length', help = 'if set 1, LogClass will adding length as feature', type = int, default = 0)
+    parser.add_argument('--logs', help = 'input logs', type = str, default = './data/logs_without_paras.txt')
+    parser.add_argument('--kfold', help = 'kfold crossvalidation', type = int, default = 3)
+    parser.add_argument('--iterations', help = 'iterations', type = int, default = 10)
+    parser.add_argument('--prefix', help = 'the labels of unlabeled logs', type = str, default = "unlabeled")
+    parser.add_argument('--add_ilf', help = 'if set 1, LogClass will use ilf to generate ferture vector', type = int, default = 1)
+    parser.add_argument('--add_length', help = 'if set 1, LogClass will adding length as feature', type = int, default = 0)
     args = parser.parse_args()
 
     para = {
