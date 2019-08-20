@@ -169,13 +169,11 @@ def build_ngram_vocabulary(n, inputData):
             Vocabulary to index dict
     """
     vocabulary = {}
-    idx = 0
     for line in inputData:
         ngrams_list = get_ngrams(n, line)
         for ngram in ngrams_list:
             if not ngram in vocabulary:
-                vocabulary[ngram] = idx
-                idx += 1
+                vocabulary[ngram] = len(vocabulary)
 
     return vocabulary
 
@@ -199,21 +197,10 @@ def log_to_vector(n, inputData, vocabulary, y):
 
 
 def setTrainDataForILF(x, y):
-    x = list(x)
-    y = list(y)
-    x_set = set()
-    x_list = []
-    y_list = []
-    for i, k in enumerate(x):
-        cur_len = len(x_set)
-        x_set.add(k)
-        if cur_len != len(x_set):
-            x_list.append(k)
-            y_list.append(y[i])
-    x_list = np.array(x_list)
-    y_list = np.array(y_list)
+    x_res, indices = np.unique(x, return_index=True)
+    y_res = y[indices]
 
-    return x_list, y_list
+    return x_res, y_res
 
 def calculate_inv_freq(total, num):
     return np.log(
@@ -477,338 +464,342 @@ op.print_help()
 print()
 
 # USAR EL IF MAIN 
-# BUSCAR BIEN EL LUGAR DONDE SE PUEDE DIVIDIR FACILMENTE EL IDF DEL ILF
-# ES NECESARIO HACERLO TIPO FUNCIONAL? O SIMPLEMENTE MEJOR HACER DOS METODOS DIFERENTES?
-# EL TEMA ES LA REPETICION DEL CODIGO...
 # #############################################################################
-t_start = time()
-X_data = []
-label_dict = {}
-y_data = []
-k_of_kflod = opts.k_of_kflod
-target_names = []
-with open(opts.logs) as IN:
-    for line in IN:
-        l = line.strip().split()
-        label = l[0]
-        # ignore INFO logs, only classify anomalous logs
-        if label == "unlabeled":
-            continue
+if __name__ == "__main__":
+    t_start = time()
 
-        sublabel = l[0]
-        if sublabel not in label_dict:
-            label_dict[sublabel] = len(label_dict)
-            target_names.append(sublabel)
-        X_data.append(" ".join(l[2:]))
-        y_data.append(label_dict[sublabel])
-X_data = np.array(X_data)
-y_data = np.array(y_data)
+    X_data = []
+    label_dict = {}
+    y_data = []
+    k_of_kflod = opts.k_of_kflod
 
-y_test = []
-y_train = []
-X_test = []
-X_train = []
+    target_names = []
+    with open(opts.logs) as IN:
+        for line in IN:
+            l = line.strip().split()
+            label = l[0]
+            # ignore INFO logs, only classify anomalous logs
+            if label == "unlabeled":
+                continue
+            if label not in label_dict:
+                label_dict[label] = len(label_dict)
+                target_names.append(label)
+            X_data.append(" ".join(l[2:])) # WHY 2? It's disregarding the second token
+            y_data.append(label_dict[label])
+    X_data = np.array(X_data)
+    y_data = np.array(y_data)
 
-# KFold
-skf = ""
-if opts.add_ilf:
-    skf = StratifiedKFold(n_splits=k_of_kflod)
-else:
-    skf = KFold(n_splits=k_of_kflod)
-# skf=StratifiedKFold(n_splits=k_of_kflod)
-skf.get_n_splits(X_data, y_data)
-cur_num = 1
-
-total_iter = 0
-total_train_time = 0
-total_test_time = 0
-
-clf_names_list = []
-training_time_list = []
-test_time_list = []
-pred_list = []
-y_list = []
-x_save_list = []
-for train_index, test_index in skf.split(X_data, y_data):
-    print("\ncur_iteration:%d/%d" % (cur_num, k_of_kflod))
-    cur_num += 1
-    X_train = []
-    X_test = []
-    y_train = []
     y_test = []
-    # right codes
-    if opts.less_train:
-        X_train, X_test = X_data[test_index], X_data[train_index]
-        y_train, y_test = y_data[test_index], y_data[train_index]
+    y_train = []
+    X_test = []
+    X_train = []
+
+    # KFold
+    skf = ""
+    if opts.add_ilf:
+        skf = StratifiedKFold(n_splits=k_of_kflod)
     else:
-        X_train, X_test = X_data[train_index], X_data[test_index]
-        y_train, y_test = y_data[train_index], y_data[test_index]
-    print(" train data size:" + str(X_train.shape[0]))
-    print(" test  data size:" + str(X_test.shape[0]))
-
-    # new code#######################
-    # vocabulary is a list including words
-    t0 = time()
-    print(" build_ngram_vocabulary start")
-    vocabulary = build_ngram_vocabulary(n_for_gram, X_train)
-    print("  build_ngram_vocabulary end, time=" + str(time() - t0) + "s")
-
-    # if opts.add_ilf:
-    #   X_train,y_train=setTrainDataForILF(X_train,y_train)
-
-    t0 = time()
-    print(" log_to_vector for train start")
-    X_train_bag_vector, y_train, X_train_save = log_to_vector(
-        n_for_gram, X_train, vocabulary, y_train
-    )
-    print("  log_to_vector for train end, time=" + str(time() - t0) + "s")
-    print(" X_train_bag_vector.shape:" + str(X_train_bag_vector.shape))
-    t0 = time()
-    print(" log_to_vector for test start")
-
-    # print(len(X_test),len(y_test))
-    X_test_bag_vector, y_test, X_test_save = log_to_vector(
-        n_for_gram, X_test, vocabulary, y_test
-    )
-    print("  log_to_vector for test end, time=" + str(time() - t0) + "s")
-
-    t0 = time()
-    print(" calculateTfidfForTrain start")
-    X_train, idf_dict, ilf_dict = calculateTfidfForTrain(X_train_bag_vector, vocabulary)
-    print("  calculateTfidfForTrain end, time=" + str(time() - t0) + "s")
-    print(" X_train.shape:" + str(X_train.shape))
-
-    t0 = time()
-    print(" calculateTfidfForTest start")
-    X_test = calculateTfidfForTest(idf_dict, ilf_dict, X_test_bag_vector, vocabulary)
-    print("  calculateTfidfForTest end, time=" + str(time() - t0) + "s")
-    # print(X_train.shape)
-    # print(X_test.shape)
-
-    y_list.append(y_test)
-    x_save_list.append(X_test_save)
-    # add length to feature vector
-    if opts.add_length_vector:
-        print(" Adding length as feature")
-        X_train = addLengthInFeature(X_train, X_train_bag_vector)
-        X_test = addLengthInFeature(X_test, X_test_bag_vector)
-        print("  X_train.shape after add lengeth feature:" + str(X_train.shape))
-
-    # print("X_train n_samples: %d, n_features: %d" % (X_train.shape)
-    # print("X_test  n_samples: %d, n_features: %d" % X_test.shape)
-    feature_names = vocabulary
-    # print(X_train)
-    # print(X_test)
-
-    # print("Extracting features from the training data using a sparse vectorizer")
-    # t0 = time()
-    # vectorizer = TfidfVectorizer(sublinear_tf=True, max_df=0.5,
-    #                                  stop_words='english')
-    # X_train = vectorizer.fit_transform(X_train)
-    # duration = time() - t0
-    # print("done in %fs" % (duration))
-    # print("n_samples: %d, n_features: %d" % X_train.shape)
-    # print()
-
-    # print("Extracting features from the test data using the same vectorizer")
-    # t0 = time()
-    # X_test = vectorizer.transform(X_test)
-    # duration = time() - t0
-    # print("done in %fs " % (duration))
-    # #print("done in %fs at %0.3fMB/s" % (duration, data_test_size_mb / duration))
-    # print("n_samples: %d, n_features: %d" % X_test.shape)
-    # print()
-
-    # # mapping from integer feature name to original token string
-
-    # feature_names = vectorizer.get_feature_names()
-    # # print(type(feature_names))
-    # if opts.select_chi2:
-    #     print("Extracting %d best features by a chi-squared test" %
-    #           opts.select_chi2)
-    #     t0 = time()
-    #     ch2 = SelectKBest(chi2, k=opts.select_chi2)
-    #     X_train = ch2.fit_transform(X_train, y_train)
-    #     X_test = ch2.transform(X_test)
-    #     if feature_names:
-    #         # keep selected feature names
-    #         feature_names = [feature_names[i] for i
-    #                          in ch2.get_support(indices=True)]
-    #     print("done in %fs" % (time() - t0))
-    #     print()
-
-    if feature_names:
-        feature_names = np.asarray(feature_names)
-
-    results = []
-    """
-    for clf, name in (
-           (RidgeClassifier(tol=1e-2, solver="lsqr"), "Ridge Classifier"),
-           (Perceptron(n_iter=50), "Perceptron"),
-           (PassiveAggressiveClassifier(n_iter=50), "Passive-Aggressive"),
-            #(KNeighborsClassifier(n_neighbors=10), "kNN"),
-           (RandomForestClassifier(n_estimators=100), "Random forest")):
-       print('=' * 80)
-       print(name)
-       results.append(benchmark(clf))
-
-    for penalty in ["l2", "l1"]:
-       print('=' * 80)
-       print("%s penalty" % penalty.upper())
-       # Train Liblinear model
-       results.append(benchmark(LinearSVC(penalty=penalty, dual=False,
-                                          tol=1e-3)))
-
-       # Train SGD model
-       results.append(benchmark(SGDClassifier(alpha=.0001, n_iter=50,
-                                              penalty=penalty)))
-
-    # Train SGD with Elastic Net penalty
-    print('=' * 80)
-    print("Elastic-Net penalty")
-    results.append(benchmark(SGDClassifier(alpha=.0001, n_iter=50,
-                                          penalty="elasticnet")))
-
-    # Train NearestCentroid without threshold
-    print('=' * 80)
-    print("NearestCentroid (aka Rocchio classifier)")
-    results.append(benchmark(NearestCentroid()))
-
-    # Train sparse Naive Bayes classifiers
-    print('=' * 80)
-    print("Naive Bayes")
-    results.append(benchmark(MultinomialNB(alpha=.01)))
-    results.append(benchmark(BernoulliNB(alpha=.01)))
-
-    """
-
-    print("=" * 80)
-    print("LinearSVC  l2 penalty")
-    # Train Liblinear model
-    clf, score, train_time, test_time, pred, iterations = benchmark(
-            LinearSVC(
-                penalty="l2",
-                dual=False,
-                # max_iter=1,
-                tol=total_tol,
-            ),
-            X_train,
-            y_train,
-            X_test,
-            y_test,
-        ) # 1e-3
+        skf = KFold(n_splits=k_of_kflod)
+    skf.get_n_splits(X_data, y_data)
     
-    total_iter += iterations
-    total_train_time += train_time
-    total_test_time += test_time
 
-    clf_descr = str(clf).split('(')[0]
-    results.append(
-        (clf_descr, score, train_time, test_time, pred)
-    )  
+    total_iter = 0
+    total_train_time = 0
+    total_test_time = 0
+
+    clf_names_list = []
+    training_time_list = []
+    test_time_list = []
+    pred_list = []
+    y_list = []
+    x_save_list = []
+    cur_num = 1
+    for train_index, test_index in skf.split(X_data, y_data):
+        print("\ncur_iteration:%d/%d" % (cur_num, k_of_kflod))
+        cur_num += 1
+        X_train = []
+        X_test = []
+        y_train = []
+        y_test = []
+        # right codes
+        # WHY DOES IT DO THIS LESS_TRAIN DATA APPROACH?
+        # IT JUST CHANGES TEST FOR TRAIN TO ACHIEVE IT??
+        if opts.less_train:
+            X_train, X_test = X_data[test_index], X_data[train_index]
+            y_train, y_test = y_data[test_index], y_data[train_index]
+        else:
+            X_train, X_test = X_data[train_index], X_data[test_index]
+            y_train, y_test = y_data[train_index], y_data[test_index]
+        print(" train data size:" + str(X_train.shape[0]))
+        print(" test  data size:" + str(X_test.shape[0]))
+
+        # new code#######################
+        # vocabulary is a list including words
+        t0 = time()
+        print(" build_ngram_vocabulary start")
+        vocabulary = build_ngram_vocabulary(n_for_gram, X_train)
+        print("  build_ngram_vocabulary end, time=" + str(time() - t0) + "s")
+
+        # WHY IS THIS COMMENTED OUT?
+        # if opts.add_ilf:
+            # X_train,y_train=setTrainDataForILF(X_train,y_train)
+
+        t0 = time()
+        print(" log_to_vector for train start")
+        X_train_bag_vector, y_train, X_train_save = log_to_vector(
+            n_for_gram, X_train, vocabulary, y_train
+        )
+        print("  log_to_vector for train end, time=" + str(time() - t0) + "s")
+        print(" X_train_bag_vector.shape:" + str(X_train_bag_vector.shape))
+        t0 = time()
+        print(" log_to_vector for test start")
+
+        X_test_bag_vector, y_test, X_test_save = log_to_vector(
+            n_for_gram, X_test, vocabulary, y_test
+        )
+        print("  log_to_vector for test end, time=" + str(time() - t0) + "s")
+
+        t0 = time()
+        print(" calculateTfidfForTrain start")
+        X_train, invf_dict = calculate_tf_invf_train(X_train_bag_vector, vocabulary)
+        print("  calculateTfidfForTrain end, time=" + str(time() - t0) + "s")
+        print(" X_train.shape:" + str(X_train.shape))
+
+        t0 = time()
+        print(" calculateTfidfForTest start")
+        X_test = create_invf_vector(invf_dict, X_test_bag_vector, vocabulary)
+        print("  calculateTfidfForTest end, time=" + str(time() - t0) + "s")
+
+        y_list.append(y_test)
+        # WHAT'S THE POINT OF THE x_save_list, x_test_save, isn't it the log input already?
+        x_save_list.append(X_test_save)
+        # add length to feature vector
+        if opts.add_length_vector:
+            print(" Adding length as feature")
+            X_train = addLengthInFeature(X_train, X_train_bag_vector)
+            X_test = addLengthInFeature(X_test, X_test_bag_vector)
+            print("  X_train.shape after add lengeth feature:" + str(X_train.shape))
+
+        # print("X_train n_samples: %d, n_features: %d" % (X_train.shape)
+        # print("X_test  n_samples: %d, n_features: %d" % X_test.shape)
+        feature_names = vocabulary
+        # print(X_train)
+        # print(X_test)
+
+        # print("Extracting features from the training data using a sparse vectorizer")
+        # t0 = time()
+        # vectorizer = TfidfVectorizer(sublinear_tf=True, max_df=0.5,
+        #                                  stop_words='english')
+        # X_train = vectorizer.fit_transform(X_train)
+        # duration = time() - t0
+        # print("done in %fs" % (duration))
+        # print("n_samples: %d, n_features: %d" % X_train.shape)
+        # print()
+
+        # print("Extracting features from the test data using the same vectorizer")
+        # t0 = time()
+        # X_test = vectorizer.transform(X_test)
+        # duration = time() - t0
+        # print("done in %fs " % (duration))
+        # #print("done in %fs at %0.3fMB/s" % (duration, data_test_size_mb / duration))
+        # print("n_samples: %d, n_features: %d" % X_test.shape)
+        # print()
+
+        # # mapping from integer feature name to original token string
+
+        # feature_names = vectorizer.get_feature_names()
+        # # print(type(feature_names))
+        # if opts.select_chi2:
+        #     print("Extracting %d best features by a chi-squared test" %
+        #           opts.select_chi2)
+        #     t0 = time()
+        #     ch2 = SelectKBest(chi2, k=opts.select_chi2)
+        #     X_train = ch2.fit_transform(X_train, y_train)
+        #     X_test = ch2.transform(X_test)
+        #     if feature_names:
+        #         # keep selected feature names
+        #         feature_names = [feature_names[i] for i
+        #                          in ch2.get_support(indices=True)]
+        #     print("done in %fs" % (time() - t0))
+        #     print()
+
+        if feature_names:
+            feature_names = np.asarray(feature_names)
+
+        results = []
+        """
+        for clf, name in (
+            (RidgeClassifier(tol=1e-2, solver="lsqr"), "Ridge Classifier"),
+            (Perceptron(n_iter=50), "Perceptron"),
+            (PassiveAggressiveClassifier(n_iter=50), "Passive-Aggressive"),
+                #(KNeighborsClassifier(n_neighbors=10), "kNN"),
+            (RandomForestClassifier(n_estimators=100), "Random forest")):
+        print('=' * 80)
+        print(name)
+        results.append(benchmark(clf))
+
+        for penalty in ["l2", "l1"]:
+        print('=' * 80)
+        print("%s penalty" % penalty.upper())
+        # Train Liblinear model
+        results.append(benchmark(LinearSVC(penalty=penalty, dual=False,
+                                            tol=1e-3)))
+
+        # Train SGD model
+        results.append(benchmark(SGDClassifier(alpha=.0001, n_iter=50,
+                                                penalty=penalty)))
+
+        # Train SGD with Elastic Net penalty
+        print('=' * 80)
+        print("Elastic-Net penalty")
+        results.append(benchmark(SGDClassifier(alpha=.0001, n_iter=50,
+                                            penalty="elasticnet")))
+
+        # Train NearestCentroid without threshold
+        print('=' * 80)
+        print("NearestCentroid (aka Rocchio classifier)")
+        results.append(benchmark(NearestCentroid()))
+
+        # Train sparse Naive Bayes classifiers
+        print('=' * 80)
+        print("Naive Bayes")
+        results.append(benchmark(MultinomialNB(alpha=.01)))
+        results.append(benchmark(BernoulliNB(alpha=.01)))
+
+        """
+
+        print("=" * 80)
+        print("LinearSVC  l2 penalty")
+        # Train Liblinear model
+        clf, score, train_time, test_time, pred, iterations = benchmark(
+                LinearSVC(
+                    penalty="l2",
+                    dual=False,
+                    # max_iter=1,
+                    tol=total_tol,
+                ),
+                X_train,
+                y_train,
+                X_test,
+                y_test,
+            ) # 1e-3
+        
+        total_iter += iterations
+        total_train_time += train_time
+        total_test_time += test_time
+
+        clf_descr = str(clf).split('(')[0]
+        results.append(
+            (clf_descr, score, train_time, test_time, pred)
+        )  
+        print("=" * 80)
+
+        results = [[x[i] for x in results] for i in range(5)]
+        clf_names, score, training_time, test_time, pred = results
+        # The first iteration
+        if clf_names_list == []:
+            clf_names_list = clf_names
+            training_time_list = training_time
+            test_time_list = test_time
+            pred_list = pred
+        else:
+            for i, k in enumerate(training_time):
+                training_time_list[i] += k
+                test_time_list[i] += test_time[i]
+                pred_list[i].extend(pred[i])
+
+    # Aggregates y results for later report
+    total_y = []
+    for k in y_list:
+        total_y.extend(k)
+    # This would eventually be saved but I don't see the reason why yet
+    total_x_save = []
+    for k in x_save_list:
+        total_x_save.extend(k)
+
+    # if opts.add_length_vector:
+    #     lable_result_log_filename='./result/'+str(k_of_kflod)+'_'+str(n_for_gram)+'_add_'+lable_result_log_filename
+    # else:
+    #     lable_result_log_filename='./result/'+str(k_of_kflod)+'_'+str(n_for_gram)+'_'+lable_result_log_filename
+    # f_yyx = open(lable_result_log_filename,'w')
+
+    if True:
+        # if opts.print_report:
+        for i, n in enumerate(clf_names_list):
+            print("=" * 80)
+            print("%s classification report:" % (n))
+            print("-" * 80)
+            # WHAT IS THIS total_y COMPARING WITH pred_list[i] ???
+            # It looks like it could be the predictions from each model from the cross-validation?
+            print(
+                metrics.classification_report(
+                    total_y, pred_list[i], target_names=target_names, digits=5
+                )
+            )
+            print("macro-f1:" + str(f1_score(total_y, pred_list[i], average="macro")))
+            print("micro-f1:" + str(f1_score(total_y, pred_list[i], average="micro")))
+            print("=" * 80)
+
+    # if opts.print_cm:
+    if True:
+        for i, n in enumerate(clf_names_list):
+            print("=" * 80)
+            print("%s confusion matrix:" % (n))
+            print("-" * 80)
+            print(metrics.confusion_matrix(total_y, pred_list[i]))
+            print("=" * 80)
+
+    score = []
+    # print accuracy
+    print("=" * 80)
+    for i, n in enumerate(clf_names_list):
+        # print('=' * 80)
+        cur_score = metrics.accuracy_score(total_y, pred_list[i])
+        score.append(cur_score)
+        print("%s accuracy:   %f" % (n, cur_score))
     print("=" * 80)
 
-    results = [[x[i] for x in results] for i in range(5)]
-    clf_names, score, training_time, test_time, pred = results
-    # The first iteration
-    if clf_names_list == []:
-        clf_names_list = clf_names
-        training_time_list = training_time
-        test_time_list = test_time
-        pred_list = pred
-    else:
-        for i, k in enumerate(training_time):
-            training_time_list[i] += k
-            test_time_list[i] += test_time[i]
-            pred_list[i].extend(pred[i])
+    # WHAT'S THIS FOR?
+    for i, k in enumerate(total_y):
+        pred = ""
+        for j in range(len(pred_list)):
+            pred += " " + str(pred_list[j][i])
+        # f_yyx.writelines(target_names[int(k)]+" "+str(k)+' '+pred+' '+total_x_save[i]+'\n')
 
-total_y = []
-for k in y_list:
-    total_y.extend(k)
-total_x_save = []
-for k in x_save_list:
-    total_x_save.extend(k)
+    """
+    # make some plots
 
-# if opts.add_length_vector:
-#     lable_result_log_filename='./result/'+str(k_of_kflod)+'_'+str(n_for_gram)+'_add_'+lable_result_log_filename
-# else:
-#     lable_result_log_filename='./result/'+str(k_of_kflod)+'_'+str(n_for_gram)+'_'+lable_result_log_filename
-# f_yyx = open(lable_result_log_filename,'w')
+    indices = np.arange(len(clf_names_list))
+    training_time = np.array(training_time_list) / np.max(training_time_list)
+    test_time = np.array(test_time_list) / np.max(test_time_list)
 
-if True:
-    # if opts.print_report:
-    for i, n in enumerate(clf_names_list):
-        print("=" * 80)
-        print("%s classification report:" % (n))
-        print("-" * 80)
-        print(
-            metrics.classification_report(
-                total_y, pred_list[i], target_names=target_names, digits=5
-            )
-        )
-        print("macro-f1:" + str(f1_score(total_y, pred_list[i], average="macro")))
-        print("micro-f1:" + str(f1_score(total_y, pred_list[i], average="micro")))
-        print("=" * 80)
+    # print(len(indices))
+    # print(len(score))
+    # print(len(training_time_list))
 
-# if opts.print_cm:
-if True:
-    for i, n in enumerate(clf_names_list):
-        print("=" * 80)
-        print("%s confusion matrix:" % (n))
-        print("-" * 80)
-        print(metrics.confusion_matrix(total_y, pred_list[i]))
-        print("=" * 80)
+    plt.figure(figsize=(12, 8))
+    plt.title("Score")
+    plt.barh(indices, score, .2, label="score", color='navy')
+    plt.barh(indices + .3, training_time, .2, label="training time",
+            color='c')
+    plt.barh(indices + .6, test_time, .2, label="test time", color='darkorange')
+    plt.yticks(())
+    plt.legend(loc='best')
+    plt.subplots_adjust(left=.25)
+    plt.subplots_adjust(top=.95)
+    plt.subplots_adjust(bottom=.05)
 
-score = []
-# print accuracy
-print("=" * 80)
-for i, n in enumerate(clf_names_list):
-    # print('=' * 80)
-    cur_score = metrics.accuracy_score(total_y, pred_list[i])
-    score.append(cur_score)
-    print("%s accuracy:   %f" % (n, cur_score))
-print("=" * 80)
+    for i, c in zip(indices, clf_names):
+        plt.text(-.3, i, c)
+    plt.savefig(fig_path)
+    """
+    print("iters:" + str(total_iter / k_of_kflod))
+    print("training time:" + str(total_train_time))
+    print("testing  time:" + str(total_test_time))
+    print("total time:" + str((time() - t_start) / 60) + "mins,end")
 
-for i, k in enumerate(total_y):
-    pred = ""
-    for j in range(len(pred_list)):
-        pred += " " + str(pred_list[j][i])
-    # f_yyx.writelines(target_names[int(k)]+" "+str(k)+' '+pred+' '+total_x_save[i]+'\n')
+    # plt.show()
 
-"""
-# make some plots
-
-indices = np.arange(len(clf_names_list))
-training_time = np.array(training_time_list) / np.max(training_time_list)
-test_time = np.array(test_time_list) / np.max(test_time_list)
-
-# print(len(indices))
-# print(len(score))
-# print(len(training_time_list))
-
-plt.figure(figsize=(12, 8))
-plt.title("Score")
-plt.barh(indices, score, .2, label="score", color='navy')
-plt.barh(indices + .3, training_time, .2, label="training time",
-         color='c')
-plt.barh(indices + .6, test_time, .2, label="test time", color='darkorange')
-plt.yticks(())
-plt.legend(loc='best')
-plt.subplots_adjust(left=.25)
-plt.subplots_adjust(top=.95)
-plt.subplots_adjust(bottom=.05)
-
-for i, c in zip(indices, clf_names):
-    plt.text(-.3, i, c)
-plt.savefig(fig_path)
-"""
-print("iters:" + str(total_iter / k_of_kflod))
-print("training time:" + str(total_train_time))
-print("testing  time:" + str(total_test_time))
-print("total time:" + str((time() - t_start) / 60) + "mins,end")
-
-# plt.show()
-
-print("k_of_kflod:" + str(k_of_kflod))
-# print("n_for_gram:"+str(n_for_gram))
-# print('end all')
+    print("k_of_kflod:" + str(k_of_kflod))
+    # print("n_for_gram:"+str(n_for_gram))
+    # print('end all')
