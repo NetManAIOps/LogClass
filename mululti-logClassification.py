@@ -389,71 +389,10 @@ def addLengthInFeature(X, X_train_bag_vector):
     return X
 
 
-# #############################################################################
-# Benchmark classifiers
-total_iter = 0
-total_test_time = 0
-total_train_time = 0
-
-# This has to be split into different methods as well
-# The global variables, it might be better to avoid them
-# let's see how it can be done (apparently they are just being used for printing)
-def benchmark(clf, X_train, y_train, X_test, y_test):
-    global total_iter
-    global total_test_time
-    global total_train_time
-
-    print("_" * 80)
-    print("Training: ")
-    print(clf)
-    t0 = time()
-    clf.fit(X_train, y_train)
-    train_time = time() - t0
-    if opts.add_ilf:
-        total_train_time += float(train_time)
-        print("ilf train time: %fs" % train_time)
-    else:
-        total_train_time += float(train_time)
-        print("idf train time: %fs" % train_time)
-
-    t0 = time()
-    pred = []
-    #HERE JUST ONE of the if/else options SHOULD BE USED
-    # In any case we add a parameter in the settings to print
-    # which is the approach being used
-    if opts.add_ilf:
-        pred = clf.predict(X_test)
-        test_time = time() - t0
-        total_test_time += float(test_time)
-        print("ilf test time:  %fs" % test_time)
-        score = metrics.accuracy_score(y_test, pred)
-        print("ilf accuracy:   %f" % score)
-        print("ilf macro-f1:" + str(f1_score(y_test, pred, average="macro")))
-        print("ilf micro-f1:" + str(f1_score(y_test, pred, average="micro")))
-        print(
-            metrics.classification_report(
-                y_test, pred, target_names=target_names, digits=5
-            )
-        )
-    else:
-        pred = clf.predict(X_test)
-        score = metrics.accuracy_score(y_test, pred)
-        # test for performance of idf
-        # pred = clf.predict(X_test[:int(len(X_test)/2)])
-        test_time = time() - t0
-        total_test_time += float(test_time)
-        print("idf test time:  %fs" % test_time)
-        print("idf accuracy:   %f" % score)
-        print("idf macro-f1:" + str(f1_score(y_test, pred, average="macro")))
-        print("idf micro-f1:" + str(f1_score(y_test, pred, average="micro")))
-        print(
-            metrics.classification_report(
-                y_test, pred, target_names=target_names, digits=5
-            )
-        )
-
-    # This certainly has to be a different method - and not necessarily called here?
-    # Same for printing, why print here...
+def get_top_k_SVM_features(clf, feature_names, y_train, target_names):
+    # Why print here?...
+    # If it has coef_ it's the SVM so we can use the coefficients to visualize
+    # the top features and interpret the results
     if hasattr(clf, "coef_"):
         print("dimensionality: %d" % clf.coef_.shape[1])
         print("density: %f" % density(clf.coef_))
@@ -463,7 +402,7 @@ def benchmark(clf, X_train, y_train, X_test, y_test):
             """
                 There is a bug, because the length of y_train set
                 is not equal to the length of target_names
-                HOW DO YOU MEAN THERE'S A BUG? 
+                HOW DO YOU MEAN THERE'S A BUG? <<<<<<<<<<<-------------------------
             """
             print("top 10 keywords per class:")
             print("len(clf.coef_:" + str(len(clf.coef_)))
@@ -480,27 +419,50 @@ def benchmark(clf, X_train, y_train, X_test, y_test):
                 print(
                     trim("%s: %s" % (target_names[i], " ".join(feature_names[top10])))
                 )
-                print()
 
-    # if opts.print_report:
-    #     print("classification report:")
-    #     print(metrics.classification_report(y_test, pred,
-    #                                         target_names=target_names))
+# #############################################################################
+# Benchmark classifiers
 
-    # if opts.print_cm:
-    #     print("confusion matrix:")
-    #     print(metrics.confusion_matrix(y_test, pred))
+# This needs further cleaning
+# The global variables, it might be better to avoid them
+# let's see how it can be done (apparently they are just being used for printing)
+# Get metrics or further details on another method
+def benchmark(clf, X_train, y_train, X_test, y_test):
+    print("_" * 80)
+    print("Training: ")
+    print(clf)
+    t0 = time()
+    clf.fit(X_train, y_train)
+    train_time = time() - t0
+    approach = 'ilf' if opts.add_ilf else 'idf'
+    print(f"{approach} train time: {train_time:f}s")
 
-    #printing stufff
-    print()
-    clf_descr = str(clf).split("(")[0]
+    t0 = time()
+    pred = clf.predict(X_test)
+    score = metrics.accuracy_score(y_test, pred)
+    test_time = time() - t0
+
+    # This is just to keep the original benchmark method structure
+    # This may not necessarily be called here
+    global feature_names
+    global target_names
+    get_top_k_SVM_features(clf, feature_names, y_train, target_names)
+
+    print(f"{approach} test time:  {test_time:f}s")
+    print(f"{approach} accuracy:   {score:f}")
+    print(f"{approach} macro-f1:" + str(f1_score(y_test, pred, average="macro")))
+    print(f"{approach} micro-f1:" + str(f1_score(y_test, pred, average="micro")))
+    print(
+        metrics.classification_report(
+            y_test, pred, target_names=target_names, digits=5
+        )
+    )
+
     pred = list(pred)
-    total_iter += clf.n_iter_
-    print("clf.n_iter_")
-    print(clf.n_iter_)
+    iterations = clf.n_iter_
+    print('Iterations: ', iterations)
 
-    return clf_descr, score, train_time, test_time, pred
-    # results = [[x[i] for x in results] for i in range(5)]
+    return clf, score, train_time, test_time, pred, iterations
 
 # May keep the workaround -  in any case checkout how we did the lottery ticket one
 # work-around for Jupyter notebook and IPython console
@@ -556,6 +518,10 @@ else:
 # skf=StratifiedKFold(n_splits=k_of_kflod)
 skf.get_n_splits(X_data, y_data)
 cur_num = 1
+
+total_iter = 0
+total_train_time = 0
+total_test_time = 0
 
 clf_names_list = []
 training_time_list = []
@@ -719,8 +685,7 @@ for train_index, test_index in skf.split(X_data, y_data):
     print("=" * 80)
     print("LinearSVC  l2 penalty")
     # Train Liblinear model
-    results.append(
-        benchmark(
+    clf, score, train_time, test_time, pred, iterations = benchmark(
             LinearSVC(
                 penalty="l2",
                 dual=False,
@@ -731,8 +696,16 @@ for train_index, test_index in skf.split(X_data, y_data):
             y_train,
             X_test,
             y_test,
-        )
-    )  # 1e-3
+        ) # 1e-3
+    
+    total_iter += iterations
+    total_train_time += train_time
+    total_test_time += test_time
+
+    clf_descr = str(clf).split('(')[0]
+    results.append(
+        (clf_descr, score, train_time, test_time, pred)
+    )  
     print("=" * 80)
 
     results = [[x[i] for x in results] for i in range(5)]
