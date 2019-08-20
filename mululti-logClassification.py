@@ -582,7 +582,11 @@ if __name__ == "__main__":
 
         # print("X_train n_samples: %d, n_features: %d" % (X_train.shape)
         # print("X_test  n_samples: %d, n_features: %d" % X_test.shape)
+
+        # WHY HAVING A SEPARATE NAME??
+        # WHAT'S THE POINT OF feature_names vs vocabulary
         feature_names = vocabulary
+
         # print(X_train)
         # print(X_test)
 
