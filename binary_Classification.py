@@ -26,7 +26,6 @@ from optparse import OptionParser
 from time import time
 import matplotlib.pyplot as plt
 from sklearn.model_selection import StratifiedKFold
-#from sklearn.datasets import fetch_20newsgroups
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import HashingVectorizer
 from sklearn.feature_selection import SelectFromModel
@@ -51,6 +50,7 @@ from sklearn.metrics import precision_recall_fscore_support
 from vectorizer import get_lf, build_ngram_vocabulary, log_to_vector, calculate_inv_freq, calculate_tf_invf_train, create_invf_vector
 from utils import trim, addLengthInFeature
 import sys
+import argparse
 
 
 # Display progress logs on stdout
@@ -58,38 +58,55 @@ logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(message)s')
 
 
-# parse commandline arguments
-op = OptionParser()
-op.add_option("--add_length",
-              action="store_true", dest="add_length_vector",
-              help="Add length vector")
-op.add_option("--report",
-              action="store_true", dest="print_report",
-              help="Print a detailed classification report.")
-op.add_option("--chi2_select",
-              action="store", type="int", dest="select_chi2",
-              help="Select some number of features using a chi-squared test")
-op.add_option("--confusion_matrix",
-              action="store_true", dest="print_cm",
-              help="Print the confusion matrix.")
-op.add_option("--top10",
-              action="store_true", dest="print_top10",
-              help="Print ten most discriminative terms per class"
-                   " for every classifier.")
-op.add_option("--all_categories",
-              action="store_true", dest="all_categories",
-              help="Whether to use all categories or not.")
-# op.add_option("--add_ilf",
-#               action="store_true", dest="add_ilf",
-#               help="add_ilf")
+def init_flags():
+    """Init command line flags used for configuration."""
 
-op.add_option("--n_features",
-              action="store", type=int, default=2 ** 16,
-              help="n_features when using the hashing vectorizer.")
-op.add_option("--filtered",
-              action="store_true",
-              help="Remove newsgroup information that is easily overfit: "
-                   "headers, signatures, and quoting.")
+    parser = argparse.ArgumentParser(
+        description="Runs binary classification with PULearning to detect anomalous logs.",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    parser.add_argument('--logs', metavar="logs", type = str, nargs=1, default = './data/logs_without_paras.txt', help = 'input logs file path')
+    parser.add_argument('--kfold', metavar="kfold", type = int, nargs=1, default = 3, help = 'kfold crossvalidation')
+    parser.add_argument('--iterations', metavar = 'iterations', type = int, nargs=1, default = 10, help="number of training iterations")
+    parser.add_argument('--prefix', type = str, nargs=1, default = "unlabeled", help = 'the labels of unlabeled logs')
+    parser.add_argument('--add_ilf', type = int, nargs=1, default = 1, help = 'if set 1, LogClass will use ilf to generate ferture vector')
+    parser.add_argument('--add_length', action="store_true", default = False, help = 'if set, LogClass will add length as feature')
+    parser.add_argument('--report', action="store_true", default = False, help = 'Print a detailed classification report.')
+    parser.add_argument('--top10', action="store_true", default = False, help = 'Print ten most discriminative terms per class for every classifier.')
+
+    # May be useful to remember for lists
+    # parser.add_argument(
+    #     "--experiment",
+    #     metavar="experiment",
+    #     type=str,
+    #     nargs=1,
+    #     default=["reinit_orig"],
+    #     choices=["no_pruning", "reinit_rand", "reinit_orig", "reinit_none"],
+    #     help="the experiment to run",
+    # )
+
+    return parser.parse_args()
+
+def parse_args(args):
+    """Parse provided args for runtime configuration."""
+    params = {
+        "logs": args.logs,
+        "kfold": args.kfold,
+        "iterations": args.iterations,
+        "prefix": args.prefix,
+        "add_ilf": args.add_ilf,
+        "add_length": args.add_length,
+        "report": args.report,
+        "top10": args.top10,
+    }
+    
+    print("{:-^80}".format("params"))
+    print("Beginning binary classification using the following configuration:\n")
+    for param, value in params.items():
+        print("\t{:>13}: {}".format(param, value))
+    print()
+    print("-" * 80)
+    return params
 
 def testPU(X_train,y_train,X_test,y_test,total_pred_y_pu,total_pred_y_re):
     np.random.seed(5)
@@ -199,8 +216,7 @@ def testPU(X_train,y_train,X_test,y_test,total_pred_y_pu,total_pred_y_re):
 
 # #############################################################################
 # Benchmark classifiers
-def benchmark(para, clf,X_train,y_train,X_test,y_test):
-    # print_flag = para["print_top10"]
+def benchmark(clf,X_train,y_train,X_test,y_test):
     print('_' * 80)
     print("LinearSVC Training: ")
     # print(clf)
@@ -249,26 +265,13 @@ def benchmark(para, clf,X_train,y_train,X_test,y_test):
 
 
 if __name__ == '__main__':
-    import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--logs', help = 'input logs', type = str, default = './data/logs_without_paras.txt')
-    parser.add_argument('--kfold', help = 'kfold crossvalidation', type = int, default = 3)
-    parser.add_argument('--iterations', help = 'iterations', type = int, default = 10)
-    parser.add_argument('--prefix', help = 'the labels of unlabeled logs', type = str, default = "unlabeled")
-    parser.add_argument('--add_ilf', help = 'if set 1, LogClass will use ilf to generate ferture vector', type = int, default = 1)
-    parser.add_argument('--add_length', help = 'if set 1, LogClass will adding length as feature', type = int, default = 0)
-    args = parser.parse_args()
+    # Init hparams
+    params = parse_args(init_flags())
 
-    para = {
-    "ilf": args.add_ilf,
-    "add_length": args.add_length,
-
-    }
-    mail_time=time()
-    input_path=args.logs
-    k_of_kflod = args.kfold
-    pu_iter_time = args.iterations # iters of pu test
-    unlabel_label = args.prefix
+    input_path=params['logs']
+    k_of_kflod = params['kfold']
+    pu_iter_time = params['iterations'] # iters of pu test
+    unlabel_label = params['prefix']
 
     n_for_gram = 1
     multiple_for_pu_iter_time = 2 # step=len(np.where(y_train == 1.)[0])/(pu_iter_time*multiple_for_pu_iter_time+1)
@@ -378,7 +381,7 @@ if __name__ == '__main__':
         y_list.append(y_test)
         x_save_list.append(X_test_save)
         #add length to feature vector
-        if args.add_length:
+        if params['add_length']:
             print(" Adding length as feature")
             X_train=addLengthInFeature(X_train,X_train_bag_vector)
             X_test=addLengthInFeature(X_test,X_test_bag_vector)
@@ -394,7 +397,7 @@ if __name__ == '__main__':
         print('=' * 80)
         testPU(X_train,y_train,X_test,y_test,total_pred_y_pu,total_pred_y_re)
         print('=' * 80)
-        results.append(benchmark(para,LinearSVC(penalty="l2", dual=False,tol=1e-3),X_train,y_train,X_test,y_test))
+        results.append(benchmark(LinearSVC(penalty="l2", dual=False,tol=1e-3),X_train,y_train,X_test,y_test))
 
 
     total_y=[]
