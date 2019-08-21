@@ -45,6 +45,8 @@ from sklearn.neighbors import NearestCentroid
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.utils.extmath import density
 from sklearn import metrics
+from vectorizer import get_lf, build_ngram_vocabulary, log_to_vector, calculate_inv_freq, calculate_tf_invf_train, create_invf_vector
+from utils import trim, addLengthInFeature
 import sys
 
 # input_path='./data/logs_without_paras.txt'
@@ -131,251 +133,6 @@ op.add_option(
 )
 
 
-def is_interactive():
-    return not hasattr(sys.modules["__main__"], "__file__")
-
-
-# trim is only used when showing the top keywords for each class
-def trim(s):
-    """Trim string to fit on terminal (assuming 80-column display)"""
-    return s if len(s) <= 80 else s[:77] + "..."
-
-def get_ngrams(n, line):
-    line = line.strip().split()
-    cur_len = len(line)
-    cur_index = 0
-    ngrams_list = []
-    if cur_len == 0:
-    # Token list is empty
-        pass
-    elif cur_len < n:
-    # Token list fits in one ngram
-        ngrams_list.append(" ".join(line))
-    else:
-    # Token list spans multiple ngrams
-        loop_num = cur_len - n + 1
-        for i in range(loop_num):
-            cur_gram = " ".join(line[i : i + n])
-            ngrams_list.append(cur_gram)
-    return ngrams_list
-
-def build_ngram_vocabulary(n, inputData):
-    """
-        Divides log into n-gram using get_ngrams method and creates vocabulary.
-        Args:
-            n: ngram size
-            inputData: list of log lines
-        Returns: 
-            Vocabulary to index dict
-    """
-    vocabulary = {}
-    for line in inputData:
-        ngrams_list = get_ngrams(n, line)
-        for ngram in ngrams_list:
-            if not ngram in vocabulary:
-                vocabulary[ngram] = len(vocabulary)
-
-    return vocabulary
-
-def log_to_vector(n, inputData, vocabulary, y):
-    result = []
-    x_result = []
-    y_result = []
-    for index_data, line in enumerate(inputData):
-        temp = []
-        ngrams_list = get_ngrams(n, line)
-        if ngrams_list:
-            for cur_gram in ngrams_list:
-                if cur_gram not in vocabulary:
-                    continue
-                else:
-                    temp.append(vocabulary[cur_gram]) 
-        result.append(temp)
-        x_result.append(line)
-        y_result.append(y[index_data])
-    return np.array(result), np.array(y_result), x_result
-
-
-def setTrainDataForILF(x, y):
-    x_res, indices = np.unique(x, return_index=True)
-    y_res = y[indices]
-
-    return x_res, y_res
-
-def calculate_inv_freq(total, num):
-    return np.log(
-            float(total) / float(num + 0.01)
-        )
-
-# CHECK IF USING MAX IS BETTER OR SIMILAR SPEED AS IT'S EASIER TO READ
-# WHAT ABOUT NUMPY?
-def get_max_line(inputVector):
-    max_length = 0
-    for line in inputVector:
-        if len(line) > max_length:
-            max_length = len(line)
-    return max_length
-
-def get_tf(inputVector):
-    gram_index_dict = {}
-    # Counting the number of logs the word appears in
-    for index, line in enumerate(inputVector):
-        for gram in line:
-            if gram not in gram_index_dict:
-                gram_index_dict[gram] = set()
-            gram_index_dict[gram].add(index)
-    return gram_index_dict
-
-def get_lf(inputVector):
-    gram_index_ilf_dict = {}
-    for line in inputVector:
-        for location, gram in enumerate(line):
-            if gram not in gram_index_ilf_dict:
-                gram_index_ilf_dict[gram] = set()
-            gram_index_ilf_dict[gram].add(location)
-    return gram_index_ilf_dict
-
-def calculate_idf(gram_index_dict, inputVector, vocabulary):
-    idf_dict = {}
-    total_log_num = len(inputVector)
-    for index, gram in enumerate(gram_index_dict):
-            idf_dict[gram] = calculate_inv_freq(total_log_num, len(gram_index_dict[gram]))
-    return idf_dict
-
-def calculate_ilf(gram_index_dict, inputVector, vocabulary):
-    ilf_dict = {}
-    max_length = get_max_line(inputVector)
-    # calculating ilf for each gram
-    for index, gram in enumerate(gram_index_dict):
-        ilf_dict[gram] = calculate_inv_freq(max_length, len(gram_index_dict[gram]))
-    return ilf_dict
-
-def create_invf_vector(invf_dict, inputVector, vocabulary):
-    tfinvf = []
-    # Creating the idf/ilf vector for each log message
-    for index, line in enumerate(inputVector):
-        cur_tfinvf = np.zeros(len(vocabulary))
-        for gram_index in line:
-                cur_tfinvf[gram_index] = (
-                    float(line.count(gram_index)) * invf_dict[gram_index]
-                )
-        tfinvf.append(cur_tfinvf)
-
-    tfinvf = np.array(tfinvf)
-    return tfinvf
-
-def calculate_tf_invf_train(inputVector, vocabulary, get_tf=get_tf, calc_invf=calculate_idf):
-    """
-        In this version, tf is not normalized. We use frequence value as tf value.
-
-            RETURN: tfidf,tfidf_mean,tfidf_std,idf_dict
-    """
-    gram_index_dict = get_tf(inputVector)
-    invf_dict = calc_invf(gram_index_dict, inputVector, vocabulary)
-    tfinvf = create_invf_vector(invf_dict, inputVector, vocabulary)
-    return tfinvf, invf_dict
-
-def calculate_tf_invf_test(invf_dict, inputVector, vocabulary):
-    return create_invf_vector(invf_dict, inputVector, vocabulary)
-
-# I'd separate idf from ilf into different methods
-# Same for tf into a different method that is called
-# Also have a method for the tf-idf math formula to make it legible
-# Maybe also another method for the third block that builds the vector (let's do it as it's exactly what the tdif for test does)
-def calculateTfidfForTrain(inputVector, vocabulary):
-    """
-        In this version, tf is not normalized. We use frequence value as tf value.
-
-            RETURN: tfidf,tfidf_mean,tfidf_std,idf_dict
-    """
-    # gram_index_ilf_dict = {}
-    # gram_index_dict = {}
-    # max_length = 0
-    # # Finding max log message length
-    # for index, line in enumerate(inputVector):
-    #     if len(line) > max_length:
-    #         max_length = len(line)
-    #     for location, gram in enumerate(line):
-    #         # Counting the number of logs the word appears in
-    #         if gram not in gram_index_dict:
-    #             gram_index_dict[gram] = set()
-    #         gram_index_dict[gram].add(index)
-    #         # Also the number of different positions
-    #         if gram not in gram_index_ilf_dict:
-    #             gram_index_ilf_dict[gram] = set()
-    #         gram_index_ilf_dict[gram].add(location)
-
-    # idf_dict = {}
-    # ilf_dict = {}
-    # total_log_num = len(inputVector)
-    # # calculating idf and ilf for each gram
-    # for index, gram in enumerate(gram_index_dict):
-    #     idf_dict[gram] = calculate_inv_freq(total_log_num, len(gram_index_dict[gram]))
-    #     ilf_dict[gram] = calculate_inv_freq(max_length, len(gram_index_ilf_dict[gram]))
-    
-    # tfidf = []
-    # # Creating the idf/ilf vector for each log message
-    # for index, line in enumerate(inputVector):
-    #     cur_tfidf = np.zeros(len(vocabulary))
-    #     for gram_index in line:
-    #         if opts.add_ilf:
-    #             cur_tfidf[gram_index] = (
-    #                 float(line.count(gram_index)) * ilf_dict[gram_index] #THIS IS WHERE ILF IS PUT IN IDF PLACE!!!
-    #             )
-    #         else:
-    #             cur_tfidf[gram_index] = (
-    #                 float(line.count(gram_index)) * idf_dict[gram_index]
-    #             )
-    #     tfidf.append(cur_tfidf)
-
-    # tfidf = np.array(tfidf)
-    
-    # WHY was it decided not to do a normalized tfidf?
-    # calculating normalized tfidf
-    # tfidf_mean=np.mean(tfidf,axis=0)
-    # tfidf_std=np.std(tfidf,axis=0)
-    # tfidf=np.true_divide((tfidf-tfidf_mean),tfidf_std)
-
-    # return tfidf, idf_dict, ilf_dict
-    return (*calculate_tf_invf_train(inputVector, vocabulary), {})
-
-# Will reimplement into another method as it's same as what the tfidf for train does in its last block
-def calculateTfidfForTest(idf_dict, ilf_dict, inputVector, vocabulary):
-    tfidf = []
-    # calculating tfidf
-    for index, l in enumerate(inputVector):
-        cur_tfidf = np.zeros(len(vocabulary))
-        for gram_index in l:
-            if opts.add_ilf:
-                cur_tfidf[gram_index] = (
-                    float(l.count(gram_index)) * ilf_dict[gram_index]
-                )
-            else:
-                cur_tfidf[gram_index] = (
-                    float(l.count(gram_index)) * idf_dict[gram_index]
-                )
-        tfidf.append(cur_tfidf)
-    tfidf = np.array(tfidf)
-
-    # calculating normalized tfidf
-    # tfidf=np.true_divide((tfidf-tfidf_mean),tfidf_std)
-    return tfidf
-
-
-def addLengthInFeature(X, X_train_bag_vector):
-    """
-        X_train,max_length=addLengthForTrain(X_train,X_train_bag_vector)
-        Return: X_train_with ,max_length
-    """
-    len_list = []
-    for line in X_train_bag_vector:
-        len_list.append(len(line))
-    len_final = len(len_list)
-    len_list = np.array(len_list).reshape(len_final, 1)
-    X = np.hstack((X, len_list))
-    return X
-
-
 def get_top_k_SVM_features(clf, feature_names, y_train, target_names):
     # Why print here?...
     # If it has coef_ it's the SVM so we can use the coefficients to visualize
@@ -451,13 +208,16 @@ def benchmark(clf, X_train, y_train, X_test, y_test):
 
     return clf, score, train_time, test_time, pred, iterations
 
+def is_interactive():
+    return not hasattr(sys.modules['__main__'], '__file__')
+
 # May keep the workaround -  in any case checkout how we did the lottery ticket one
 # work-around for Jupyter notebook and IPython console
 argv = [] if is_interactive() else sys.argv[1:]
 (opts, args) = op.parse_args(argv)
-if len(args) > 0:
-    op.error("this script takes no arguments.")
-    sys.exit(1)
+# if len(args) > 0:
+#     op.error("this script takes no arguments.")
+#     sys.exit(1)
 
 print(__doc__)
 op.print_help()

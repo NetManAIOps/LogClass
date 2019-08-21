@@ -48,20 +48,9 @@ import matplotlib.pyplot as plt
 from puLearning.puAdapter import PUAdapter
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import precision_recall_fscore_support
-
-# import mail_mwb
-
+from vectorizer import get_lf, build_ngram_vocabulary, log_to_vector, calculate_inv_freq, calculate_tf_invf_train, create_invf_vector
+from utils import trim, addLengthInFeature
 import sys
-
-def sendEmail(message='',title=''):
-        import time
-        mail_message=sys.argv[0]+' has been finished in '+str(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
-        mail_message+=' \n total time:'+str(mail_time-time.time()/60)+' mins'
-        if message!='':
-            mail_message=message+' '+mail_message
-        if title=='':
-            title=sys.argv[0]+' has finished'
-        mail_mwb.sentEmail(mail_message,title)
 
 
 # Display progress logs on stdout
@@ -106,36 +95,11 @@ def testPU(X_train,y_train,X_test,y_test,total_pred_y_pu,total_pred_y_re):
     np.random.seed(5)
 
     pu_pred=[]
-    # print "Loading dataset"
-    # print
-
-    # #Shuffle dataset
-    # print "Shuffling dataset"
-    # print
-    # #如果传给permutation一个矩阵，它会返回一个洗牌后的矩阵副本
-    # #如果传入一个整数，它会返回一个洗牌后的arange。
-
-    # permut = np.random.permutation(len(y))
-    # X = X[permut]
-    # y = y[permut]
-
-    #make the labels -1.,+1.
-
-
-    # y_train[np.where(y_train == 0)[0]] = 0
-    # y_train[np.where(y_train == 1)[0]] = +1.
     permut  = np.random.permutation(len(y_train))
     X_train = X_train[permut]
     y_train = y_train[permut]
-    # y_test[np.where(y_test == 0)[0]] = 0
-    # y_test[np.where(y_test == 1)[0]] = +1.
 
-
-    # print "Loaded ", len(y), " examples"
-    # print len(np.where(y == -1.)[0])," are bening(unlabled)"
-    # print len(np.where(y == +1.)[0])," are malignant"
-    # print
-
+    # WHY WERE WE SPLITTING THE DATASET?
     # #Split test/train
     # print "Splitting dataset in test/train sets"
     # print
@@ -231,224 +195,6 @@ def testPU(X_train,y_train,X_test,y_test,total_pred_y_pu,total_pred_y_re):
 
     # return total_pred_y_pu
 
-def is_interactive():
-    return not hasattr(sys.modules['__main__'], '__file__')
-
-
-def trim(s):
-    """Trim string to fit on terminal (assuming 80-column display)"""
-    return s if len(s) <= 80 else s[:77] + "..."
-def ngramDivide(n,inputData):
-    '''
-        divide log into n-gram
-
-        return: vocabulary (word list)
-    '''
-#    print("cutting gram")
-    vocabulary=set()
-    for line in inputData:
-        l=line.strip().split()
-        cur_len=len(l)
-        cur_index=0
-        if cur_len==0:
-            continue
-        #if cur_len==1:
-        #    cur_gram=l[0]
-        #    vocabulary.add(cur_gram)
-        if cur_len<n:
-            cur_gram=' '.join(l)
-            vocabulary.add(cur_gram)
-            #print('!!!!!!!cur_len<n!!!!!!!')
-            continue
-        loop_num=cur_len-n+1
-        for i in range(loop_num):
-            cur_gram=' '.join(l[i:i+n])
-            vocabulary.add(cur_gram)
-    #print(vocabulary)
-    #print(len(vocabulary))
-#    print("cutting gram end")
-    return list(vocabulary)
-
-def convertLogToVector(n,inputData,vocabulary,y):
-    result=[]
-    x_result=[]
-    y_result=[]
-
-#    print("convertLogToVector start")
-    for index_data,line in enumerate(inputData):
-        l=line.strip().split()
-        temp=[]
-        cur_len=len(l)
-        cur_index=0
-        if cur_len==0:
-            continue
-        #if cur_len==1:
-        #    cur_gram=l[0]
-        #    temp.append(vocabulary.index(cur_gram))
-        if cur_len<n:
-            cur_gram=' '.join(l)
-            if cur_gram not in vocabulary:
-                continue
-            else:
-                temp.append(vocabulary.index(cur_gram))
-                x_result.append(line)
-                y_result.append(y[index_data])
-            #print('!!!!!!!cur_len<n!!!!!!!')
-            result.append(temp)
-            continue
-        loop_num=cur_len-n+1
-        for i in range(loop_num):
-            cur_gram=' '.join(l[i:i+n])
-            if cur_gram not in vocabulary:
-                continue
-            else:
-                temp.append(vocabulary.index(cur_gram))
-        result.append(temp)
-        x_result.append(line)
-        y_result.append(y[index_data])
-#    print("convertLogToVector end")
-    return np.array(result),np.array(y_result),x_result
-
-
-def calculateTfidfForTrain(inputVector,vocabulary,para):
-    '''
-        In this version, tf is not normalized. We use frequence value as tf value.
-
-            RETRUN: tfidf,tfidf_mean,tfidf_std,idf_dict
-    '''
-    ilf_flag = para['ilf'] 
-    tfidf=[]
-    idf_dict={}
-    ilf_dict={}
-    gram_index_ilf_dict={}
-    # print(len(inputVector))
-
-    t0=time()
-
-    total=len(inputVector)
-    divideLap=10
-    ded=total/divideLap
-    t1=time()
-    total_log_num=len(inputVector)
-    gram_index_dict={}#gram_index_dict for idf
-    max_longth=0
-    for index,l in enumerate(inputVector):
-        if len(line)>max_longth:
-            max_longth=len(l)
-        if index%ded==0:
-            #print("  "+str(index/ded)+'/10 '+str(time()-t1))
-            t1=time()
-        for location,gram in enumerate(l) :
-            if gram not in gram_index_dict:
-                gram_index_dict[gram]=set()
-            gram_index_dict[gram].add(index)
-            if gram not in gram_index_ilf_dict:
-                gram_index_ilf_dict[gram]=set()
-            gram_index_ilf_dict[gram].add(location)
-
-            #if index not in gram_index_dict[gram]:
-            #gram_index_dict[gram].append(index)
-    #print(" t1:"+str(time()-t0))
-    t0=time()
-    #calculating idf
-    total=len(gram_index_dict)
-    divideLap=10
-    ded=total/divideLap
-    t1=time()
-    for index,gram in enumerate(gram_index_dict):
-        if index%ded==0:
-            #print("  "+str(index/ded)+'/10 '+str(time()-t1))
-            t1=time()
-        cur_idf=math.log(float(total_log_num)/(float( len(gram_index_dict[gram]) +0.01 )))
-
-        cur_ilf=math.log(float(max_longth)/(float( len(gram_index_ilf_dict[gram]) +0.01 )))
-        idf_dict[gram]=cur_idf
-        ilf_dict[gram]=cur_ilf
-        # print(len(gram_index_dict[gram]),cur_idf)
-#    print("t1:"+str(time()-t0))
-    #print(" t2:"+str(time()-t0))
-    t0=()
-#    #calculating tfidf
-#    for index,l in enumerate(inputVector):
-#        cur_tf=[]
-#        for j,gram in enumerate(vocabulary):
-#            num=0
-#            for w in l:
-#                if w==j:
-#                    num+=1
-#                    # print ("ssssssssss")
-#            cur_tf.append(float(num)*idf_dict[j])
-#
-#       tfidf.append(np.array(cur_tf))
-#    tfidf=np.array(tfidf)
-    t0=time()
-    total=len(inputVector)
-    divideLap=10
-    ded=total/divideLap
-    t1=time()
-    for index,l in enumerate(inputVector):
-        if index%ded==0:
-            # print("  "+str(index/ded)+'/10 '+str(time()-t1))
-            t1=time()
-        cur_tfidf=np.zeros(len(vocabulary))
-        for gram_index in l:
-            if ilf_flag:
-                cur_tfidf[gram_index]=float(l.count(gram_index))*ilf_dict[gram_index]
-                #cur_tfidf[gram_index]=float(l.count(gram_index))*idf_dict[gram_index]*ilf_dict[gram_index]
-            else:
-                cur_tfidf[gram_index]=float(l.count(gram_index))*idf_dict[gram_index]
-            #cur_tfidf[gram_index]=float(l.count(gram_index))*idf_dict[gram_index]*ilf_dict[gram_index]
-        tfidf.append(cur_tfidf)
-#    print("t2:"+str(time()-t0))
-    tfidf=np.array(tfidf)
-    #print(" t3:"+str(time()-t0))
-#    tfidf_mean=np.mean(tfidf,axis=0)
-#    tfidf_std=np.std(tfidf,axis=0)
-
-    #calculating normalized tfidf
-    # tfidf=np.true_divide((tfidf-tfidf_mean),tfidf_std)
-
-
-
-    return tfidf,idf_dict,ilf_dict
-
-def calculateTfidfForTest(idf_dict,ilf_dict,inputVector,vocabulary, para):
-    ilf_flag = para['ilf'] 
-    tfidf=[]
-    #calculating tfidf
-    t0=time()
-    for index,l in enumerate(inputVector):
-        cur_tfidf=np.zeros(len(vocabulary))
-        for gram_index in l:
-            if ilf_flag:
-                cur_tfidf[gram_index]=float(l.count(gram_index))*ilf_dict[gram_index]
-                #cur_tfidf[gram_index]=float(l.count(gram_index))*idf_dict[gram_index]*ilf_dict[gram_index]
-            else:
-                cur_tfidf[gram_index]=float(l.count(gram_index))*idf_dict[gram_index]
-        tfidf.append(cur_tfidf)
-#    print("t2:"+str(time()-t0))
-    tfidf=np.array(tfidf)
-
-    #calculating normalized tfidf
-    #tfidf=np.true_divide((tfidf-tfidf_mean),tfidf_std)
-    return tfidf
-
-def addLengthInFeature(X,X_train_bag_vector):
-    '''
-        X_train,max_length=addLengthForTrain(X_train,X_train_bag_vector)
-        Return: X_train_with ,max_length
-    '''
-    len_list=[]
-    for line in X_train_bag_vector:
-        len_list.append(len(line))
-    len_final=len(len_list)
-    len_list=np.array(len_list).reshape(len_final,1)
-    # print(X_train.shape)
-    # print(len_list.shape)
-    X=np.hstack((X,len_list))
-    # print(X_train.shape)
-    return X
-
 
 
 # #############################################################################
@@ -526,6 +272,9 @@ if __name__ == '__main__':
 
     n_for_gram = 1
     multiple_for_pu_iter_time = 2 # step=len(np.where(y_train == 1.)[0])/(pu_iter_time*multiple_for_pu_iter_time+1)
+
+    # def is_interactive():
+    #     return not hasattr(sys.modules['__main__'], '__file__')
     # lable_result_log_filename='pulearning_label_result_log.dat'
     # pu_fscore_file='pu_fscore_file'
     # argv = [] if is_interactive() else sys.argv[1:]
@@ -597,30 +346,30 @@ if __name__ == '__main__':
         #vocabulary is a list including words
         t0=time()
         print(" ngramDivide start")
-        vocabulary=ngramDivide(n_for_gram,X_train)
+        vocabulary=build_ngram_vocabulary(n_for_gram,X_train)
         print("  ngramDivide end, time="+str(time()-t0)+"s")
 
         t0=time()
         print(" convertLogToVector for train start")
-        X_train_bag_vector,y_train,X_train_save=convertLogToVector(n_for_gram,X_train,vocabulary,y_train)
+        X_train_bag_vector,y_train,X_train_save=log_to_vector(n_for_gram,X_train,vocabulary,y_train)
         print("  convertLogToVector for train end, time="+str(time()-t0)+"s")
         print(" X_train_bag_vector.shape:"+str(X_train_bag_vector.shape))
         t0=time()
         print(" convertLogToVector for test start")
 
         #print(len(X_test),len(y_test))
-        X_test_bag_vector,y_test,X_test_save=convertLogToVector(n_for_gram,X_test,vocabulary,y_test)
+        X_test_bag_vector,y_test,X_test_save=log_to_vector(n_for_gram,X_test,vocabulary,y_test)
         print("  convertLogToVector for test end, time="+str(time()-t0)+"s")
 
         t0=time()
         print(" calculateTfidfForTrain start")
-        X_train,idf_dict,ilf_dict=calculateTfidfForTrain(X_train_bag_vector,vocabulary, para)
+        X_train, invf_dict = calculate_tf_invf_train(X_train_bag_vector, vocabulary)
         print("  calculateTfidfForTrain end, time="+str(time()-t0)+"s")
         print(" X_train.shape:"+str(X_train.shape))
 
         t0=time()
         print(" calculateTfidfForTest start")
-        X_test=calculateTfidfForTest(idf_dict,ilf_dict,X_test_bag_vector,vocabulary, para)
+        X_test=create_invf_vector(invf_dict, X_test_bag_vector, vocabulary)
         print("  calculateTfidfForTest end, time="+str(time()-t0)+"s")
         #print(X_train.shape)
         #print(X_test.shape)
