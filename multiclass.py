@@ -45,8 +45,8 @@ from sklearn.neighbors import NearestCentroid
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.utils.extmath import density
 from sklearn import metrics
-from vectorizer import get_lf, build_ngram_vocabulary, log_to_vector, calculate_inv_freq, calculate_tf_invf_train, create_invf_vector
-from utils import trim, addLengthInFeature
+from .vectorizer import get_lf, build_ngram_vocabulary, log_to_vector, calculate_inv_freq, calculate_tf_invf_train, create_invf_vector
+from .utils import trim, addLengthInFeature
 import sys
 
 # input_path='./data/logs_without_paras.txt'
@@ -65,8 +65,8 @@ def init_flags():
         description="Runs binary classification with PULearning to detect anomalous logs.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-    parser.add_argument('--logs', metavar="logs", type = str, nargs=1, default = './data/logs_without_paras.txt', help = 'input logs file path')
-    parser.add_argument('--kfold', metavar="kfold", type = int, nargs=1, default = 10, help = 'kfold crossvalidation')
+    parser.add_argument('--logs', metavar="logs", type = str, nargs=1, default = './LogClass/data/logs_without_paras.txt', help = 'input logs file path')
+    parser.add_argument('--kfold', metavar="kfold", type = int, nargs=1, default = 3, help = 'kfold crossvalidation')
     parser.add_argument('--iterations', metavar = 'iterations', type = int, nargs=1, default = 10, help="number of training iterations")
     parser.add_argument('--prefix', type = str, nargs=1, default = "unlabeled", help = 'the labels of unlabeled logs')
     parser.add_argument('--add_ilf', type = int, nargs=1, default = False, help = 'if set, LogClass will use ilf to generate ferture vector')
