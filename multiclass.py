@@ -19,9 +19,6 @@ If add length feature, --add_length
 from __future__ import print_function
 from sklearn.metrics import f1_score
 import sys
-import matplotlib
-
-matplotlib.use("Agg")
 import logging
 import numpy as np
 import math
@@ -45,9 +42,19 @@ from sklearn.neighbors import NearestCentroid
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.utils.extmath import density
 from sklearn import metrics
-from .vectorizer import get_lf, build_ngram_vocabulary, log_to_vector, calculate_inv_freq, calculate_tf_invf_train, create_invf_vector
+from .vectorizer import (
+    get_lf,
+    build_ngram_vocabulary,
+    log_to_vector,
+    calculate_inv_freq,
+    calculate_tf_invf_train,
+    create_invf_vector,
+)
 from .utils import trim, addLengthInFeature
 import sys
+import matplotlib
+
+matplotlib.use("Agg")
 
 # input_path='./data/logs_without_paras.txt'
 # k_of_kflod=10
@@ -58,6 +65,7 @@ total_tol = 1e-1  # param of svc
 # Display progress logs on stdout
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
+
 def init_flags():
     """Init command line flags used for configuration."""
 
@@ -65,15 +73,65 @@ def init_flags():
         description="Runs binary classification with PULearning to detect anomalous logs.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-    parser.add_argument('--logs', metavar="logs", type = str, nargs=1, default = './LogClass/data/logs_without_paras.txt', help = 'input logs file path')
-    parser.add_argument('--kfold', metavar="kfold", type = int, nargs=1, default = 3, help = 'kfold crossvalidation')
-    parser.add_argument('--iterations', metavar = 'iterations', type = int, nargs=1, default = 10, help="number of training iterations")
-    parser.add_argument('--prefix', type = str, nargs=1, default = "unlabeled", help = 'the labels of unlabeled logs')
-    parser.add_argument('--add_ilf', type = int, nargs=1, default = False, help = 'if set, LogClass will use ilf to generate ferture vector')
-    parser.add_argument('--add_length', action="store_true", default = False, help = 'if set, LogClass will add length as feature')
-    parser.add_argument('--report', action="store_true", default = False, help = 'Print a detailed classification report.')
-    parser.add_argument('--top10', action="store_true", default = False, help = 'Print ten most discriminative terms per class for every classifier.')
-    parser.add_argument('--less_train', action="store_true", default = False, help = 'Use less train data.')
+    parser.add_argument(
+        "--logs",
+        metavar="logs",
+        type=str,
+        nargs=1,
+        default="./LogClass/data/logs_without_paras.txt",
+        help="input logs file path",
+    )
+    parser.add_argument(
+        "--kfold",
+        metavar="kfold",
+        type=int,
+        nargs=1,
+        default=10,
+        help="kfold crossvalidation",
+    )
+    parser.add_argument(
+        "--iterations",
+        metavar="iterations",
+        type=int,
+        nargs=1,
+        default=10,
+        help="number of training iterations",
+    )
+    parser.add_argument(
+        "--prefix",
+        type=str,
+        nargs=1,
+        default="unlabeled",
+        help="the labels of unlabeled logs",
+    )
+    parser.add_argument(
+        "--add_ilf",
+        type=int,
+        nargs=1,
+        default=False,
+        help="if set, LogClass will use ilf to generate ferture vector",
+    )
+    parser.add_argument(
+        "--add_length",
+        action="store_true",
+        default=False,
+        help="if set, LogClass will add length as feature",
+    )
+    parser.add_argument(
+        "--report",
+        action="store_true",
+        default=False,
+        help="Print a detailed classification report.",
+    )
+    parser.add_argument(
+        "--top10",
+        action="store_true",
+        default=False,
+        help="Print ten most discriminative terms per class for every classifier.",
+    )
+    parser.add_argument(
+        "--less_train", action="store_true", default=False, help="Use less train data."
+    )
 
     # May be useful to remember for lists
     # parser.add_argument(
@@ -88,6 +146,7 @@ def init_flags():
 
     return parser.parse_args()
 
+
 def parse_args(args):
     """Parse provided args for runtime configuration."""
     params = {
@@ -99,9 +158,9 @@ def parse_args(args):
         "add_length": args.add_length,
         "report": args.report,
         "top10": args.top10,
-        "less_train": args.less_train
+        "less_train": args.less_train,
     }
-    
+
     print("{:-^80}".format("params"))
     print("Beginning binary classification using the following configuration:\n")
     for param, value in params.items():
@@ -109,6 +168,7 @@ def parse_args(args):
     print()
     print("-" * 80)
     return params
+
 
 def get_top_k_SVM_features(clf, feature_names, y_train, target_names):
     # Why print here?...
@@ -118,7 +178,7 @@ def get_top_k_SVM_features(clf, feature_names, y_train, target_names):
         print("dimensionality: %d" % clf.coef_.shape[1])
         print("density: %f" % density(clf.coef_))
 
-        if params['top10'] and feature_names is not None:
+        if params["top10"] and feature_names is not None:
 
             """
                 There is a bug, because the length of y_train set
@@ -129,7 +189,7 @@ def get_top_k_SVM_features(clf, feature_names, y_train, target_names):
             print("len(clf.coef_:" + str(len(clf.coef_)))
             print("len(set(y_train)):" + str(len(set(y_train))))
             print(set(y_train))
-            
+
             for i in set(y_train):
                 print(i, target_names[i])
                 length = min(len(clf.coef_[i]), 10)
@@ -140,6 +200,7 @@ def get_top_k_SVM_features(clf, feature_names, y_train, target_names):
                 print(
                     trim("%s: %s" % (target_names[i], " ".join(feature_names[top10])))
                 )
+
 
 # #############################################################################
 # Benchmark classifiers
@@ -155,7 +216,7 @@ def benchmark(clf, X_train, y_train, X_test, y_test):
     t0 = time()
     clf.fit(X_train, y_train)
     train_time = time() - t0
-    approach = 'ilf' if params['add_ilf'] else 'idf'
+    approach = "ilf" if params["add_ilf"] else "idf"
     print(f"{approach} train time: {train_time:f}s")
 
     t0 = time()
@@ -174,18 +235,17 @@ def benchmark(clf, X_train, y_train, X_test, y_test):
     print(f"{approach} macro-f1:" + str(f1_score(y_test, pred, average="macro")))
     print(f"{approach} micro-f1:" + str(f1_score(y_test, pred, average="micro")))
     print(
-        metrics.classification_report(
-            y_test, pred, target_names=target_names, digits=5
-        )
+        metrics.classification_report(y_test, pred, target_names=target_names, digits=5)
     )
 
     pred = list(pred)
     iterations = clf.n_iter_
-    print('Iterations: ', iterations)
+    print("Iterations: ", iterations)
 
     return clf, score, train_time, test_time, pred, iterations
 
-# USAR EL IF MAIN 
+
+# USAR EL IF MAIN
 # #############################################################################
 if __name__ == "__main__":
     params = parse_args(init_flags())
@@ -195,10 +255,10 @@ if __name__ == "__main__":
     X_data = []
     label_dict = {}
     y_data = []
-    k_of_kflod = params['kfold']
+    k_of_kflod = params["kfold"]
 
     target_names = []
-    with open(params['logs']) as IN:
+    with open(params["logs"]) as IN:
         for line in IN:
             l = line.strip().split()
             label = l[0]
@@ -208,7 +268,7 @@ if __name__ == "__main__":
             if label not in label_dict:
                 label_dict[label] = len(label_dict)
                 target_names.append(label)
-            X_data.append(" ".join(l[2:])) # WHY 2? It's disregarding the second token
+            X_data.append(" ".join(l[2:]))  # WHY 2? It's disregarding the second token
             y_data.append(label_dict[label])
     X_data = np.array(X_data)
     y_data = np.array(y_data)
@@ -220,12 +280,11 @@ if __name__ == "__main__":
 
     # KFold
     skf = ""
-    if params['add_ilf']:
+    if params["add_ilf"]:
         skf = StratifiedKFold(n_splits=k_of_kflod)
     else:
         skf = KFold(n_splits=k_of_kflod)
     skf.get_n_splits(X_data, y_data)
-    
 
     total_iter = 0
     total_train_time = 0
@@ -248,7 +307,7 @@ if __name__ == "__main__":
         # right codes
         # WHY DOES IT DO THIS LESS_TRAIN DATA APPROACH?
         # IT JUST CHANGES TEST FOR TRAIN TO ACHIEVE IT??
-        if params['less_train']:
+        if params["less_train"]:
             X_train, X_test = X_data[test_index], X_data[train_index]
             y_train, y_test = y_data[test_index], y_data[train_index]
         else:
@@ -266,7 +325,7 @@ if __name__ == "__main__":
 
         # WHY IS THIS COMMENTED OUT?
         # if opts.add_ilf:
-            # X_train,y_train=setTrainDataForILF(X_train,y_train)
+        # X_train,y_train=setTrainDataForILF(X_train,y_train)
 
         t0 = time()
         print(" log_to_vector for train start")
@@ -298,7 +357,7 @@ if __name__ == "__main__":
         # WHAT'S THE POINT OF THE x_save_list, x_test_save, isn't it the log input already?
         x_save_list.append(X_test_save)
         # add length to feature vector
-        if params['add_length']:
+        if params["add_length"]:
             print(" Adding length as feature")
             X_train = addLengthInFeature(X_train, X_train_bag_vector)
             X_test = addLengthInFeature(X_test, X_test_bag_vector)
@@ -400,26 +459,24 @@ if __name__ == "__main__":
         print("LinearSVC  l2 penalty")
         # Train Liblinear model
         clf, score, train_time, test_time, pred, iterations = benchmark(
-                LinearSVC(
-                    penalty="l2",
-                    dual=False,
-                    # max_iter=1,
-                    tol=total_tol,
-                ),
-                X_train,
-                y_train,
-                X_test,
-                y_test,
-            ) # 1e-3
-        
+            LinearSVC(
+                penalty="l2",
+                dual=False,
+                # max_iter=1,
+                tol=total_tol,
+            ),
+            X_train,
+            y_train,
+            X_test,
+            y_test,
+        )  # 1e-3
+
         total_iter += iterations
         total_train_time += train_time
         total_test_time += test_time
 
-        clf_descr = str(clf).split('(')[0]
-        results.append(
-            (clf_descr, score, train_time, test_time, pred)
-        )  
+        clf_descr = str(clf).split("(")[0]
+        results.append((clf_descr, score, train_time, test_time, pred))
         print("=" * 80)
 
         results = [[x[i] for x in results] for i in range(5)]
