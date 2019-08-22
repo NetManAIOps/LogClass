@@ -15,21 +15,11 @@ If change to tfilf, --add_ilf
 # **********************************************************
 
 from __future__ import print_function
-import sys
 import logging
 import numpy as np
-import math
-from optparse import OptionParser
 from time import time
-import matplotlib.pyplot as plt
-from sklearn.model_selection import StratifiedKFold
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.feature_extraction.text import HashingVectorizer
-from sklearn.feature_selection import SelectFromModel
-from sklearn.feature_selection import SelectKBest, chi2
-from sklearn.linear_model import RidgeClassifier
-from sklearn.pipeline import Pipeline
 from sklearn.svm import LinearSVC
+from sklearn.model_selection import StratifiedKFold
 from sklearn.linear_model import SGDClassifier
 from sklearn.linear_model import Perceptron
 from sklearn.linear_model import PassiveAggressiveClassifier
@@ -39,21 +29,15 @@ from sklearn.neighbors import NearestCentroid
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.utils.extmath import density
 from sklearn import metrics
-import numpy as np
-import matplotlib.pyplot as plt
 from .puLearning.puAdapter import PUAdapter
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import precision_recall_fscore_support
 from .vectorizer import (
-    get_lf,
     build_ngram_vocabulary,
     log_to_vector,
-    calculate_inv_freq,
     calculate_tf_invf_train,
     create_invf_vector,
 )
-from .utils import trim, addLengthInFeature
-import sys
+from .utils import addLengthInFeature
 import argparse
 import matplotlib
 
@@ -61,14 +45,16 @@ matplotlib.use("Agg")
 
 
 # Display progress logs on stdout
-logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+logging.basicConfig(level=logging.INFO,
+                    format="%(asctime)s %(levelname)s %(message)s")
 
 
 def init_flags():
     """Init command line flags used for configuration."""
 
     parser = argparse.ArgumentParser(
-        description="Runs binary classification with PULearning to detect anomalous logs.",
+        description="Runs binary classification with "
+                    + "PULearning to detect anomalous logs.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
@@ -125,7 +111,8 @@ def init_flags():
         "--top10",
         action="store_true",
         default=False,
-        help="Print ten most discriminative terms per class for every classifier.",
+        help="Print ten most discriminative terms"
+        + " per class for every classifier.",
     )
 
     # May be useful to remember for lists
@@ -156,7 +143,8 @@ def parse_args(args):
     }
 
     print("{:-^80}".format("params"))
-    print("Beginning binary classification using the following configuration:\n")
+    print("Beginning binary classification "
+          + "using the following configuration:\n")
     for param, value in params.items():
         print("\t{:>13}: {}".format(param, value))
     print()
@@ -230,7 +218,8 @@ def testPU(X_train, y_train, X_test, y_test, total_pred_y_pu, total_pred_y_re):
             total_pred_y_pu.append(list(y_pred))
         else:
             total_pred_y_pu[i].extend(list(y_pred))
-        precision, recall, f1_score, _ = precision_recall_fscore_support(y_test, y_pred)
+        precision, recall, f1_score, _ =\
+            precision_recall_fscore_support(y_test, y_pred)
         pu_f1_scores.append(f1_score[1])
         print("F1 score: ", f1_score[1])
         print("Precision: ", precision[1])
@@ -239,14 +228,16 @@ def testPU(X_train, y_train, X_test, y_test, total_pred_y_pu, total_pred_y_re):
 
         # Get f1 score without pu_learning
         print("Regular learning in progress...")
-        estimator = RandomForestClassifier(n_estimators=10, bootstrap=True, n_jobs=1)
+        estimator = RandomForestClassifier(n_estimators=10,
+                                           bootstrap=True, n_jobs=1)
         estimator.fit(X_train, y_train_pu)
         y_pred = estimator.predict(X_test)
         if isEmpty:
             total_pred_y_re.append(list(y_pred))
         else:
             total_pred_y_re[i].extend(list(y_pred))
-        precision, recall, f1_score, _ = precision_recall_fscore_support(y_test, y_pred)
+        precision, recall, f1_score, _ =\
+            precision_recall_fscore_support(y_test, y_pred)
         reg_f1_scores.append(f1_score[1])
         print("F1 score: ", f1_score[1])
         print("Precision: ", precision[1])
@@ -307,7 +298,8 @@ def benchmark(clf, X_train, y_train, X_test, y_test):
     pred = list(pred)
     # print(pred)
 
-    precision, recall, f1_score, _ = precision_recall_fscore_support(y_test, pred)
+    precision, recall, f1_score, _ =\
+        precision_recall_fscore_support(y_test, pred)
     print("F1 score: ", f1_score)
     print("Precision: ", precision)
     print("Recall: ", recall)
@@ -353,8 +345,8 @@ if __name__ == "__main__":
     target_names = []
     with open(input_path) as IN:
         for line in IN:
-            l = line.strip().split()
-            label = l[0]
+            L = line.strip().split()
+            label = L[0]
             if label != unlabel_label:
                 label = "Anomaly"
 
@@ -364,7 +356,7 @@ if __name__ == "__main__":
                 else:
                     label_dict[label] = 1.0
                 target_names.append(label)
-            X_data.append(" ".join(l[2:]))
+            X_data.append(" ".join(L[2:]))
             y_data.append(label_dict[label])
     X_data = np.array(X_data)
     y_data = np.array(y_data)
@@ -409,7 +401,8 @@ if __name__ == "__main__":
         X_train_bag_vector, y_train, X_train_save = log_to_vector(
             n_for_gram, X_train, vocabulary, y_train
         )
-        print("  convertLogToVector for train end, time=" + str(time() - t0) + "s")
+        print("  convertLogToVector for train end, time="
+              + str(time() - t0) + "s")
         print(" X_train_bag_vector.shape:" + str(X_train_bag_vector.shape))
         t0 = time()
         print(" convertLogToVector for test start")
@@ -418,11 +411,13 @@ if __name__ == "__main__":
         X_test_bag_vector, y_test, X_test_save = log_to_vector(
             n_for_gram, X_test, vocabulary, y_test
         )
-        print("  convertLogToVector for test end, time=" + str(time() - t0) + "s")
+        print("  convertLogToVector for test end, time="
+              + str(time() - t0) + "s")
 
         t0 = time()
         print(" calculateTfidfForTrain start")
-        X_train, invf_dict = calculate_tf_invf_train(X_train_bag_vector, vocabulary)
+        X_train, invf_dict = calculate_tf_invf_train(X_train_bag_vector,
+                                                     vocabulary)
         print("  calculateTfidfForTrain end, time=" + str(time() - t0) + "s")
         print(" X_train.shape:" + str(X_train.shape))
 
@@ -441,7 +436,8 @@ if __name__ == "__main__":
             print(" Adding length as feature")
             X_train = addLengthInFeature(X_train, X_train_bag_vector)
             X_test = addLengthInFeature(X_test, X_test_bag_vector)
-            print("  X_train.shape after add lengeth feature:" + str(X_train.shape))
+            print("  X_train.shape after add lengeth feature:"
+                  + str(X_train.shape))
 
         feature_names = vocabulary
 
@@ -451,7 +447,8 @@ if __name__ == "__main__":
         results = []
 
         print("=" * 80)
-        testPU(X_train, y_train, X_test, y_test, total_pred_y_pu, total_pred_y_re)
+        testPU(X_train, y_train, X_test, y_test,
+               total_pred_y_pu, total_pred_y_re)
         print("=" * 80)
         results.append(
             benchmark(
@@ -541,4 +538,3 @@ if __name__ == "__main__":
         # f_yyx.writelines(target_names[int(k)] + " " +str(k) + ' ' + pred + ' ' + total_x_save[i]+'\n')
 
     print("total time: " + str(int((time() - t_start))) + "s")
-

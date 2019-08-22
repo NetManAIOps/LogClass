@@ -18,20 +18,12 @@ If add length feature, --add_length
 
 from __future__ import print_function
 from sklearn.metrics import f1_score
-import sys
 import logging
 import numpy as np
-import math
 import argparse
 from time import time
-import matplotlib.pyplot as plt
 from sklearn.model_selection import KFold, StratifiedKFold
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.feature_extraction.text import HashingVectorizer
-from sklearn.feature_selection import SelectFromModel
-from sklearn.feature_selection import SelectKBest, chi2
-from sklearn.linear_model import RidgeClassifier
-from sklearn.pipeline import Pipeline
 from sklearn.svm import LinearSVC
 from sklearn.linear_model import SGDClassifier
 from sklearn.linear_model import Perceptron
@@ -43,15 +35,12 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.utils.extmath import density
 from sklearn import metrics
 from .vectorizer import (
-    get_lf,
     build_ngram_vocabulary,
     log_to_vector,
-    calculate_inv_freq,
     calculate_tf_invf_train,
     create_invf_vector,
 )
 from .utils import trim, addLengthInFeature
-import sys
 import matplotlib
 
 matplotlib.use("Agg")
@@ -63,14 +52,16 @@ total_tol = 1e-1  # param of svc
 
 
 # Display progress logs on stdout
-logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+logging.basicConfig(level=logging.INFO,
+                    format="%(asctime)s %(levelname)s %(message)s")
 
 
 def init_flags():
     """Init command line flags used for configuration."""
 
     parser = argparse.ArgumentParser(
-        description="Runs binary classification with PULearning to detect anomalous logs.",
+        description="Runs binary classification with\
+                    PULearning to detect anomalous logs.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
@@ -127,10 +118,14 @@ def init_flags():
         "--top10",
         action="store_true",
         default=False,
-        help="Print ten most discriminative terms per class for every classifier.",
+        help="Print ten most discriminative terms per\
+             class for every classifier.",
     )
     parser.add_argument(
-        "--less_train", action="store_true", default=False, help="Use less train data."
+        "--less_train",
+        action="store_true",
+        default=False,
+        help="Use less train data."
     )
 
     # May be useful to remember for lists
@@ -162,7 +157,9 @@ def parse_args(args):
     }
 
     print("{:-^80}".format("params"))
-    print("Beginning binary classification using the following configuration:\n")
+    print(
+        "Beginning binary classification using the following configuration:\n"
+            )
     for param, value in params.items():
         print("\t{:>13}: {}".format(param, value))
     print()
@@ -172,8 +169,8 @@ def parse_args(args):
 
 def get_top_k_SVM_features(clf, feature_names, y_train, target_names):
     # Why print here?...
-    # If it has coef_ it's the SVM so we can use the coefficients to visualize
-    # the top features and interpret the results
+    # If it has coef_ it's the SVM so we can use the coefficients to
+    # visualize the top features and interpret the results
     if hasattr(clf, "coef_"):
         print("dimensionality: %d" % clf.coef_.shape[1])
         print("density: %f" % density(clf.coef_))
@@ -183,7 +180,7 @@ def get_top_k_SVM_features(clf, feature_names, y_train, target_names):
             """
                 There is a bug, because the length of y_train set
                 is not equal to the length of target_names
-                HOW DO YOU MEAN THERE'S A BUG? <<<<<<<<<<<-------------------------
+                HOW DO YOU MEAN THERE'S A BUG? <<<<<<<<<<<-------------
             """
             print("top 10 keywords per class:")
             print("len(clf.coef_:" + str(len(clf.coef_)))
@@ -198,7 +195,11 @@ def get_top_k_SVM_features(clf, feature_names, y_train, target_names):
                 for k in feature_names[top10]:
                     print(" " + k)
                 print(
-                    trim("%s: %s" % (target_names[i], " ".join(feature_names[top10])))
+                    trim("%s: %s" % (
+                        target_names[i],
+                        " ".join(feature_names[top10])
+                        )
+                        )
                 )
 
 
@@ -207,7 +208,8 @@ def get_top_k_SVM_features(clf, feature_names, y_train, target_names):
 
 # This needs further cleaning
 # The global variables, it might be better to avoid them
-# let's see how it can be done (apparently they are just being used for printing)
+# let's see how it can be done
+# (apparently they are just being used for printing)
 # Get metrics or further details on another method
 def benchmark(clf, X_train, y_train, X_test, y_test):
     print("_" * 80)
@@ -232,10 +234,16 @@ def benchmark(clf, X_train, y_train, X_test, y_test):
 
     print(f"{approach} test time:  {test_time:f}s")
     print(f"{approach} accuracy:   {score:f}")
-    print(f"{approach} macro-f1:" + str(f1_score(y_test, pred, average="macro")))
-    print(f"{approach} micro-f1:" + str(f1_score(y_test, pred, average="micro")))
+    print(f"{approach} macro-f1:"
+          + str(f1_score(y_test, pred, average="macro")))
+    print(f"{approach} micro-f1:"
+          + str(f1_score(y_test, pred, average="micro")))
     print(
-        metrics.classification_report(y_test, pred, target_names=target_names, digits=5)
+        metrics.classification_report(
+            y_test,
+            pred,
+            target_names=target_names,
+            digits=5)
     )
 
     pred = list(pred)
@@ -260,15 +268,15 @@ if __name__ == "__main__":
     target_names = []
     with open(params["logs"]) as IN:
         for line in IN:
-            l = line.strip().split()
-            label = l[0]
+            L = line.strip().split()
+            label = L[0]
             # ignore INFO logs, only classify anomalous logs
             if label == "unlabeled":
                 continue
             if label not in label_dict:
                 label_dict[label] = len(label_dict)
                 target_names.append(label)
-            X_data.append(" ".join(l[2:]))  # WHY 2? It's disregarding the second token
+            X_data.append(" ".join(L[2:]))  # WHY 2? It's disregarding the second token
             y_data.append(label_dict[label])
     X_data = np.array(X_data)
     y_data = np.array(y_data)
@@ -344,7 +352,8 @@ if __name__ == "__main__":
 
         t0 = time()
         print(" calculateTfidfForTrain start")
-        X_train, invf_dict = calculate_tf_invf_train(X_train_bag_vector, vocabulary)
+        X_train, invf_dict = calculate_tf_invf_train(X_train_bag_vector,
+                                                     vocabulary)
         print("  calculateTfidfForTrain end, time=" + str(time() - t0) + "s")
         print(" X_train.shape:" + str(X_train.shape))
 
@@ -361,7 +370,8 @@ if __name__ == "__main__":
             print(" Adding length as feature")
             X_train = addLengthInFeature(X_train, X_train_bag_vector)
             X_test = addLengthInFeature(X_test, X_test_bag_vector)
-            print("  X_train.shape after add lengeth feature:" + str(X_train.shape))
+            print("  X_train.shape after add lengeth feature:"
+                  + str(X_train.shape))
 
         # print("X_train n_samples: %d, n_features: %d" % (X_train.shape)
         # print("X_test  n_samples: %d, n_features: %d" % X_test.shape)
@@ -521,8 +531,10 @@ if __name__ == "__main__":
                     total_y, pred_list[i], target_names=target_names, digits=5
                 )
             )
-            print("macro-f1:" + str(f1_score(total_y, pred_list[i], average="macro")))
-            print("micro-f1:" + str(f1_score(total_y, pred_list[i], average="micro")))
+            print("macro-f1:"
+                  + str(f1_score(total_y, pred_list[i], average="macro")))
+            print("micro-f1:"
+                  + str(f1_score(total_y, pred_list[i], average="micro")))
             print("=" * 80)
 
     # if opts.print_cm:
