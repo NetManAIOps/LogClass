@@ -1,19 +1,6 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-# **********************************************************
-# * Author        : Weibin Meng
-# * Email         : m_weibin@163.com
-# * Create time   : 2017-09-06 16:48
-# * Last modified : 2019-07-24 15:16
-# * Filename      : ilf_binary_Classification.py
-# * Description   :
-"""
-
-If change to tfilf, --add_ilf
-"""
-# **********************************************************
-
 from __future__ import print_function
 import logging
 import numpy as np
@@ -115,17 +102,6 @@ def init_flags():
         + " per class for every classifier.",
     )
 
-    # May be useful to remember for lists
-    # parser.add_argument(
-    #     "--experiment",
-    #     metavar="experiment",
-    #     type=str,
-    #     nargs=1,
-    #     default=["reinit_orig"],
-    #     choices=["no_pruning", "reinit_rand", "reinit_orig", "reinit_none"],
-    #     help="the experiment to run",
-    # )
-
     return parser.parse_args()
 
 
@@ -159,16 +135,6 @@ def testPU(X_train, y_train, X_test, y_test, total_pred_y_pu, total_pred_y_re):
     X_train = X_train[permut]
     y_train = y_train[permut]
 
-    # WHY WERE WE SPLITTING THE DATASET?
-    # #Split test/train
-    # print "Splitting dataset in test/train sets"
-    # print
-    # split = 2*len(y)/3
-    # X_train = X[:split]
-    # y_train = y[:split]
-    # X_test = X[split:]
-    # y_test = y[split:]
-
     print("Training set contains ", len(y_train), " examples")
     print(len(np.where(y_train == -1.0)[0]), " are bening(unlabled)")
     print(len(np.where(y_train == 1.0)[0]), " are malignant")
@@ -182,7 +148,6 @@ def testPU(X_train, y_train, X_test, y_test, total_pred_y_pu, total_pred_y_re):
     n_sacrifice_iter = []
     for i in range(pu_iter_time):
         n_sacrifice_iter.append(i * step)
-    # n_sacrifice_iter = range(0, len(np.where(y_train == +1.)[0])-21, 20)
     print("n_sacrifice_iter", n_sacrifice_iter)
     if total_pred_y_pu == []:
         isEmpty = True
@@ -243,10 +208,6 @@ def testPU(X_train, y_train, X_test, y_test, total_pred_y_pu, total_pred_y_re):
         print("Precision: ", precision[1])
         print("Recall: ", recall[1])
 
-        # testing
-        # print( "old learning in progress...")
-        # results=[]
-        # results.append(benchmark(LinearSVC(penalty="l2", dual=False,tol=1e-3),X_train,y_train_pu,X_test,y_test))
         print("=" * 80)
         print("\n")
 
@@ -320,29 +281,15 @@ if __name__ == "__main__":
     n_for_gram = 1
     multiple_for_pu_iter_time = (
         2
-    )  # step=len(np.where(y_train == 1.)[0])/(pu_iter_time*multiple_for_pu_iter_time+1)
-
-    # def is_interactive():
-    #     return not hasattr(sys.modules['__main__'], '__file__')
-    # lable_result_log_filename='pulearning_label_result_log.dat'
-    # pu_fscore_file='pu_fscore_file'
-    # argv = [] if is_interactive() else sys.argv[1:]
-    # (opts, args) = op.parse_args(argv)
-    # if len(args) > 0:
-    #     op.error("this script takes no arguments.")
-    #     sys.exit(1)
-
-    # print(__doc__)
-    # op.print_help()
-    # print()
-
-    # #############################################################################
+    )
 
     t_start = time()
     X_data = []
     label_dict = {}
     y_data = []
     target_names = []
+    # THIS IS ONLY FOR THE CURRENT KIND OF DATA
+    # IT SHOULD BE INDEPENDANT OF THE DATA SOURCE
     with open(input_path) as IN:
         for line in IN:
             L = line.strip().split()
@@ -398,7 +345,7 @@ if __name__ == "__main__":
 
         t0 = time()
         print(" convertLogToVector for train start")
-        X_train_bag_vector, y_train, X_train_save = log_to_vector(
+        X_train_bag_vector, y_train = log_to_vector(
             n_for_gram, X_train, vocabulary, y_train
         )
         print("  convertLogToVector for train end, time="
@@ -407,8 +354,7 @@ if __name__ == "__main__":
         t0 = time()
         print(" convertLogToVector for test start")
 
-        # print(len(X_test),len(y_test))
-        X_test_bag_vector, y_test, X_test_save = log_to_vector(
+        X_test_bag_vector, y_test = log_to_vector(
             n_for_gram, X_test, vocabulary, y_test
         )
         print("  convertLogToVector for test end, time="
@@ -425,13 +371,9 @@ if __name__ == "__main__":
         print(" calculateTfidfForTest start")
         X_test = create_invf_vector(invf_dict, X_test_bag_vector, vocabulary)
         print("  calculateTfidfForTest end, time=" + str(time() - t0) + "s")
-        # print(X_train.shape)
-        # print(X_test.shape)
         y_test = np.array(y_test)
         y_train = np.array(y_train)
         y_list.append(y_test)
-        x_save_list.append(X_test_save)
-        # add length to feature vector
         if params["add_length"]:
             print(" Adding length as feature")
             X_train = addLengthInFeature(X_train, X_train_bag_vector)
@@ -460,23 +402,11 @@ if __name__ == "__main__":
             )
         )
 
+    # This is used for comparing results. Not sure it's still required
     total_y = []
     for k in y_list:
         total_y.extend(k)
 
-    # total_pred_y_pu
-    total_x_save = []
-    for k in x_save_list:
-        total_x_save.extend(k)
-
-    # if opts.add_length_vector:
-    #     lable_result_log_filename='./'+str(k_of_kflod)+'_'+str(n_for_gram)+'_add_'+lable_result_log_filename
-    # else:
-    #     lable_result_log_filename='./'+str(k_of_kflod)+'_'+str(n_for_gram)+'_'+lable_result_log_filename
-
-    # f_yyx = open(lable_result_log_filename,'w')
-
-    # file_score = open(pu_fscore_file+'_'+str(multiple_for_pu_iter_time)+'_'+str(pu_iter_time)+'_'+str(k_of_kflod)+'_total_'+str(len(y_data))+'.dat','w')
     for i, n in enumerate(total_pred_y_pu):
         # precision, recall, f1_score, _ = precision_recall_fscore_support(y_test, y_pred)
         print("=" * 80)
@@ -517,7 +447,6 @@ if __name__ == "__main__":
             + " f1_score:"
             + str(round(f1_score2[1], 4))
         )
-        # file_score.writelines(str(f1_score1[1])+' '+str(f1_score2[1])+' '+str(int(i*len(y_data)/(multiple_for_pu_iter_time*pu_iter_time)))+'\n')
 
         print("=" * 80)
 
@@ -535,6 +464,5 @@ if __name__ == "__main__":
         pred = ""
         for j in range(len(pred_list)):
             pred += " " + str(pred_list[j][i])
-        # f_yyx.writelines(target_names[int(k)] + " " +str(k) + ' ' + pred + ' ' + total_x_save[i]+'\n')
 
     print("total time: " + str(int((time() - t_start))) + "s")

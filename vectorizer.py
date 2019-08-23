@@ -41,7 +41,6 @@ def build_ngram_vocabulary(n, inputData):
 
 def log_to_vector(n, inputData, vocabulary, y):
     result = []
-    x_result = []
     y_result = []
     for index_data, line in enumerate(inputData):
         temp = []
@@ -53,9 +52,8 @@ def log_to_vector(n, inputData, vocabulary, y):
                 else:
                     temp.append(vocabulary[cur_gram])
         result.append(temp)
-        x_result.append(line)
         y_result.append(y[index_data])
-    return np.array(result), np.array(y_result), x_result
+    return np.array(result), np.array(y_result)
 
 
 def setTrainDataForILF(x, y):

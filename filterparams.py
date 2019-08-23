@@ -1,18 +1,11 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-# **********************************************************
-# * Author        : Weibin Meng
-# * Email         : m_weibin@163.com
-# * Create time   : 2017-09-13 12:32
-# * Last modified : 2019-07-24 15:55
-# * Filename      : filterParameter.py
-# * Description   :
 """
 Reads rawlog file and outputs filtered logs removing parameter words
 or tokens with non-letter characters keeping only text words.
 """
-# **********************************************************
+
 
 import re
 import argparse

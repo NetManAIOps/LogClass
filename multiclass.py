@@ -1,12 +1,5 @@
 # -*- coding: UTF-8 -*-
 
-# **********************************************************
-# * Author        : Weibin Meng
-# * Email         : m_weibin@163.com
-# * Create time   : 2017-09-06 16:48
-# * Last modified : 2019-08-05 15:40
-# * Filename      : total_mululti-logClassification.py
-# * Description   :
 """
 ilf is faster than idf
 
@@ -14,7 +7,7 @@ Each gram is for each gram, not multi of words.
 This version can save label+result+log
 If add length feature, --add_length
 """
-# **********************************************************
+
 
 from __future__ import print_function
 from sklearn.metrics import f1_score
@@ -45,8 +38,6 @@ import matplotlib
 
 matplotlib.use("Agg")
 
-# input_path='./data/logs_without_paras.txt'
-# k_of_kflod=10
 n_for_gram = 1
 total_tol = 1e-1  # param of svc
 
@@ -121,23 +112,6 @@ def init_flags():
         help="Print ten most discriminative terms per\
              class for every classifier.",
     )
-    parser.add_argument(
-        "--less_train",
-        action="store_true",
-        default=False,
-        help="Use less train data."
-    )
-
-    # May be useful to remember for lists
-    # parser.add_argument(
-    #     "--experiment",
-    #     metavar="experiment",
-    #     type=str,
-    #     nargs=1,
-    #     default=["reinit_orig"],
-    #     choices=["no_pruning", "reinit_rand", "reinit_orig", "reinit_none"],
-    #     help="the experiment to run",
-    # )
 
     return parser.parse_args()
 
@@ -153,7 +127,6 @@ def parse_args(args):
         "add_length": args.add_length,
         "report": args.report,
         "top10": args.top10,
-        "less_train": args.less_train,
     }
 
     print("{:-^80}".format("params"))
@@ -205,12 +178,6 @@ def get_top_k_SVM_features(clf, feature_names, y_train, target_names):
 
 # #############################################################################
 # Benchmark classifiers
-
-# This needs further cleaning
-# The global variables, it might be better to avoid them
-# let's see how it can be done
-# (apparently they are just being used for printing)
-# Get metrics or further details on another method
 def benchmark(clf, X_train, y_train, X_test, y_test):
     print("_" * 80)
     print("Training: ")
@@ -276,7 +243,7 @@ if __name__ == "__main__":
             if label not in label_dict:
                 label_dict[label] = len(label_dict)
                 target_names.append(label)
-            X_data.append(" ".join(L[2:]))  # WHY 2? It's disregarding the second token
+            X_data.append(" ".join(L[1:]))
             y_data.append(label_dict[label])
     X_data = np.array(X_data)
     y_data = np.array(y_data)
@@ -312,32 +279,19 @@ if __name__ == "__main__":
         X_test = []
         y_train = []
         y_test = []
-        # right codes
-        # WHY DOES IT DO THIS LESS_TRAIN DATA APPROACH?
-        # IT JUST CHANGES TEST FOR TRAIN TO ACHIEVE IT??
-        if params["less_train"]:
-            X_train, X_test = X_data[test_index], X_data[train_index]
-            y_train, y_test = y_data[test_index], y_data[train_index]
-        else:
-            X_train, X_test = X_data[train_index], X_data[test_index]
-            y_train, y_test = y_data[train_index], y_data[test_index]
+        X_train, X_test = X_data[train_index], X_data[test_index]
+        y_train, y_test = y_data[train_index], y_data[test_index]
         print(" train data size:" + str(X_train.shape[0]))
         print(" test  data size:" + str(X_test.shape[0]))
 
-        # new code#######################
-        # vocabulary is a list including words
         t0 = time()
         print(" build_ngram_vocabulary start")
         vocabulary = build_ngram_vocabulary(n_for_gram, X_train)
         print("  build_ngram_vocabulary end, time=" + str(time() - t0) + "s")
 
-        # WHY IS THIS COMMENTED OUT?
-        # if opts.add_ilf:
-        # X_train,y_train=setTrainDataForILF(X_train,y_train)
-
         t0 = time()
         print(" log_to_vector for train start")
-        X_train_bag_vector, y_train, X_train_save = log_to_vector(
+        X_train_bag_vector, y_train = log_to_vector(
             n_for_gram, X_train, vocabulary, y_train
         )
         print("  log_to_vector for train end, time=" + str(time() - t0) + "s")
@@ -345,7 +299,7 @@ if __name__ == "__main__":
         t0 = time()
         print(" log_to_vector for test start")
 
-        X_test_bag_vector, y_test, X_test_save = log_to_vector(
+        X_test_bag_vector, y_test = log_to_vector(
             n_for_gram, X_test, vocabulary, y_test
         )
         print("  log_to_vector for test end, time=" + str(time() - t0) + "s")
@@ -363,9 +317,7 @@ if __name__ == "__main__":
         print("  calculateTfidfForTest end, time=" + str(time() - t0) + "s")
 
         y_list.append(y_test)
-        # WHAT'S THE POINT OF THE x_save_list, x_test_save, isn't it the log input already?
-        x_save_list.append(X_test_save)
-        # add length to feature vector
+
         if params["add_length"]:
             print(" Adding length as feature")
             X_train = addLengthInFeature(X_train, X_train_bag_vector)
@@ -373,52 +325,10 @@ if __name__ == "__main__":
             print("  X_train.shape after add lengeth feature:"
                   + str(X_train.shape))
 
-        # print("X_train n_samples: %d, n_features: %d" % (X_train.shape)
-        # print("X_test  n_samples: %d, n_features: %d" % X_test.shape)
-
-        # WHY HAVING A SEPARATE NAME??
         # WHAT'S THE POINT OF feature_names vs vocabulary
+        # This is just a variable name change to a more suitable word
+        # for its use
         feature_names = vocabulary
-
-        # print(X_train)
-        # print(X_test)
-
-        # print("Extracting features from the training data using a sparse vectorizer")
-        # t0 = time()
-        # vectorizer = TfidfVectorizer(sublinear_tf=True, max_df=0.5,
-        #                                  stop_words='english')
-        # X_train = vectorizer.fit_transform(X_train)
-        # duration = time() - t0
-        # print("done in %fs" % (duration))
-        # print("n_samples: %d, n_features: %d" % X_train.shape)
-        # print()
-
-        # print("Extracting features from the test data using the same vectorizer")
-        # t0 = time()
-        # X_test = vectorizer.transform(X_test)
-        # duration = time() - t0
-        # print("done in %fs " % (duration))
-        # #print("done in %fs at %0.3fMB/s" % (duration, data_test_size_mb / duration))
-        # print("n_samples: %d, n_features: %d" % X_test.shape)
-        # print()
-
-        # # mapping from integer feature name to original token string
-
-        # feature_names = vectorizer.get_feature_names()
-        # # print(type(feature_names))
-        # if opts.select_chi2:
-        #     print("Extracting %d best features by a chi-squared test" %
-        #           opts.select_chi2)
-        #     t0 = time()
-        #     ch2 = SelectKBest(chi2, k=opts.select_chi2)
-        #     X_train = ch2.fit_transform(X_train, y_train)
-        #     X_test = ch2.transform(X_test)
-        #     if feature_names:
-        #         # keep selected feature names
-        #         feature_names = [feature_names[i] for i
-        #                          in ch2.get_support(indices=True)]
-        #     print("done in %fs" % (time() - t0))
-        #     print()
 
         if feature_names:
             feature_names = np.asarray(feature_names)
@@ -507,44 +417,30 @@ if __name__ == "__main__":
     total_y = []
     for k in y_list:
         total_y.extend(k)
-    # This would eventually be saved but I don't see the reason why yet
-    total_x_save = []
-    for k in x_save_list:
-        total_x_save.extend(k)
 
-    # if opts.add_length_vector:
-    #     lable_result_log_filename='./result/'+str(k_of_kflod)+'_'+str(n_for_gram)+'_add_'+lable_result_log_filename
-    # else:
-    #     lable_result_log_filename='./result/'+str(k_of_kflod)+'_'+str(n_for_gram)+'_'+lable_result_log_filename
-    # f_yyx = open(lable_result_log_filename,'w')
-
-    if True:
-        # if opts.print_report:
-        for i, n in enumerate(clf_names_list):
-            print("=" * 80)
-            print("%s classification report:" % (n))
-            print("-" * 80)
-            # WHAT IS THIS total_y COMPARING WITH pred_list[i] ???
-            # It looks like it could be the predictions from each model from the cross-validation?
-            print(
-                metrics.classification_report(
-                    total_y, pred_list[i], target_names=target_names, digits=5
-                )
+    for i, n in enumerate(clf_names_list):
+        print("=" * 80)
+        print("%s classification report:" % (n))
+        print("-" * 80)
+        # WHAT IS THIS total_y COMPARING WITH pred_list[i] ???
+        # It looks like it could be the predictions from each model from the cross-validation?
+        print(
+            metrics.classification_report(
+                total_y, pred_list[i], target_names=target_names, digits=5
             )
-            print("macro-f1:"
-                  + str(f1_score(total_y, pred_list[i], average="macro")))
-            print("micro-f1:"
-                  + str(f1_score(total_y, pred_list[i], average="micro")))
-            print("=" * 80)
+        )
+        print("macro-f1:"
+                + str(f1_score(total_y, pred_list[i], average="macro")))
+        print("micro-f1:"
+                + str(f1_score(total_y, pred_list[i], average="micro")))
+        print("=" * 80)
 
-    # if opts.print_cm:
-    if True:
-        for i, n in enumerate(clf_names_list):
-            print("=" * 80)
-            print("%s confusion matrix:" % (n))
-            print("-" * 80)
-            print(metrics.confusion_matrix(total_y, pred_list[i]))
-            print("=" * 80)
+    for i, n in enumerate(clf_names_list):
+        print("=" * 80)
+        print("%s confusion matrix:" % (n))
+        print("-" * 80)
+        print(metrics.confusion_matrix(total_y, pred_list[i]))
+        print("=" * 80)
 
     score = []
     # print accuracy
@@ -561,7 +457,6 @@ if __name__ == "__main__":
         pred = ""
         for j in range(len(pred_list)):
             pred += " " + str(pred_list[j][i])
-        # f_yyx.writelines(target_names[int(k)]+" "+str(k)+' '+pred+' '+total_x_save[i]+'\n')
 
     """
     # make some plots
@@ -594,9 +489,5 @@ if __name__ == "__main__":
     print("training time:" + str(total_train_time))
     print("testing  time:" + str(total_test_time))
     print("total time:" + str((time() - t_start) / 60) + "mins,end")
-
-    # plt.show()
-
     print("k_of_kflod:" + str(k_of_kflod))
-    # print("n_for_gram:"+str(n_for_gram))
-    # print('end all')
+
