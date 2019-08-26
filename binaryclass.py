@@ -13,6 +13,10 @@ from sklearn import metrics
 from .puLearning.puAdapter import PUAdapter
 from sklearn.metrics import precision_recall_fscore_support
 from .vectorizer import (
+    get_tf,
+    get_lf,
+    calculate_idf,
+    calculate_ilf,
     build_vocabulary,
     log_to_vector,
     calculate_tf_invf_train,
@@ -320,17 +324,27 @@ def main():
         print("  convertLogToVector for test end, time="
               + str(time() - t0) + "s")
 
+        if params['add_ilf']:
+            freq = get_lf
+            invf = calculate_ilf
+        else:
+            freq = get_tf
+            invf = calculate_idf
         t0 = time()
         print(" calculateTfidfForTrain start")
-        X_train, invf_dict = calculate_tf_invf_train(X_train_bag_vector,
-                                                     vocabulary)
+        X_train, invf_dict = calculate_tf_invf_train(
+            X_train_bag_vector,
+            vocabulary,
+            get_f=freq,
+            calc_invf=invf
+            )
         print("  calculateTfidfForTrain end, time=" + str(time() - t0) + "s")
         print(" X_train.shape:" + str(X_train.shape))
 
         t0 = time()
-        print(" calculateTfidfForTest start")
+        print(" calculateTfinvfForTest start")
         X_test = create_invf_vector(invf_dict, X_test_bag_vector, vocabulary)
-        print("  calculateTfidfForTest end, time=" + str(time() - t0) + "s")
+        print("  calculateTfnvfForTest end, time=" + str(time() - t0) + "s")
         y_test = np.array(y_test)
         y_train = np.array(y_train)
         y_list.append(y_test)

@@ -38,7 +38,6 @@ def build_vocabulary(inputData):
         for token in token_list:
             if token not in vocabulary:
                 vocabulary[token] = len(vocabulary)
-
     return vocabulary
 
 
@@ -62,7 +61,6 @@ def log_to_vector(inputData, vocabulary, y):
 def setTrainDataForILF(x, y):
     x_res, indices = np.unique(x, return_index=True)
     y_res = y[indices]
-
     return x_res, y_res
 
 
@@ -72,14 +70,8 @@ def calculate_inv_freq(total, num):
         )
 
 
-# CHECK IF USING MAX IS BETTER OR SIMILAR SPEED AS IT'S EASIER TO READ
-# WHAT ABOUT NUMPY?
 def get_max_line(inputVector):
-    max_length = 0
-    for line in inputVector:
-        if len(line) > max_length:
-            max_length = len(line)
-    return max_length
+    return len(max(inputVector, key=len))
 
 
 def get_tf(inputVector):
@@ -107,10 +99,10 @@ def calculate_idf(gram_index_dict, inputVector, vocabulary):
     idf_dict = {}
     total_log_num = len(inputVector)
     for gram in gram_index_dict:
-            idf_dict[gram] = calculate_inv_freq(
-                                total_log_num,
-                                len(gram_index_dict[gram])
-                                )
+        idf_dict[gram] = calculate_inv_freq(
+                            total_log_num,
+                            len(gram_index_dict[gram])
+                            )
     return idf_dict
 
 
@@ -132,9 +124,9 @@ def create_invf_vector(invf_dict, inputVector, vocabulary):
     for line in inputVector:
         cur_tfinvf = np.zeros(len(vocabulary))
         for gram_index in line:
-                cur_tfinvf[gram_index] = (
-                    float(line.count(gram_index)) * invf_dict[gram_index]
-                )
+            cur_tfinvf[gram_index] = (
+                float(line.count(gram_index)) * invf_dict[gram_index]
+            )
         tfinvf.append(cur_tfinvf)
 
     tfinvf = np.array(tfinvf)
@@ -142,7 +134,7 @@ def create_invf_vector(invf_dict, inputVector, vocabulary):
 
 
 def calculate_tf_invf_train(inputVector, vocabulary,
-                            get_tf=get_tf, calc_invf=calculate_idf):
+                            get_f=get_tf, calc_invf=calculate_idf):
     """In this version, tf is not normalized.
     We use frequence value as tf value.
 

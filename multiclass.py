@@ -20,6 +20,10 @@ from sklearn.svm import LinearSVC
 from sklearn.utils.extmath import density
 from sklearn import metrics
 from .vectorizer import (
+    get_tf,
+    get_lf,
+    calculate_idf,
+    calculate_ilf,
     build_vocabulary,
     log_to_vector,
     calculate_tf_invf_train,
@@ -82,7 +86,7 @@ def init_flags():
         "--add_ilf",
         type=int,
         nargs=1,
-        default=False,
+        default=True,
         help="if set, LogClass will use ilf to generate ferture vector",
     )
     parser.add_argument(
@@ -294,10 +298,20 @@ if __name__ == "__main__":
         )
         print("  log_to_vector for test end, time=" + str(time() - t0) + "s")
 
+        if params['add_ilf']:
+            freq = get_lf
+            invf = calculate_ilf
+        else:
+            freq = get_tf
+            invf = calculate_idf
         t0 = time()
         print(" calculateTfidfForTrain start")
-        X_train, invf_dict = calculate_tf_invf_train(X_train_bag_vector,
-                                                     vocabulary)
+        X_train, invf_dict = calculate_tf_invf_train(
+            X_train_bag_vector,
+            vocabulary,
+            get_f=freq,
+            calc_invf=invf
+            )
         print("  calculateTfidfForTrain end, time=" + str(time() - t0) + "s")
         print(" X_train.shape:" + str(X_train.shape))
 
