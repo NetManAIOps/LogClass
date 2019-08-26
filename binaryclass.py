@@ -303,9 +303,9 @@ def main():
         print(" test  data size:" + str(X_test.shape[0]))
 
         t0 = time()
-        print(" ngramDivide start")
+        print(" building vocabulary start")
         vocabulary = build_vocabulary(X_train)
-        print("  ngramDivide end, time=" + str(time() - t0) + "s")
+        print("  building vocabulary end, time=" + str(time() - t0) + "s")
 
         t0 = time()
         print(" convertLogToVector for train start")

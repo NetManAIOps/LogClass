@@ -3,7 +3,6 @@
 """
 ilf is faster than idf
 
-Each gram is for each gram, not multi of words.
 This version can save label+result+log
 If add length feature, --add_length
 """
@@ -34,7 +33,6 @@ import matplotlib
 
 matplotlib.use("Agg")
 
-n_for_gram = 1
 total_tol = 1e-1  # param of svc
 
 
@@ -279,9 +277,9 @@ if __name__ == "__main__":
         print(" test  data size:" + str(X_test.shape[0]))
 
         t0 = time()
-        print(" build_ngram_vocabulary start")
+        print(" build vocabulary start")
         vocabulary = build_vocabulary(X_train)
-        print("  build_ngram_vocabulary end, time=" + str(time() - t0) + "s")
+        print("  build vocabulary end, time=" + str(time() - t0) + "s")
 
         t0 = time()
         print(" log_to_vector for train start")
@@ -387,7 +385,8 @@ if __name__ == "__main__":
         print("%s classification report:" % (n))
         print("-" * 80)
         # WHAT IS THIS total_y COMPARING WITH pred_list[i] ???
-        # It looks like it could be the predictions from each model from the cross-validation?
+        # It looks like it could be the predictions from each model from
+        # the cross-validation?
         print(
             metrics.classification_report(
                 total_y, pred_list[i], target_names=target_names, digits=5
@@ -427,4 +426,3 @@ if __name__ == "__main__":
     print("testing  time:" + str(total_test_time))
     print("total time:" + str((time() - t_start) / 60) + "mins,end")
     print("k_of_kflod:" + str(k_of_kflod))
-
