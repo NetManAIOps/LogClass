@@ -20,37 +20,40 @@ def get_ngrams(n, line):
     return ngrams_list
 
 
-def build_ngram_vocabulary(n, inputData):
+def tokenize(line):
+    return line.strip().split()
+
+
+def build_vocabulary(inputData):
     """
-        Divides log into n-gram using get_ngrams method and creates vocabulary.
+        Divides log into tokens using get_ngrams method and creates vocabulary.
         Args:
-            n: ngram size
             inputData: list of log lines
         Returns:
             Vocabulary to index dict
     """
     vocabulary = {}
     for line in inputData:
-        ngrams_list = get_ngrams(n, line)
-        for ngram in ngrams_list:
-            if ngram not in vocabulary:
-                vocabulary[ngram] = len(vocabulary)
+        token_list = tokenize(line)
+        for token in token_list:
+            if token not in vocabulary:
+                vocabulary[token] = len(vocabulary)
 
     return vocabulary
 
 
-def log_to_vector(n, inputData, vocabulary, y):
+def log_to_vector(inputData, vocabulary, y):
     result = []
     y_result = []
     for index_data, line in enumerate(inputData):
         temp = []
-        ngrams_list = get_ngrams(n, line)
-        if ngrams_list:
-            for cur_gram in ngrams_list:
-                if cur_gram not in vocabulary:
+        token_list = tokenize(line)
+        if token_list:
+            for token in token_list:
+                if token not in vocabulary:
                     continue
                 else:
-                    temp.append(vocabulary[cur_gram])
+                    temp.append(vocabulary[token])
         result.append(temp)
         y_result.append(y[index_data])
     return np.array(result), np.array(y_result)

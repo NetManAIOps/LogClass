@@ -16,19 +16,11 @@ import numpy as np
 import argparse
 from time import time
 from sklearn.model_selection import KFold, StratifiedKFold
-from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import LinearSVC
-from sklearn.linear_model import SGDClassifier
-from sklearn.linear_model import Perceptron
-from sklearn.linear_model import PassiveAggressiveClassifier
-from sklearn.naive_bayes import BernoulliNB, MultinomialNB
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.neighbors import NearestCentroid
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.utils.extmath import density
 from sklearn import metrics
 from .vectorizer import (
-    build_ngram_vocabulary,
+    build_vocabulary,
     log_to_vector,
     calculate_tf_invf_train,
     create_invf_vector,
@@ -176,8 +168,6 @@ def get_top_k_SVM_features(clf, feature_names, y_train, target_names):
                 )
 
 
-# #############################################################################
-# Benchmark classifiers
 def benchmark(clf, X_train, y_train, X_test, y_test):
     print("_" * 80)
     print("Training: ")
@@ -286,13 +276,13 @@ if __name__ == "__main__":
 
         t0 = time()
         print(" build_ngram_vocabulary start")
-        vocabulary = build_ngram_vocabulary(n_for_gram, X_train)
+        vocabulary = build_vocabulary(X_train)
         print("  build_ngram_vocabulary end, time=" + str(time() - t0) + "s")
 
         t0 = time()
         print(" log_to_vector for train start")
         X_train_bag_vector, y_train = log_to_vector(
-            n_for_gram, X_train, vocabulary, y_train
+            X_train, vocabulary, y_train
         )
         print("  log_to_vector for train end, time=" + str(time() - t0) + "s")
         print(" X_train_bag_vector.shape:" + str(X_train_bag_vector.shape))
@@ -300,7 +290,7 @@ if __name__ == "__main__":
         print(" log_to_vector for test start")
 
         X_test_bag_vector, y_test = log_to_vector(
-            n_for_gram, X_test, vocabulary, y_test
+            X_test, vocabulary, y_test
         )
         print("  log_to_vector for test end, time=" + str(time() - t0) + "s")
 
@@ -334,46 +324,6 @@ if __name__ == "__main__":
             feature_names = np.asarray(feature_names)
 
         results = []
-        """
-        for clf, name in (
-            (RidgeClassifier(tol=1e-2, solver="lsqr"), "Ridge Classifier"),
-            (Perceptron(n_iter=50), "Perceptron"),
-            (PassiveAggressiveClassifier(n_iter=50), "Passive-Aggressive"),
-                #(KNeighborsClassifier(n_neighbors=10), "kNN"),
-            (RandomForestClassifier(n_estimators=100), "Random forest")):
-        print('=' * 80)
-        print(name)
-        results.append(benchmark(clf))
-
-        for penalty in ["l2", "l1"]:
-        print('=' * 80)
-        print("%s penalty" % penalty.upper())
-        # Train Liblinear model
-        results.append(benchmark(LinearSVC(penalty=penalty, dual=False,
-                                            tol=1e-3)))
-
-        # Train SGD model
-        results.append(benchmark(SGDClassifier(alpha=.0001, n_iter=50,
-                                                penalty=penalty)))
-
-        # Train SGD with Elastic Net penalty
-        print('=' * 80)
-        print("Elastic-Net penalty")
-        results.append(benchmark(SGDClassifier(alpha=.0001, n_iter=50,
-                                            penalty="elasticnet")))
-
-        # Train NearestCentroid without threshold
-        print('=' * 80)
-        print("NearestCentroid (aka Rocchio classifier)")
-        results.append(benchmark(NearestCentroid()))
-
-        # Train sparse Naive Bayes classifiers
-        print('=' * 80)
-        print("Naive Bayes")
-        results.append(benchmark(MultinomialNB(alpha=.01)))
-        results.append(benchmark(BernoulliNB(alpha=.01)))
-
-        """
 
         print("=" * 80)
         print("LinearSVC  l2 penalty")
@@ -430,9 +380,9 @@ if __name__ == "__main__":
             )
         )
         print("macro-f1:"
-                + str(f1_score(total_y, pred_list[i], average="macro")))
+              + str(f1_score(total_y, pred_list[i], average="macro")))
         print("micro-f1:"
-                + str(f1_score(total_y, pred_list[i], average="micro")))
+              + str(f1_score(total_y, pred_list[i], average="micro")))
         print("=" * 80)
 
     for i, n in enumerate(clf_names_list):
@@ -458,33 +408,6 @@ if __name__ == "__main__":
         for j in range(len(pred_list)):
             pred += " " + str(pred_list[j][i])
 
-    """
-    # make some plots
-
-    indices = np.arange(len(clf_names_list))
-    training_time = np.array(training_time_list) / np.max(training_time_list)
-    test_time = np.array(test_time_list) / np.max(test_time_list)
-
-    # print(len(indices))
-    # print(len(score))
-    # print(len(training_time_list))
-
-    plt.figure(figsize=(12, 8))
-    plt.title("Score")
-    plt.barh(indices, score, .2, label="score", color='navy')
-    plt.barh(indices + .3, training_time, .2, label="training time",
-            color='c')
-    plt.barh(indices + .6, test_time, .2, label="test time", color='darkorange')
-    plt.yticks(())
-    plt.legend(loc='best')
-    plt.subplots_adjust(left=.25)
-    plt.subplots_adjust(top=.95)
-    plt.subplots_adjust(bottom=.05)
-
-    for i, c in zip(indices, clf_names):
-        plt.text(-.3, i, c)
-    plt.savefig(fig_path)
-    """
     print("iters:" + str(total_iter / k_of_kflod))
     print("training time:" + str(total_train_time))
     print("testing  time:" + str(total_test_time))

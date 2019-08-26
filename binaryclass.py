@@ -7,19 +7,13 @@ import numpy as np
 from time import time
 from sklearn.svm import LinearSVC
 from sklearn.model_selection import StratifiedKFold
-from sklearn.linear_model import SGDClassifier
-from sklearn.linear_model import Perceptron
-from sklearn.linear_model import PassiveAggressiveClassifier
-from sklearn.naive_bayes import BernoulliNB, MultinomialNB
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.neighbors import NearestCentroid
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.utils.extmath import density
 from sklearn import metrics
 from .puLearning.puAdapter import PUAdapter
 from sklearn.metrics import precision_recall_fscore_support
 from .vectorizer import (
-    build_ngram_vocabulary,
+    build_vocabulary,
     log_to_vector,
     calculate_tf_invf_train,
     create_invf_vector,
@@ -128,30 +122,28 @@ def parse_args(args):
     return params
 
 
-def testPU(X_train, y_train, X_test, y_test, total_pred_y_pu, total_pred_y_re):
+def testPU(X_train, y_train, X_test, y_test, total_pred_y_pu, total_pred_y_re,
+           pu_iter_time, multiple_for_pu_iter_time):
     np.random.seed(5)
-    # pu_pred=[]
     permut = np.random.permutation(len(y_train))
     X_train = X_train[permut]
     y_train = y_train[permut]
 
-    print("Training set contains ", len(y_train), " examples")
-    print(len(np.where(y_train == -1.0)[0]), " are bening(unlabled)")
-    print(len(np.where(y_train == 1.0)[0]), " are malignant")
-    print()
     isEmpty = False
     pu_f1_scores = []
     reg_f1_scores = []
     step = len(np.where(y_train == 1.0)[0]) / (
         pu_iter_time * multiple_for_pu_iter_time + 1
     )
+    # iterations to test PU learning on
     n_sacrifice_iter = []
     for i in range(pu_iter_time):
         n_sacrifice_iter.append(i * step)
-    print("n_sacrifice_iter", n_sacrifice_iter)
     if total_pred_y_pu == []:
         isEmpty = True
     for i, n_sacrifice in enumerate(n_sacrifice_iter):
+        # adds more malignant examples in the unlabeled side in order to
+        # test how robust it this approach is compared to the others
         print("=" * 80)
         # send some positives to the negative class! :)
         print("PU transformation in progress.")
@@ -171,11 +163,11 @@ def testPU(X_train, y_train, X_test, y_test, total_pred_y_pu, total_pred_y_re):
         # Get f1 score with pu_learning
         print("PU learning in progress...")
         estimator = RandomForestClassifier(
-            n_estimators=10,  # #_of_submodel
-            criterion="entropy",  # gini or entropy(default=”gini”)是计算属性的gini(基尼不纯度)还是entropy(信息增益)，来选择最合适的节点。
-            bootstrap=True,  # bootstrap=True：是否有放回的采样。
+            n_estimators=10,
+            criterion="entropy",
+            bootstrap=True,
             n_jobs=1,
-        )  # 并行job个数   1=不并行；n：n个并行；-1：CPU有多少core，就启动多少job
+        )
         pu_estimator = PUAdapter(estimator)
         pu_estimator.fit(X_train, y_train_pu)
         y_pred = pu_estimator.predict(X_test)
@@ -211,23 +203,10 @@ def testPU(X_train, y_train, X_test, y_test, total_pred_y_pu, total_pred_y_re):
         print("=" * 80)
         print("\n")
 
-    # plt.title("Random forest with/without PU learning")
-    # plt.plot(n_sacrifice_iter, pu_f1_scores, label='PU Adapted Random Forest')
-    # plt.plot(n_sacrifice_iter, reg_f1_scores, label='Random Forest')
-    # plt.xlabel('Number of positive examples hidden in the unlabled set')
-    # plt.ylabel('F1 Score')
-    # plt.legend()
-    # plt.show()
 
-    # return total_pred_y_pu
-
-
-# #############################################################################
-# Benchmark classifiers
 def benchmark(clf, X_train, y_train, X_test, y_test):
     print("_" * 80)
     print("LinearSVC Training: ")
-    # print(clf)
     t0 = time()
     clf.fit(X_train, y_train)
     train_time = time() - t0
@@ -244,20 +223,9 @@ def benchmark(clf, X_train, y_train, X_test, y_test):
     if hasattr(clf, "coef_"):
         print("dimensionality: %d" % clf.coef_.shape[1])
         print("density: %f" % density(clf.coef_))
-
-    # if opts.print_report:
-    #     print("classification report:")
-    #     print(metrics.classification_report(y_test, pred,
-    #                                         target_names=target_names))
-
-    # if opts.print_cm:
-    #     print("confusion matrix:")
-    #     print(metrics.confusion_matrix(y_test, pred))
-
     print()
     clf_descr = str(clf).split("(")[0]
     pred = list(pred)
-    # print(pred)
 
     precision, recall, f1_score, _ =\
         precision_recall_fscore_support(y_test, pred)
@@ -266,10 +234,9 @@ def benchmark(clf, X_train, y_train, X_test, y_test):
     print("Recall: ", recall)
 
     return clf_descr, score, train_time, test_time, pred
-    # results = [[x[i] for x in results] for i in range(5)]
 
 
-if __name__ == "__main__":
+def main():
     # Init hparams
     params = parse_args(init_flags())
 
@@ -278,7 +245,6 @@ if __name__ == "__main__":
     pu_iter_time = params["iterations"]  # iters of pu test
     unlabel_label = params["prefix"]
 
-    n_for_gram = 1
     multiple_for_pu_iter_time = (
         2
     )
@@ -307,7 +273,6 @@ if __name__ == "__main__":
             y_data.append(label_dict[label])
     X_data = np.array(X_data)
     y_data = np.array(y_data)
-    # print(set(y_data))
     y_test = []
     y_train = []
     X_test = []
@@ -319,11 +284,8 @@ if __name__ == "__main__":
     cur_num = 1
 
     clf_names_list = []
-    training_time_list = []
-    test_time_list = []
     pred_list = []
     y_list = []
-    x_save_list = []
 
     total_pred_y_pu = []
     total_pred_y_re = []
@@ -336,17 +298,15 @@ if __name__ == "__main__":
         print(" train data size:" + str(X_train.shape[0]))
         print(" test  data size:" + str(X_test.shape[0]))
 
-        # new code#######################
-        # vocabulary is a list including words
         t0 = time()
         print(" ngramDivide start")
-        vocabulary = build_ngram_vocabulary(n_for_gram, X_train)
+        vocabulary = build_vocabulary(X_train)
         print("  ngramDivide end, time=" + str(time() - t0) + "s")
 
         t0 = time()
         print(" convertLogToVector for train start")
         X_train_bag_vector, y_train = log_to_vector(
-            n_for_gram, X_train, vocabulary, y_train
+            X_train, vocabulary, y_train
         )
         print("  convertLogToVector for train end, time="
               + str(time() - t0) + "s")
@@ -355,7 +315,7 @@ if __name__ == "__main__":
         print(" convertLogToVector for test start")
 
         X_test_bag_vector, y_test = log_to_vector(
-            n_for_gram, X_test, vocabulary, y_test
+            X_test, vocabulary, y_test
         )
         print("  convertLogToVector for test end, time="
               + str(time() - t0) + "s")
@@ -389,8 +349,8 @@ if __name__ == "__main__":
         results = []
 
         print("=" * 80)
-        testPU(X_train, y_train, X_test, y_test,
-               total_pred_y_pu, total_pred_y_re)
+        testPU(X_train, y_train, X_test, y_test, total_pred_y_pu,
+               total_pred_y_re, pu_iter_time, multiple_for_pu_iter_time)
         print("=" * 80)
         results.append(
             benchmark(
@@ -408,15 +368,8 @@ if __name__ == "__main__":
         total_y.extend(k)
 
     for i, n in enumerate(total_pred_y_pu):
-        # precision, recall, f1_score, _ = precision_recall_fscore_support(y_test, y_pred)
         print("=" * 80)
         print(str(i) + "/" + str(pu_iter_time))
-        # print("puLearning classification report:" )
-
-        # print(metrics.classification_report(total_y, total_pred_y_pu[i],
-        #                                     target_names=target_names))
-        # print("confusion matrix:" )
-        # print(metrics.confusion_matrix(total_y, total_pred_y_pu[i]))
         precision1, recall1, f1_score1, _ = precision_recall_fscore_support(
             total_y, total_pred_y_pu[i]
         )
@@ -429,13 +382,6 @@ if __name__ == "__main__":
             + str(round(f1_score1[1], 4))
         )
         print("-" * 80)
-        # print(str(i)+'/'+str(pu_iter_time))
-        # print("regular classification report:" )
-        # print(metrics.classification_report(total_y, total_pred_y_re[i],
-        #                                     target_names=target_names))
-
-        # print("confusion matrix:" )
-        # print(metrics.confusion_matrix(total_y, total_pred_y_re[i]))
         precision2, recall2, f1_score2, _ = precision_recall_fscore_support(
             total_y, total_pred_y_re[i]
         )
@@ -454,7 +400,6 @@ if __name__ == "__main__":
     # print accuracy
     print("=" * 80)
     for i, n in enumerate(clf_names_list):
-        # print('=' * 80)
         cur_score = metrics.accuracy_score(total_y, pred_list[i])
         score.append(cur_score)
         print("%s accuracy:   %0.3f" % (n, cur_score))
@@ -466,3 +411,7 @@ if __name__ == "__main__":
             pred += " " + str(pred_list[j][i])
 
     print("total time: " + str(int((time() - t_start))) + "s")
+
+
+if __name__ == "__main__":
+    main()
