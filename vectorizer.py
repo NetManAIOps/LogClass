@@ -15,7 +15,7 @@ def get_ngrams(n, line):
         # Token list spans multiple ngrams
         loop_num = cur_len - n + 1
         for i in range(loop_num):
-            cur_gram = " ".join(line[i: i + n])
+            cur_gram = " ".join(line[i : i + n])
             ngrams_list.append(cur_gram)
     return ngrams_list
 
@@ -65,9 +65,7 @@ def setTrainDataForILF(x, y):
 
 
 def calculate_inv_freq(total, num):
-    return np.log(
-            float(total) / float(num + 0.01)
-        )
+    return np.log(float(total) / float(num + 0.01))
 
 
 def get_max_line(inputVector):
@@ -99,10 +97,7 @@ def calculate_idf(gram_index_dict, inputVector, vocabulary):
     idf_dict = {}
     total_log_num = len(inputVector)
     for gram in gram_index_dict:
-        idf_dict[gram] = calculate_inv_freq(
-                            total_log_num,
-                            len(gram_index_dict[gram])
-                            )
+        idf_dict[gram] = calculate_inv_freq(total_log_num, len(gram_index_dict[gram]))
     return idf_dict
 
 
@@ -111,10 +106,7 @@ def calculate_ilf(gram_index_dict, inputVector, vocabulary):
     max_length = get_max_line(inputVector)
     # calculating ilf for each gram
     for gram in gram_index_dict:
-        ilf_dict[gram] = calculate_inv_freq(
-            max_length,
-            len(gram_index_dict[gram])
-            )
+        ilf_dict[gram] = calculate_inv_freq(max_length, len(gram_index_dict[gram]))
     return ilf_dict
 
 
@@ -133,14 +125,20 @@ def create_invf_vector(invf_dict, inputVector, vocabulary):
     return tfinvf
 
 
-def calculate_tf_invf_train(inputVector, vocabulary,
-                            get_f=get_tf, calc_invf=calculate_idf):
-    """In this version, tf is not normalized.
-    We use frequence value as tf value.
+def normalize_tfinvf(tfinvf):
+    mean = np.mean(tfinvf)
+    std = np.std(tfinvf)
+    std_scaler = (tfinvf - mean) / std
+    return std_scaler
 
-    RETURN: tfidf,tfidf_mean,tfidf_std,idf_dict
-    """
+
+def calculate_tf_invf_train(
+    inputVector, vocabulary, get_f=get_tf,
+    calc_invf=calculate_idf, normalized=True
+):
     gram_index_dict = get_tf(inputVector)
     invf_dict = calc_invf(gram_index_dict, inputVector, vocabulary)
     tfinvf = create_invf_vector(invf_dict, inputVector, vocabulary)
+    if normalized:
+        tfinvf = normalize_tfinvf(tfinvf)
     return tfinvf, invf_dict
