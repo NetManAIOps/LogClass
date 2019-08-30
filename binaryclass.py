@@ -75,10 +75,9 @@ def init_flags():
     )
     parser.add_argument(
         "--add_ilf",
-        type=int,
-        nargs=1,
-        default=1,
-        help="if set 1, LogClass will use ilf to generate ferture vector",
+        action="store_true",
+        default=True,
+        help="if set, LogClass will use ilf to generate ferture vector",
     )
     parser.add_argument(
         "--add_length",

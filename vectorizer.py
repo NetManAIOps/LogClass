@@ -128,19 +128,13 @@ def create_invf_vector(invf_dict, inputVector, vocabulary):
 
 
 def normalize_tfinvf(tfinvf):
-    mean = np.mean(tfinvf)
-    std = np.std(tfinvf)
-    std_scaler = (tfinvf - mean) / std
-    return std_scaler
+    return 2.*(tfinvf - np.min(tfinvf))/np.ptp(tfinvf)-1
 
 
 def calculate_tf_invf_train(
-    inputVector, vocabulary, get_f=get_tf,
-    calc_invf=calculate_idf, normalized=True
+    inputVector, vocabulary, get_f=get_tf, calc_invf=calculate_idf
 ):
     token_index_dict = get_tf(inputVector)
     invf_dict = calc_invf(token_index_dict, inputVector, vocabulary)
     tfinvf = create_invf_vector(invf_dict, inputVector, vocabulary)
-    if normalized:
-        tfinvf = normalize_tfinvf(tfinvf)
     return tfinvf, invf_dict
