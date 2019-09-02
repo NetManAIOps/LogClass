@@ -43,13 +43,13 @@ def getMsgFromNewSyslog(log):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-input",
+        "--input",
         help="input file path",
         type=str,
         default="./LogClass/data/rawlog.txt"
     )
     parser.add_argument(
-        "-output",
+        "--output",
         help="output file path",
         type=str,
         default="./LogClass/data/logs_without_paras.txt",

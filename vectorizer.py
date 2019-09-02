@@ -41,10 +41,9 @@ def build_vocabulary(inputData):
     return vocabulary
 
 
-def log_to_vector(inputData, vocabulary, y):
+def log_to_vector(inputData, vocabulary):
     result = []
-    y_result = []
-    for index_data, line in enumerate(inputData):
+    for line in inputData:
         temp = []
         token_list = tokenize(line)
         if token_list:
@@ -54,8 +53,7 @@ def log_to_vector(inputData, vocabulary, y):
                 else:
                     temp.append(vocabulary[token])
         result.append(temp)
-        y_result.append(y[index_data])
-    return np.array(result), np.array(y_result)
+    return np.array(result)
 
 
 def setTrainDataForILF(x, y):
@@ -131,10 +129,11 @@ def normalize_tfinvf(tfinvf):
     return 2.*(tfinvf - np.min(tfinvf))/np.ptp(tfinvf)-1
 
 
+# TODO: Refactor this further, this should be just create invf_dict
 def calculate_tf_invf_train(
     inputVector, vocabulary, get_f=get_tf, calc_invf=calculate_idf
 ):
-    token_index_dict = get_tf(inputVector)
+    token_index_dict = get_f(inputVector)
     invf_dict = calc_invf(token_index_dict, inputVector, vocabulary)
     tfinvf = create_invf_vector(invf_dict, inputVector, vocabulary)
     return tfinvf, invf_dict

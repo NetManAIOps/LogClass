@@ -29,9 +29,7 @@ from .vectorizer import (
     create_invf_vector,
 )
 from .utils import trim, addLengthInFeature
-import matplotlib
-
-matplotlib.use("Agg")
+import pandas as pd
 
 total_tol = 1e-1  # param of svc
 
@@ -263,13 +261,10 @@ if __name__ == "__main__":
     y_list = []
     x_save_list = []
     cur_num = 1
+    pipeline_test = True
     for train_index, test_index in skf.split(X_data, y_data):
         print("\ncur_iteration:%d/%d" % (cur_num, k_of_kflod))
         cur_num += 1
-        X_train = []
-        X_test = []
-        y_train = []
-        y_test = []
         X_train, X_test = X_data[train_index], X_data[test_index]
         y_train, y_test = y_data[train_index], y_data[test_index]
         print(" train data size:" + str(X_train.shape[0]))
@@ -282,16 +277,16 @@ if __name__ == "__main__":
 
         t0 = time()
         print(" log_to_vector for train start")
-        X_train_bag_vector, y_train = log_to_vector(
-            X_train, vocabulary, y_train
+        X_train_bag_vector = log_to_vector(
+            X_train, vocabulary
         )
         print("  log_to_vector for train end, time=" + str(time() - t0) + "s")
         print(" X_train_bag_vector.shape:" + str(X_train_bag_vector.shape))
         t0 = time()
         print(" log_to_vector for test start")
 
-        X_test_bag_vector, y_test = log_to_vector(
-            X_test, vocabulary, y_test
+        X_test_bag_vector = log_to_vector(
+            X_test, vocabulary
         )
         print("  log_to_vector for test end, time=" + str(time() - t0) + "s")
 
@@ -352,6 +347,20 @@ if __name__ == "__main__":
             y_test,
         )  # 1e-3
 
+        # TODO: remove and create pipeline feature
+        if pipeline_test:
+            pipeline_test = False
+            df = pd.read_csv('binary_pred.csv', sep='\t')
+            is_anomalous = (df.label == 1.0)
+            df = df[is_anomalous]
+            bag_vector = log_to_vector(df.log, vocabulary)
+            invf_vec = create_invf_vector(invf_dict, bag_vector, vocabulary)
+            pred_pipe = clf.predict(invf_vec)
+            save_result = pd.DataFrame({'log': df.log, 'label': pred_pipe})
+            save_result.to_csv(
+                'multi_pred.csv', sep='\t', encoding='utf-8', index=False
+                    )
+            
         total_iter += iterations
         total_train_time += train_time
         total_test_time += test_time

@@ -5,7 +5,6 @@ from __future__ import print_function
 import logging
 import numpy as np
 from time import time
-from sklearn.svm import LinearSVC
 from sklearn.model_selection import StratifiedKFold
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.utils.extmath import density
@@ -24,10 +23,7 @@ from .vectorizer import (
 )
 from .utils import addLengthInFeature
 import argparse
-import matplotlib
-
-matplotlib.use("Agg")
-
+import pandas as pd
 
 # Display progress logs on stdout
 logging.basicConfig(level=logging.INFO,
@@ -263,9 +259,10 @@ def main():
         for line in IN:
             L = line.strip().split()
             label = L[0]
-            if label != unlabel_label:
-                label = "Anomaly"
-
+            # this was uncommented but to me it's wrong
+            # this way we can keep the label for the multiclass
+            # if label != unlabel_label: 
+            #     label = "Anomaly"
             if label not in label_dict:
                 if label == unlabel_label:
                     label_dict[label] = -1.0
@@ -276,10 +273,6 @@ def main():
             y_data.append(label_dict[label])
     X_data = np.array(X_data)
     y_data = np.array(y_data)
-    y_test = []
-    y_train = []
-    X_test = []
-    X_train = []
 
     # KFold
     skf = StratifiedKFold(n_splits=k_of_kflod)
@@ -292,6 +285,7 @@ def main():
 
     total_pred_y_pu = []
     total_pred_y_re = []
+    result_x = []
     for train_index, test_index in skf.split(X_data, y_data):
         print("=" * 80)
         print("\ncur_iteration:%d/%d" % (cur_num, k_of_kflod))
@@ -308,17 +302,17 @@ def main():
 
         t0 = time()
         print(" convertLogToVector for train start")
-        X_train_bag_vector, y_train = log_to_vector(
-            X_train, vocabulary, y_train
+        X_train_vector = log_to_vector(
+            X_train, vocabulary
         )
         print("  convertLogToVector for train end, time="
               + str(time() - t0) + "s")
-        print(" X_train_bag_vector.shape:" + str(X_train_bag_vector.shape))
+        print(" X_train_vector.shape:" + str(X_train_vector.shape))
         t0 = time()
         print(" convertLogToVector for test start")
 
-        X_test_bag_vector, y_test = log_to_vector(
-            X_test, vocabulary, y_test
+        X_test_vector = log_to_vector(
+            X_test, vocabulary
         )
         print("  convertLogToVector for test end, time="
               + str(time() - t0) + "s")
@@ -332,7 +326,7 @@ def main():
         t0 = time()
         print(" calculateTfidfForTrain start")
         X_train, invf_dict = calculate_tf_invf_train(
-            X_train_bag_vector,
+            X_train_vector,
             vocabulary,
             get_f=freq,
             calc_invf=invf
@@ -342,15 +336,15 @@ def main():
 
         t0 = time()
         print(" calculateTfinvfForTest start")
-        X_test = create_invf_vector(invf_dict, X_test_bag_vector, vocabulary)
+        X_test = create_invf_vector(invf_dict, X_test_vector, vocabulary)
         print("  calculateTfnvfForTest end, time=" + str(time() - t0) + "s")
         y_test = np.array(y_test)
         y_train = np.array(y_train)
         y_list.append(y_test)
         if params["add_length"]:
             print(" Adding length as feature")
-            X_train = addLengthInFeature(X_train, X_train_bag_vector)
-            X_test = addLengthInFeature(X_test, X_test_bag_vector)
+            X_train = addLengthInFeature(X_train, X_train_vector)
+            X_test = addLengthInFeature(X_test, X_test_vector)
             print("  X_train.shape after add lengeth feature:"
                   + str(X_train.shape))
 
@@ -359,21 +353,20 @@ def main():
         if feature_names:
             feature_names = np.asarray(feature_names)
 
-        results = []
-
         print("=" * 80)
         testPU(X_train, y_train, X_test, y_test, total_pred_y_pu,
                total_pred_y_re, pu_iter_time, multiple_for_pu_iter_time)
-        print("=" * 80)
-        results.append(
-            benchmark(
-                LinearSVC(penalty="l2", dual=False, tol=1e-3),
-                X_train,
-                y_train,
-                X_test,
-                y_test,
-            )
-        )
+
+        # only done once in the beginning for testing the feature for now
+        # TODO: remove and create new feature
+        if not result_x:
+            result_x = list(X_data[test_index])
+            result_y = total_pred_y_pu[0]
+            # result_anom_class = target_names[test_index]
+            save_result = pd.DataFrame({'log': result_x, 'label': result_y})
+            save_result.to_csv(
+                'binary_pred.csv', sep='\t', encoding='utf-8', index=False
+                    )
 
     # This is used for comparing results. Not sure it's still required
     total_y = []
