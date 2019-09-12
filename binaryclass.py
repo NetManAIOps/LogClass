@@ -325,7 +325,7 @@ def main():
             invf = calculate_idf
         t0 = time()
         print(" calculateTfidfForTrain start")
-        X_train, invf_dict = calculate_tf_invf_train(
+        invf_dict = calculate_tf_invf_train(
             X_train_vector,
             vocabulary,
             get_f=freq,
@@ -336,7 +336,8 @@ def main():
 
         t0 = time()
         print(" calculateTfinvfForTest start")
-        X_test = create_invf_vector(invf_dict, X_test_vector, vocabulary)
+        X_train = create_invf_vector(X_train_vector, invf_dict, vocabulary)
+        X_test = create_invf_vector(X_test_vector, invf_dict, vocabulary)
         print("  calculateTfnvfForTest end, time=" + str(time() - t0) + "s")
         y_test = np.array(y_test)
         y_train = np.array(y_train)

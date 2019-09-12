@@ -298,7 +298,7 @@ if __name__ == "__main__":
             invf = calculate_idf
         t0 = time()
         print(" calculateTfidfForTrain start")
-        X_train, invf_dict = calculate_tf_invf_train(
+        invf_dict = calculate_tf_invf_train(
             X_train_bag_vector,
             vocabulary,
             get_f=freq,
@@ -309,7 +309,8 @@ if __name__ == "__main__":
 
         t0 = time()
         print(" calculateTfidfForTest start")
-        X_test = create_invf_vector(invf_dict, X_test_bag_vector, vocabulary)
+        X_train = create_invf_vector(X_train_bag_vector, invf_dict, vocabulary)
+        X_test = create_invf_vector(X_test_bag_vector, invf_dict, vocabulary)
         print("  calculateTfidfForTest end, time=" + str(time() - t0) + "s")
 
         y_list.append(y_test)
@@ -354,7 +355,7 @@ if __name__ == "__main__":
             is_anomalous = (df.label == 1.0)
             df = df[is_anomalous]
             bag_vector = log_to_vector(df.log, vocabulary)
-            invf_vec = create_invf_vector(invf_dict, bag_vector, vocabulary)
+            invf_vec = create_invf_vector(bag_vector, invf_dict, vocabulary)
             pred_pipe = clf.predict(invf_vec)
             save_result = pd.DataFrame({'log': df.log, 'label': pred_pipe})
             save_result.to_csv(

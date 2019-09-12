@@ -37,15 +37,18 @@ def init_flags():
         metavar="raw_logs",
         type=str,
         nargs=1,
-        default="./LogClass/data/rawlog.txt",
+        default=["./LogClass/data/rawlog.txt"],
         help="input logs file path",
     )
+    # base_dir_default = os.path.join(
+    #     os.path.dirname(os.path.realpath(__file__)), "output"
+    # )
     parser.add_argument(
         "--logs",
         metavar="logs",
         type=str,
         nargs=1,
-        default="./LogClass/data/logs_without_paras.txt",
+        default=["./LogClass/data/logs_without_paras.txt"],
         help="input logs file path",
     )
     parser.add_argument(
@@ -53,7 +56,7 @@ def init_flags():
         metavar="kfold",
         type=int,
         nargs=1,
-        default=3,
+        default=[3],
         help="kfold crossvalidation",
     )
     parser.add_argument(
@@ -61,14 +64,14 @@ def init_flags():
         metavar="iterations",
         type=int,
         nargs=1,
-        default=10,
+        default=[10],
         help="number of training iterations",
     )
     parser.add_argument(
         "--healthy_label",
         type=str,
         nargs=1,
-        default="unlabeled",
+        default=["unlabeled"],
         help="the labels of unlabeled logs",
     )
     parser.add_argument(
@@ -103,6 +106,13 @@ def init_flags():
         help="If set, logclass will train on the given data. Otherwise"
              + "it will run inference on it.",
     )
+    parser.add_argument(
+        "--filter",
+        action="store_true",
+        default=False,
+        help="If set, the raw logs parameters will be filtered and a "
+             + "new file created with the filtered logs.",
+    )
 
     return parser.parse_args()
 
@@ -110,16 +120,17 @@ def init_flags():
 def parse_args(args):
     """Parse provided args for runtime configuration."""
     params = {
-        "logs": args.logs,
-        "raw_logs": args.raw_logs,
-        "kfold": args.kfold,
-        "iterations": args.iterations,
-        "healthy_label": args.healthy_label,
+        "logs": args.logs[0],
+        "raw_logs": args.raw_logs[0],
+        "kfold": args.kfold[0],
+        "iterations": args.iterations[0],
+        "healthy_label": args.healthy_label[0],
         "add_ilf": args.add_ilf,
         "add_length": args.add_length,
         "report": args.report,
         "top10": args.top10,
         "train": args.train,
+        "filter": args.filter,
     }
 
     print("{:-^80}".format("params"))
@@ -169,11 +180,28 @@ def filter_params(params):
         raise RuntimeError(f'filterparams failed, {return_code}')
 
 
+def calculate_invf_dict(params, train_vector, vocabulary):
+    if params['add_ilf']:
+        freq = get_lf
+        invf = calculate_ilf
+    else:
+        freq = get_tf
+        invf = calculate_idf
+    invf_dict = calculate_tf_invf_train(
+        train_vector,
+        vocabulary,
+        get_f=freq,
+        calc_invf=invf
+        )
+    return invf_dict
+
+
 def main():
     # Init params
     params = parse_args(init_flags())
     # Filter params from raw logs
-    filter_params(params)
+    if params['filter']:
+        filter_params(params)
     # Load filtered params from file
     x_data, y_data, target_names = load_logs(
         params['logs'],
@@ -186,37 +214,21 @@ def main():
         for train_index, test_index in kfold:
             x_train, x_test = x_data[train_index], x_data[test_index]
             y_train, y_test = y_data[train_index], y_data[test_index]
-
-            # TODO: Try building the vocabulary outside the loop
-            # Same for all the feature engineering
-
             # Build Vocabulary
             vocabulary = build_vocabulary(x_train)
             # Feature Engineering
             x_train_vector = log_to_vector(x_train, vocabulary)
             x_test_vector = log_to_vector(x_test, vocabulary)
-            if params['add_ilf']:
-                freq = get_lf
-                invf = calculate_ilf
-            else:
-                freq = get_tf
-                invf = calculate_idf
-            x_train, invf_dict = calculate_tf_invf_train(
-                x_train_vector,
-                vocabulary,
-                get_f=freq,
-                calc_invf=invf
-                )
-
-            x_test = create_invf_vector(invf_dict, x_test_vector, vocabulary)
-            y_test, y_train = np.array(y_test), np.array(y_train)
-            # Binary training features
-            y_test_pu = np.where(y_test == -1.0, -1.0, 1.0)
-            y_train_pu = np.where(y_train == -1.0, -1.0, 1.0)
+            invf_dict = calculate_invf_dict(params, x_train_vector, vocabulary)
+            x_train = create_invf_vector(x_train_vector, invf_dict, vocabulary)
+            x_test = create_invf_vector(x_test_vector, invf_dict, vocabulary)
             # Further feature engineering
             if params["add_length"]:
                 x_train = addLengthInFeature(x_train, x_train_vector)
                 x_test = addLengthInFeature(x_test, x_test_vector)
+            # Binary training features
+            y_test_pu = np.where(y_test == -1.0, -1.0, 1.0)
+            y_train_pu = np.where(y_train == -1.0, -1.0, 1.0)
             # Binary PULearning with RF
             estimator = RandomForestClassifier(
                 n_estimators=10,
@@ -248,7 +260,6 @@ def main():
                 best_multi = score
                 with open("multi_clf.pkl", 'wb') as multi_clf_file:                    
                     pickle.dump(multi_classifier, multi_clf_file)
-
             print(pu_f1_score[1], score)
     else:
         # Inference
@@ -257,7 +268,7 @@ def main():
         with open('invf_dict.pkl', "rb") as fp:
             invf_dict = pickle.load(fp)
         x_vector = log_to_vector(x_data, vocabulary)
-        x_test = create_invf_vector(invf_dict, x_vector, vocabulary)
+        x_test = create_invf_vector(x_vector, invf_dict, vocabulary)
         # Feature engineering
         if params["add_length"]:
             x_test = addLengthInFeature(x_test, x_vector)

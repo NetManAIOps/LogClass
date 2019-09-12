@@ -106,3 +106,6 @@ venv.bak/
 
 # vs settings
 .vscode/
+
+# data
+*.txt

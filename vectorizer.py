@@ -110,7 +110,7 @@ def calculate_ilf(token_index_dict, inputVector, vocabulary):
     return ilf_dict
 
 
-def create_invf_vector(invf_dict, inputVector, vocabulary):
+def create_invf_vector(inputVector, invf_dict, vocabulary):
     tfinvf = []
     # Creating the idf/ilf vector for each log message
     for line in inputVector:
@@ -135,5 +135,4 @@ def calculate_tf_invf_train(
 ):
     token_index_dict = get_f(inputVector)
     invf_dict = calc_invf(token_index_dict, inputVector, vocabulary)
-    tfinvf = create_invf_vector(invf_dict, inputVector, vocabulary)
-    return tfinvf, invf_dict
+    return invf_dict
