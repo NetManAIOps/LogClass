@@ -274,29 +274,37 @@ def main():
             y_pred_pu = pu_estimator.predict(x_test)
             pu_precision, pu_recall, pu_f1_score, _ =\
                 precision_recall_fscore_support(y_test_pu, y_pred_pu)
-            if pu_f1_score[1] > best_pu_fs:
-                best_pu_fs = pu_f1_score[1]
+            # MultiClass remove healthy logs
+            anomalous_train = (y_train != -1)
+            anomalous_test = (y_test != -1)
+            x_train_multi, y_train_multi =\
+                x_train[anomalous_train], y_train[anomalous_train]
+            x_test_multi, y_test_multi =\
+                x_test[anomalous_test], y_test[anomalous_test]
+            # MultiClass
+            multi_classifier = LinearSVC(penalty="l2", dual=False, tol=1e-1)
+            multi_classifier.fit(x_train_multi, y_train_multi)
+            pred = multi_classifier.predict(x_test_multi)
+            score = metrics.accuracy_score(y_test_multi, pred)
+            if pu_f1_score[1] > best_pu_fs or (pu_f1_score[1] == best_pu_fs and score > best_multi):
+                if pu_f1_score[1] > best_pu_fs:
+                    best_pu_fs = pu_f1_score[1]
                 vocab_file = os.path.join(params['base_dir'], 'vocab.json')
                 with open(vocab_file, "w") as fp:
                     json.dump(vocabulary, fp)
                 invf_dict_file = os.path.join(params['base_dir'],
-                                              'invf_dict.json')
+                                              'invf_dict.pkl')
                 with open(invf_dict_file, "wb") as fp:
                     pickle.dump(invf_dict, fp)
                 pu_estimator_file = os.path.join(params['base_dir'],
-                                                 'pu_estimator.json')
+                                                 'pu_estimator.pkl')
                 pu_saver = {'estimator': pu_estimator.estimator,
                             'c': pu_estimator.c}
                 with open(pu_estimator_file, 'wb') as pu_estimator_file:
                     pickle.dump(pu_saver, pu_estimator_file)
-            # MultiClass
-            multi_classifier = LinearSVC(penalty="l2", dual=False, tol=1e-1)
-            multi_classifier.fit(x_train, y_train)
-            pred = multi_classifier.predict(x_test)
-            score = metrics.accuracy_score(y_test, pred)
-            if score > best_multi:
-                best_multi = score
-                multi_file = os.path.join(params['base_dir'], 'multi.json')
+                if score > best_multi:
+                    best_multi = score
+                multi_file = os.path.join(params['base_dir'], 'multi.pkl')
                 with open(multi_file, 'wb') as multi_clf_file:                    
                     pickle.dump(multi_classifier, multi_clf_file)
                 print(pu_f1_score[1], score)
@@ -306,7 +314,7 @@ def main():
         with open(vocab_file, "r") as fp:
             vocabulary = json.load(fp)
         invf_dict_file = os.path.join(params['base_dir'],
-                                              'invf_dict.json')
+                                      'invf_dict.pkl')
         with open(invf_dict_file, "rb") as fp:
             invf_dict = pickle.load(fp)
         x_vector = log_to_vector(x_data, vocabulary)
@@ -319,7 +327,7 @@ def main():
         # Binary PU estimator with RF
         # Load Trained PU Estimator
         pu_estimator_file = os.path.join(params['base_dir'],
-                                                 'pu_estimator.json')
+                                         'pu_estimator.pkl')
         with open(pu_estimator_file, 'rb') as pu_estimator_file:
             pu_saver = pickle.load(pu_estimator_file)
             estimator = pu_saver['estimator']
@@ -330,13 +338,17 @@ def main():
         y_pred_pu = pu_estimator.predict(x_test)
         pu_precision, pu_recall, pu_f1_score, _ =\
             precision_recall_fscore_support(y_test, y_pred_pu)
+        # MultiClass remove healthy logs
+        anomalous = (y_data != -1)
+        x_infer_multi, y_infer_multi =\
+            x_test[anomalous], y_data[anomalous]
         # Load MultiClass
-        multi_file = os.path.join(params['base_dir'], 'multi.json')
+        multi_file = os.path.join(params['base_dir'], 'multi.pkl')
         with open(multi_file, 'rb') as multi_clf_file:
             multi_classifier = pickle.load(multi_clf_file)
         # Anomaly Classification
-        pred = multi_classifier.predict(x_test)
-        score = metrics.accuracy_score(y_data, pred)
+        pred = multi_classifier.predict(x_infer_multi)
+        score = metrics.accuracy_score(y_infer_multi, pred)
 
         print(pu_f1_score[1], score)
 
