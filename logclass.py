@@ -1,6 +1,8 @@
 import numpy as np
 import argparse
 import sys
+import os
+import shutil
 import subprocess
 from sklearn.model_selection import StratifiedKFold
 from sklearn.svm import LinearSVC
@@ -40,15 +42,23 @@ def init_flags():
         default=["./LogClass/data/rawlog.txt"],
         help="input logs file path",
     )
-    # base_dir_default = os.path.join(
-    #     os.path.dirname(os.path.realpath(__file__)), "output"
-    # )
+    base_dir_default = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)), "outputs"
+    )
+    parser.add_argument(
+        "--base_dir",
+        metavar="base_dir",
+        type=str,
+        nargs=1,
+        default=[base_dir_default],
+        help="base output directory for pipeline output files",
+    )
     parser.add_argument(
         "--logs",
         metavar="logs",
         type=str,
         nargs=1,
-        default=["./LogClass/data/logs_without_paras.txt"],
+        default=[os.path.join(base_dir_default, "logs_without_paras.txt")],
         help="input logs file path",
     )
     parser.add_argument(
@@ -113,6 +123,12 @@ def init_flags():
         help="If set, the raw logs parameters will be filtered and a "
              + "new file created with the filtered logs.",
     )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        default=False,
+        help="force training overwriting previous output.",
+    )
 
     return parser.parse_args()
 
@@ -131,6 +147,8 @@ def parse_args(args):
         "top10": args.top10,
         "train": args.train,
         "filter": args.filter,
+        "force": args.force,
+        "base_dir": args.base_dir[0],
     }
 
     print("{:-^80}".format("params"))
@@ -199,6 +217,21 @@ def calculate_invf_dict(params, train_vector, vocabulary):
 def main():
     # Init params
     params = parse_args(init_flags())
+    if params['train']:
+        if os.path.exists(params["base_dir"]) and not params["force"]:
+            raise FileExistsError(
+                "directory '{} already exists. ".format(params["base_dir"])
+                + "Run with --force to overwrite."
+            )
+        if os.path.exists(params["base_dir"]):
+            shutil.rmtree(params["base_dir"])
+        os.makedirs(params["base_dir"])
+    else:
+        if not os.path.exists(params["base_dir"]):
+            raise FileNotFoundError(
+                "directory '{} doesn't exist. ".format(params["base_dir"])
+                + "Run train first before running inference."
+            )
     # Filter params from raw logs
     if params['filter']:
         filter_params(params)
@@ -243,13 +276,18 @@ def main():
                 precision_recall_fscore_support(y_test_pu, y_pred_pu)
             if pu_f1_score[1] > best_pu_fs:
                 best_pu_fs = pu_f1_score[1]
-                with open('vocab.json', "w") as fp:
+                vocab_file = os.path.join(params['base_dir'], 'vocab.json')
+                with open(vocab_file, "w") as fp:
                     json.dump(vocabulary, fp)
-                with open('invf_dict.pkl', "wb") as fp:
-                    pickle.dump(invf_dict, fp)                
+                invf_dict_file = os.path.join(params['base_dir'],
+                                              'invf_dict.json')
+                with open(invf_dict_file, "wb") as fp:
+                    pickle.dump(invf_dict, fp)
+                pu_estimator_file = os.path.join(params['base_dir'],
+                                                 'pu_estimator.json')
                 pu_saver = {'estimator': pu_estimator.estimator,
                             'c': pu_estimator.c}
-                with open("pu_estimator.pkl", 'wb') as pu_estimator_file:
+                with open(pu_estimator_file, 'wb') as pu_estimator_file:
                     pickle.dump(pu_saver, pu_estimator_file)
             # MultiClass
             multi_classifier = LinearSVC(penalty="l2", dual=False, tol=1e-1)
@@ -258,14 +296,18 @@ def main():
             score = metrics.accuracy_score(y_test, pred)
             if score > best_multi:
                 best_multi = score
-                with open("multi_clf.pkl", 'wb') as multi_clf_file:                    
+                multi_file = os.path.join(params['base_dir'], 'multi.json')
+                with open(multi_file, 'wb') as multi_clf_file:                    
                     pickle.dump(multi_classifier, multi_clf_file)
-            print(pu_f1_score[1], score)
+                print(pu_f1_score[1], score)
     else:
         # Inference
-        with open('vocab.json', "r") as fp:
+        vocab_file = os.path.join(params['base_dir'], 'vocab.json')
+        with open(vocab_file, "r") as fp:
             vocabulary = json.load(fp)
-        with open('invf_dict.pkl', "rb") as fp:
+        invf_dict_file = os.path.join(params['base_dir'],
+                                              'invf_dict.json')
+        with open(invf_dict_file, "rb") as fp:
             invf_dict = pickle.load(fp)
         x_vector = log_to_vector(x_data, vocabulary)
         x_test = create_invf_vector(x_vector, invf_dict, vocabulary)
@@ -276,7 +318,9 @@ def main():
         y_test = np.where(y_data == -1.0, -1.0, 1.0)
         # Binary PU estimator with RF
         # Load Trained PU Estimator
-        with open("pu_estimator.pkl", 'rb') as pu_estimator_file:
+        pu_estimator_file = os.path.join(params['base_dir'],
+                                                 'pu_estimator.json')
+        with open(pu_estimator_file, 'rb') as pu_estimator_file:
             pu_saver = pickle.load(pu_estimator_file)
             estimator = pu_saver['estimator']
             pu_estimator = PUAdapter(estimator)
@@ -287,7 +331,8 @@ def main():
         pu_precision, pu_recall, pu_f1_score, _ =\
             precision_recall_fscore_support(y_test, y_pred_pu)
         # Load MultiClass
-        with open("multi_clf.pkl", 'rb') as multi_clf_file:
+        multi_file = os.path.join(params['base_dir'], 'multi.json')
+        with open(multi_file, 'rb') as multi_clf_file:
             multi_classifier = pickle.load(multi_clf_file)
         # Anomaly Classification
         pred = multi_classifier.predict(x_test)
