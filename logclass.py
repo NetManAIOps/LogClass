@@ -93,7 +93,7 @@ def init_flags():
     parser.add_argument(
         "--add_length",
         action="store_true",
-        default=True,
+        default=False,
         help="if set, LogClass will add length as feature",
     )
     parser.add_argument(
@@ -214,6 +214,27 @@ def calculate_invf_dict(params, train_vector, vocabulary):
     return invf_dict
 
 
+def get_feature_names(vocabulary, add_length=True):
+    feature_names = zip(vocabulary.keys(), vocabulary.values())
+    feature_names = sorted(feature_names, key=lambda x: x[1])
+    feature_names = [x[0] for x in feature_names]
+    if add_length:
+        feature_names.append('LENGTH')
+    return np.array(feature_names)
+
+
+def get_top_k_SVM_features(svm_clf: LinearSVC, vocabulary,
+                           target_names, top_features=3):
+    top_k_label = {}
+    feature_names = get_feature_names(vocabulary)
+    for i, label in enumerate(target_names):
+        coef = svm_clf.coef_[i]
+        top_coefficients = np.argsort(coef)[-top_features:]
+        top_k_features = feature_names[top_coefficients]
+        top_k_label[label] = list(reversed(top_k_features))
+    return top_k_label
+
+
 def main():
     # Init params
     params = parse_args(init_flags())
@@ -308,6 +329,8 @@ def main():
                 with open(multi_file, 'wb') as multi_clf_file:                    
                     pickle.dump(multi_classifier, multi_clf_file)
                 print(pu_f1_score[1], score)
+            print(get_top_k_SVM_features(
+                multi_classifier, vocabulary, target_names))
     else:
         # Inference
         vocab_file = os.path.join(params['base_dir'], 'vocab.json')
