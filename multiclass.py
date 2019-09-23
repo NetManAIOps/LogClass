@@ -52,7 +52,7 @@ def init_flags():
         metavar="logs",
         type=str,
         nargs=1,
-        default="./LogClass/data/logs_without_paras.txt",
+        default="./LogClass/outputs/logs_without_paras.txt",
         help="input logs file path",
     )
     parser.add_argument(
@@ -150,11 +150,15 @@ def get_top_k_SVM_features(clf, feature_names, y_train, target_names):
             print("len(clf.coef_:" + str(len(clf.coef_)))
             print("len(set(y_train)):" + str(len(set(y_train))))
             print(set(y_train))
-
+            print(clf.coef_)
+            print(target_names)
+            print(feature_names)
+            # exit()
             for i in set(y_train):
                 print(i, target_names[i])
                 length = min(len(clf.coef_[i]), 10)
                 top10 = np.argsort(clf.coef_[i])[-length:]
+                print(top10)
                 print("class name:" + target_names[i])
                 for k in feature_names[top10]:
                     print(" " + k)
@@ -273,6 +277,7 @@ if __name__ == "__main__":
         t0 = time()
         print(" build vocabulary start")
         vocabulary = build_vocabulary(X_train)
+        print('vocabulary', len(vocabulary))
         print("  build vocabulary end, time=" + str(time() - t0) + "s")
 
         t0 = time()
@@ -328,8 +333,7 @@ if __name__ == "__main__":
         feature_names = vocabulary
 
         if feature_names:
-            feature_names = np.asarray(feature_names)
-
+            feature_names = np.asarray(feature_names.keys())
         results = []
 
         print("=" * 80)

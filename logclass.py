@@ -348,18 +348,18 @@ def main():
             pred = multi_classifier.predict(x_test_multi)
             score = metrics.accuracy_score(y_test_multi, pred)
             better_results = (
-                pu_f1_score[1] > best_pu_fs
-                or (pu_f1_score[1] == best_pu_fs and score > best_multi)
+                pu_f1_score > best_pu_fs
+                or (pu_f1_score == best_pu_fs and score > best_multi)
             )
             if better_results:
-                if pu_f1_score[1] > best_pu_fs:
-                    best_pu_fs = pu_f1_score[1]
+                if pu_f1_score > best_pu_fs:
+                    best_pu_fs = pu_f1_score
                 save_transform()
                 if score > best_multi:
                     best_multi = score
                 save_pu(params, pu_estimator)
                 save_multi(params, multi_classifier)
-                print(pu_f1_score[1], score)
+                print(pu_f1_score, score)
             print(get_top_k_SVM_features(
                 multi_classifier, vocabulary, target_names))
 
@@ -404,7 +404,7 @@ def main():
         pred = multi_classifier.predict(x_infer_multi)
         score = metrics.accuracy_score(y_infer_multi, pred)
 
-        print(pu_f1_score[1], score)
+        print(pu_f1_score, score)
 
 
 if __name__ == "__main__":

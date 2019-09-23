@@ -134,6 +134,7 @@ def testPU(X_train, y_train, X_test, y_test, total_pred_y_pu, total_pred_y_re,
     step = len(np.where(y_train == 1.0)[0]) / (
         pu_iter_time * multiple_for_pu_iter_time + 1
     )
+    # step = len(np.where(y_train == 1.0)[0]) / pu_iter_time 
     # iterations to test PU learning on
     n_sacrifice_iter = []
     for i in range(pu_iter_time):
