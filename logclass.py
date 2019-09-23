@@ -9,8 +9,7 @@ from sklearn.svm import LinearSVC
 from sklearn.ensemble import RandomForestClassifier
 from .puLearning.puAdapter import PUAdapter
 from sklearn import metrics
-from sklearn.metrics import precision_recall_fscore_support
-from sklearn.externals import joblib
+from sklearn.metrics import f1_score
 from .vectorizer import (
     get_tf,
     get_lf,
@@ -235,9 +234,7 @@ def get_top_k_SVM_features(svm_clf: LinearSVC, vocabulary,
     return top_k_label
 
 
-def main():
-    # Init params
-    params = parse_args(init_flags())
+def file_handling(params):
     if params['train']:
         if os.path.exists(params["base_dir"]) and not params["force"]:
             raise FileExistsError(
@@ -253,6 +250,64 @@ def main():
                 "directory '{} doesn't exist. ".format(params["base_dir"])
                 + "Run train first before running inference."
             )
+
+
+def extract_features(x_train, x_test, y_train, y_test, params):
+    # Build Vocabulary
+    vocabulary = build_vocabulary(x_train)
+    # Feature Engineering
+    x_train_vector = log_to_vector(x_train, vocabulary)
+    x_test_vector = log_to_vector(x_test, vocabulary)
+    invf_dict = calculate_invf_dict(params, x_train_vector, vocabulary)
+    x_train = create_invf_vector(x_train_vector, invf_dict, vocabulary)
+    x_test = create_invf_vector(x_test_vector, invf_dict, vocabulary)
+    # Further feature engineering
+    if params["add_length"]:
+        x_train = addLengthInFeature(x_train, x_train_vector)
+        x_test = addLengthInFeature(x_test, x_test_vector)
+
+    def save_transform():
+        vocab_file = os.path.join(params['base_dir'], 'vocab.json')
+        with open(vocab_file, "w") as fp:
+            json.dump(vocabulary, fp)
+        invf_dict_file = os.path.join(params['base_dir'],
+                                      'invf_dict.pkl')
+        with open(invf_dict_file, "wb") as fp:
+            pickle.dump(invf_dict, fp)
+
+    return x_train, x_test, vocabulary, save_transform
+
+
+def binary_train_features(y):
+    return np.where(y == -1.0, -1.0, 1.0)
+
+
+def multi_class_features(x, y):
+    anomalous = (y != -1)
+    x_multi, y_multi =\
+        x[anomalous], y[anomalous]
+    return x_multi, y_multi
+
+
+def save_pu(params, pu_estimator):
+    pu_estimator_file = os.path.join(params['base_dir'],
+                                     'pu_estimator.pkl')
+    pu_saver = {'estimator': pu_estimator.estimator,
+                'c': pu_estimator.c}
+    with open(pu_estimator_file, 'wb') as pu_estimator_file:
+        pickle.dump(pu_saver, pu_estimator_file)
+
+
+def save_multi(params, multi_classifier):
+    multi_file = os.path.join(params['base_dir'], 'multi.pkl')
+    with open(multi_file, 'wb') as multi_clf_file:
+        pickle.dump(multi_classifier, multi_clf_file)
+
+
+def main():
+    # Init params
+    params = parse_args(init_flags())
+    file_handling(params)
     # Filter params from raw logs
     if params['filter']:
         filter_params(params)
@@ -268,21 +323,11 @@ def main():
         for train_index, test_index in kfold:
             x_train, x_test = x_data[train_index], x_data[test_index]
             y_train, y_test = y_data[train_index], y_data[test_index]
-            # Build Vocabulary
-            vocabulary = build_vocabulary(x_train)
-            # Feature Engineering
-            x_train_vector = log_to_vector(x_train, vocabulary)
-            x_test_vector = log_to_vector(x_test, vocabulary)
-            invf_dict = calculate_invf_dict(params, x_train_vector, vocabulary)
-            x_train = create_invf_vector(x_train_vector, invf_dict, vocabulary)
-            x_test = create_invf_vector(x_test_vector, invf_dict, vocabulary)
-            # Further feature engineering
-            if params["add_length"]:
-                x_train = addLengthInFeature(x_train, x_train_vector)
-                x_test = addLengthInFeature(x_test, x_test_vector)
+            x_train, x_test, vocabulary, save_transform = extract_features(
+                x_train, x_test, y_train, y_test, params)
             # Binary training features
-            y_test_pu = np.where(y_test == -1.0, -1.0, 1.0)
-            y_train_pu = np.where(y_train == -1.0, -1.0, 1.0)
+            y_test_pu = binary_train_features(y_test)
+            y_train_pu = binary_train_features(y_train)
             # Binary PULearning with RF
             estimator = RandomForestClassifier(
                 n_estimators=10,
@@ -293,44 +338,31 @@ def main():
             pu_estimator = PUAdapter(estimator)
             pu_estimator.fit(x_train, y_train_pu)
             y_pred_pu = pu_estimator.predict(x_test)
-            pu_precision, pu_recall, pu_f1_score, _ =\
-                precision_recall_fscore_support(y_test_pu, y_pred_pu)
-            # MultiClass remove healthy logs
-            anomalous_train = (y_train != -1)
-            anomalous_test = (y_test != -1)
+            pu_f1_score = f1_score(y_test_pu, y_pred_pu)
             x_train_multi, y_train_multi =\
-                x_train[anomalous_train], y_train[anomalous_train]
-            x_test_multi, y_test_multi =\
-                x_test[anomalous_test], y_test[anomalous_test]
+                multi_class_features(x_train, y_train)
+            x_test_multi, y_test_multi = multi_class_features(x_test, y_test)
             # MultiClass
             multi_classifier = LinearSVC(penalty="l2", dual=False, tol=1e-1)
             multi_classifier.fit(x_train_multi, y_train_multi)
             pred = multi_classifier.predict(x_test_multi)
             score = metrics.accuracy_score(y_test_multi, pred)
-            if pu_f1_score[1] > best_pu_fs or (pu_f1_score[1] == best_pu_fs and score > best_multi):
+            better_results = (
+                pu_f1_score[1] > best_pu_fs
+                or (pu_f1_score[1] == best_pu_fs and score > best_multi)
+            )
+            if better_results:
                 if pu_f1_score[1] > best_pu_fs:
                     best_pu_fs = pu_f1_score[1]
-                vocab_file = os.path.join(params['base_dir'], 'vocab.json')
-                with open(vocab_file, "w") as fp:
-                    json.dump(vocabulary, fp)
-                invf_dict_file = os.path.join(params['base_dir'],
-                                              'invf_dict.pkl')
-                with open(invf_dict_file, "wb") as fp:
-                    pickle.dump(invf_dict, fp)
-                pu_estimator_file = os.path.join(params['base_dir'],
-                                                 'pu_estimator.pkl')
-                pu_saver = {'estimator': pu_estimator.estimator,
-                            'c': pu_estimator.c}
-                with open(pu_estimator_file, 'wb') as pu_estimator_file:
-                    pickle.dump(pu_saver, pu_estimator_file)
+                save_transform()
                 if score > best_multi:
                     best_multi = score
-                multi_file = os.path.join(params['base_dir'], 'multi.pkl')
-                with open(multi_file, 'wb') as multi_clf_file:                    
-                    pickle.dump(multi_classifier, multi_clf_file)
+                save_pu(params, pu_estimator)
+                save_multi(params, multi_classifier)
                 print(pu_f1_score[1], score)
             print(get_top_k_SVM_features(
                 multi_classifier, vocabulary, target_names))
+
     else:
         # Inference
         vocab_file = os.path.join(params['base_dir'], 'vocab.json')
@@ -359,8 +391,7 @@ def main():
             pu_estimator.estimator_fitted = True
         # Anomaly detection
         y_pred_pu = pu_estimator.predict(x_test)
-        pu_precision, pu_recall, pu_f1_score, _ =\
-            precision_recall_fscore_support(y_test, y_pred_pu)
+        pu_f1_score = f1_score(y_test, y_pred_pu)
         # MultiClass remove healthy logs
         anomalous = (y_data != -1)
         x_infer_multi, y_infer_multi =\
