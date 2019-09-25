@@ -23,6 +23,8 @@ from .vectorizer import (
 from .utils import addLengthInFeature
 import pickle
 import json
+from .preprocess import registry as preprocess_registry
+from .preprocess.utils import load_logs
 
 
 def init_flags():
@@ -59,6 +61,15 @@ def init_flags():
         nargs=1,
         default=[os.path.join(base_dir_default, "logs_without_paras.txt")],
         help="input logs file path",
+    )
+    parser.add_argument(
+        "--logs_type",
+        metavar="logs_type",
+        type=str,
+        nargs=1,
+        default=["original"],
+        choices=["original", "bgl"],
+        help="Input type of logs.",
     )
     parser.add_argument(
         "--kfold",
@@ -116,11 +127,11 @@ def init_flags():
              + "it will run inference on it.",
     )
     parser.add_argument(
-        "--filter",
+        "--preprocess",
         action="store_true",
         default=False,
-        help="If set, the raw logs parameters will be filtered and a "
-             + "new file created with the filtered logs.",
+        help="If set, the raw logs parameters will be preprocessed and a "
+             + "new file created with the preprocessed logs.",
     )
     parser.add_argument(
         "--force",
@@ -145,9 +156,10 @@ def parse_args(args):
         "report": args.report,
         "top10": args.top10,
         "train": args.train,
-        "filter": args.filter,
+        "preprocess": args.preprocess,
         "force": args.force,
         "base_dir": args.base_dir[0],
+        "logs_type": args.logs_type[0],
     }
 
     print("{:-^80}".format("params"))
@@ -158,30 +170,6 @@ def parse_args(args):
     print()
     print("-" * 80)
     return params
-
-
-def load_logs(log_path, unlabel_label='unlabeled', ignore_unlabeled=False):
-    x_data = []
-    y_data = []
-    label_dict = {}
-    target_names = []
-    with open(log_path) as IN:
-        for line in IN:
-            L = line.strip().split()
-            label = L[0]
-            if label not in label_dict:
-                if ignore_unlabeled and label == unlabel_label:
-                    continue
-                if label == unlabel_label:
-                    label_dict[label] = -1.0
-                elif label not in label_dict:
-                    label_dict[label] = len(label_dict)
-                    target_names.append(label)
-            x_data.append(" ".join(L[1:]))
-            y_data.append(label_dict[label])
-    x_data = np.array(x_data)
-    y_data = np.array(y_data)
-    return x_data, y_data, target_names
 
 
 def filter_params(params):
@@ -306,14 +294,7 @@ def save_multi(params, multi_classifier):
 
 # TODO: to be put in a separate module as there is modules for 
 # preprocessing and also feature engineering
-def inference(params):
-    # Filter params from raw logs
-    if params['filter']:
-        filter_params(params)
-    # Load filtered params from file
-    x_data, y_data, _ = load_logs(
-        params['logs'],
-        unlabel_label=params['healthy_label'])
+def inference(params, x_data, y_data):
     # Inference
     vocab_file = os.path.join(params['base_dir'], 'vocab.json')
     with open(vocab_file, "r") as fp:
@@ -408,8 +389,9 @@ def main():
     params = parse_args(init_flags())
     file_handling(params)
     # Filter params from raw logs
-    if params['filter']:
-        filter_params(params)
+    if params['preprocess']:
+        preprocess = preprocess_registry.get_preprocessor(params['logs_type'])
+        preprocess(params['raw_logs'], params['logs'])
     # Load filtered params from file
     x_data, y_data, target_names = load_logs(
         params['logs'],
@@ -417,7 +399,7 @@ def main():
     if params['train']:
         train(params, x_data, y_data, target_names)
     else:
-        inference(params)
+        inference(params, x_data, y_data)
 
 
 if __name__ == "__main__":

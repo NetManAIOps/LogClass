@@ -1,12 +1,29 @@
 from .registry import register
-from .utils import getMsgFromNewSyslog
+from .utils import process_logs, remove_parameters
+
+
+def getMsgFromNewSyslog(log):
+
+    """
+    Returns log message having filtered its variables and tokens with
+    non-letter characters.
+
+    Args:
+        log: Raw log message string.
+    Returns:
+        Filtered log message.
+    """
+    word_list = log.strip().split()
+    msg_root = word_list[0]
+    msg = " ".join(word_list[1:])
+    msg = remove_parameters(msg)
+    if msg:
+        return msg_root + " " + msg
 
 
 @register("original")
-def preprocess_original():
+def preprocess_original(input_source, output):
     """
-    Returns preprocessed original logs from the paper.
+    Returns original logs from the paper preprocessing executor.
     """
-    return load_from_keras(
-        tf.keras.datasets.mnist, num_valid, label_smoothing=label_smoothing
-    )
+    process_logs(input_source, output, getMsgFromNewSyslog)

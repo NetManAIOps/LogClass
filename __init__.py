@@ -4,5 +4,7 @@ __all__ = [
     "multiclass",
     "utils",
     "vectorizer",
-    "logclass,"
+    "logclass",
 ]
+
+from .preprocess import *
