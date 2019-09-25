@@ -304,6 +304,105 @@ def save_multi(params, multi_classifier):
         pickle.dump(multi_classifier, multi_clf_file)
 
 
+# TODO: to be put in a separate module as there is modules for 
+# preprocessing and also feature engineering
+def inference(params):
+    # Filter params from raw logs
+    if params['filter']:
+        filter_params(params)
+    # Load filtered params from file
+    x_data, y_data, _ = load_logs(
+        params['logs'],
+        unlabel_label=params['healthy_label'])
+    # Inference
+    vocab_file = os.path.join(params['base_dir'], 'vocab.json')
+    with open(vocab_file, "r") as fp:
+        vocabulary = json.load(fp)
+    invf_dict_file = os.path.join(params['base_dir'],
+                                  'invf_dict.pkl')
+    with open(invf_dict_file, "rb") as fp:
+        invf_dict = pickle.load(fp)
+    x_vector = log_to_vector(x_data, vocabulary)
+    x_test = create_invf_vector(x_vector, invf_dict, vocabulary)
+    # Feature engineering
+    if params["add_length"]:
+        x_test = addLengthInFeature(x_test, x_vector)
+    # Binary training features
+    y_test = binary_train_features(y_data)
+    # Binary PU estimator with RF
+    # Load Trained PU Estimator
+    pu_estimator_file = os.path.join(params['base_dir'],
+                                        'pu_estimator.pkl')
+    with open(pu_estimator_file, 'rb') as pu_estimator_file:
+        pu_saver = pickle.load(pu_estimator_file)
+        estimator = pu_saver['estimator']
+        pu_estimator = PUAdapter(estimator)
+        pu_estimator.c = pu_saver['c']
+        pu_estimator.estimator_fitted = True
+    # Anomaly detection
+    y_pred_pu = pu_estimator.predict(x_test)
+    pu_f1_score = f1_score(y_test, y_pred_pu)
+    # MultiClass remove healthy logs
+    x_infer_multi, y_infer_multi = multi_class_features(x_test, y_data)
+    # Load MultiClass
+    multi_file = os.path.join(params['base_dir'], 'multi.pkl')
+    with open(multi_file, 'rb') as multi_clf_file:
+        multi_classifier = pickle.load(multi_clf_file)
+    # Anomaly Classification
+    pred = multi_classifier.predict(x_infer_multi)
+    score = metrics.accuracy_score(y_infer_multi, pred)
+    print(pu_f1_score, score)
+
+
+def train(params, x_data, y_data, target_names):
+    # KFold Cross Validation
+    kfold = StratifiedKFold(n_splits=params['kfold']).split(x_data, y_data)
+    best_pu_fs = 0.
+    best_multi = 0.
+    for train_index, test_index in kfold:
+        x_train, x_test = x_data[train_index], x_data[test_index]
+        y_train, y_test = y_data[train_index], y_data[test_index]
+        x_train, x_test, vocabulary, save_transform = extract_features(
+            x_train, x_test, y_train, y_test, params)
+        # Binary training features
+        y_test_pu = binary_train_features(y_test)
+        y_train_pu = binary_train_features(y_train)
+        # Binary PULearning with RF
+        estimator = RandomForestClassifier(
+            n_estimators=10,
+            criterion="entropy",
+            bootstrap=True,
+            n_jobs=-1,
+        )
+        pu_estimator = PUAdapter(estimator)
+        pu_estimator.fit(x_train, y_train_pu)
+        y_pred_pu = pu_estimator.predict(x_test)
+        pu_f1_score = f1_score(y_test_pu, y_pred_pu)
+        x_train_multi, y_train_multi =\
+            multi_class_features(x_train, y_train)
+        x_test_multi, y_test_multi = multi_class_features(x_test, y_test)
+        # MultiClass
+        multi_classifier = LinearSVC(penalty="l2", dual=False, tol=1e-1)
+        multi_classifier.fit(x_train_multi, y_train_multi)
+        pred = multi_classifier.predict(x_test_multi)
+        score = metrics.accuracy_score(y_test_multi, pred)
+        better_results = (
+            pu_f1_score > best_pu_fs
+            or (pu_f1_score == best_pu_fs and score > best_multi)
+        )
+        if better_results:
+            if pu_f1_score > best_pu_fs:
+                best_pu_fs = pu_f1_score
+            save_transform()
+            if score > best_multi:
+                best_multi = score
+            save_pu(params, pu_estimator)
+            save_multi(params, multi_classifier)
+            print(pu_f1_score, score)
+        print(get_top_k_SVM_features(
+            multi_classifier, vocabulary, target_names))
+
+
 def main():
     # Init params
     params = parse_args(init_flags())
@@ -316,95 +415,9 @@ def main():
         params['logs'],
         unlabel_label=params['healthy_label'])
     if params['train']:
-        # KFold Cross Validation
-        kfold = StratifiedKFold(n_splits=params['kfold']).split(x_data, y_data)
-        best_pu_fs = 0.
-        best_multi = 0.
-        for train_index, test_index in kfold:
-            x_train, x_test = x_data[train_index], x_data[test_index]
-            y_train, y_test = y_data[train_index], y_data[test_index]
-            x_train, x_test, vocabulary, save_transform = extract_features(
-                x_train, x_test, y_train, y_test, params)
-            # Binary training features
-            y_test_pu = binary_train_features(y_test)
-            y_train_pu = binary_train_features(y_train)
-            # Binary PULearning with RF
-            estimator = RandomForestClassifier(
-                n_estimators=10,
-                criterion="entropy",
-                bootstrap=True,
-                n_jobs=-1,
-            )
-            pu_estimator = PUAdapter(estimator)
-            pu_estimator.fit(x_train, y_train_pu)
-            y_pred_pu = pu_estimator.predict(x_test)
-            pu_f1_score = f1_score(y_test_pu, y_pred_pu)
-            x_train_multi, y_train_multi =\
-                multi_class_features(x_train, y_train)
-            x_test_multi, y_test_multi = multi_class_features(x_test, y_test)
-            # MultiClass
-            multi_classifier = LinearSVC(penalty="l2", dual=False, tol=1e-1)
-            multi_classifier.fit(x_train_multi, y_train_multi)
-            pred = multi_classifier.predict(x_test_multi)
-            score = metrics.accuracy_score(y_test_multi, pred)
-            better_results = (
-                pu_f1_score > best_pu_fs
-                or (pu_f1_score == best_pu_fs and score > best_multi)
-            )
-            if better_results:
-                if pu_f1_score > best_pu_fs:
-                    best_pu_fs = pu_f1_score
-                save_transform()
-                if score > best_multi:
-                    best_multi = score
-                save_pu(params, pu_estimator)
-                save_multi(params, multi_classifier)
-                print(pu_f1_score, score)
-            print(get_top_k_SVM_features(
-                multi_classifier, vocabulary, target_names))
-
+        train(params, x_data, y_data, target_names)
     else:
-        # Inference
-        vocab_file = os.path.join(params['base_dir'], 'vocab.json')
-        with open(vocab_file, "r") as fp:
-            vocabulary = json.load(fp)
-        invf_dict_file = os.path.join(params['base_dir'],
-                                      'invf_dict.pkl')
-        with open(invf_dict_file, "rb") as fp:
-            invf_dict = pickle.load(fp)
-        x_vector = log_to_vector(x_data, vocabulary)
-        x_test = create_invf_vector(x_vector, invf_dict, vocabulary)
-        # Feature engineering
-        if params["add_length"]:
-            x_test = addLengthInFeature(x_test, x_vector)
-        # Binary training features
-        y_test = np.where(y_data == -1.0, -1.0, 1.0)
-        # Binary PU estimator with RF
-        # Load Trained PU Estimator
-        pu_estimator_file = os.path.join(params['base_dir'],
-                                         'pu_estimator.pkl')
-        with open(pu_estimator_file, 'rb') as pu_estimator_file:
-            pu_saver = pickle.load(pu_estimator_file)
-            estimator = pu_saver['estimator']
-            pu_estimator = PUAdapter(estimator)
-            pu_estimator.c = pu_saver['c']
-            pu_estimator.estimator_fitted = True
-        # Anomaly detection
-        y_pred_pu = pu_estimator.predict(x_test)
-        pu_f1_score = f1_score(y_test, y_pred_pu)
-        # MultiClass remove healthy logs
-        anomalous = (y_data != -1)
-        x_infer_multi, y_infer_multi =\
-            x_test[anomalous], y_data[anomalous]
-        # Load MultiClass
-        multi_file = os.path.join(params['base_dir'], 'multi.pkl')
-        with open(multi_file, 'rb') as multi_clf_file:
-            multi_classifier = pickle.load(multi_clf_file)
-        # Anomaly Classification
-        pred = multi_classifier.predict(x_infer_multi)
-        score = metrics.accuracy_score(y_infer_multi, pred)
-
-        print(pu_f1_score, score)
+        inference(params)
 
 
 if __name__ == "__main__":

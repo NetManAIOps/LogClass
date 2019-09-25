@@ -4,4 +4,5 @@ __all__ = [
     "multiclass",
     "utils",
     "vectorizer",
+    "logclass,"
 ]
