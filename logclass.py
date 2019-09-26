@@ -25,6 +25,7 @@ import pickle
 import json
 from .preprocess import registry as preprocess_registry
 from .preprocess.utils import load_logs
+from tqdm import tqdm
 
 
 def init_flags():
@@ -215,6 +216,8 @@ def get_top_k_SVM_features(svm_clf: LinearSVC, vocabulary,
     top_k_label = {}
     feature_names = get_feature_names(vocabulary)
     for i, label in enumerate(target_names):
+        if len(target_names) < 3 and i == 1:
+            break # coef is unidemensional when there's only two labels
         coef = svm_clf.coef_[i]
         top_coefficients = np.argsort(coef)[-top_features:]
         top_k_features = feature_names[top_coefficients]
@@ -340,7 +343,7 @@ def train(params, x_data, y_data, target_names):
     kfold = StratifiedKFold(n_splits=params['kfold']).split(x_data, y_data)
     best_pu_fs = 0.
     best_multi = 0.
-    for train_index, test_index in kfold:
+    for train_index, test_index in tqdm(kfold):
         x_train, x_test = x_data[train_index], x_data[test_index]
         y_train, y_test = y_data[train_index], y_data[test_index]
         x_train, x_test, vocabulary, save_transform = extract_features(
@@ -380,8 +383,9 @@ def train(params, x_data, y_data, target_names):
             save_pu(params, pu_estimator)
             save_multi(params, multi_classifier)
             print(pu_f1_score, score)
-        print(get_top_k_SVM_features(
-            multi_classifier, vocabulary, target_names))
+        if params['top10']:
+            print(get_top_k_SVM_features(
+                multi_classifier, vocabulary, target_names))
 
 
 def main():
@@ -393,6 +397,7 @@ def main():
         preprocess = preprocess_registry.get_preprocessor(params['logs_type'])
         preprocess(params['raw_logs'], params['logs'])
     # Load filtered params from file
+    print('Loading logs')
     x_data, y_data, target_names = load_logs(
         params['logs'],
         unlabel_label=params['healthy_label'])

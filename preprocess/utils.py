@@ -1,5 +1,7 @@
 import re
 import numpy as np
+from tqdm import tqdm
+
 
 def remove_parameters(msg):
     # Removing parameters with Regex
@@ -20,7 +22,7 @@ def remove_parameters(msg):
 def process_logs(input_source, output, process_line=None):
     with open(output, "w") as f:
         with open(input_source, 'r', encoding='latin-1') as IN:
-            for line in IN:
+            for line in tqdm(IN):
                 result_line = process_line(line)
                 if result_line:
                     f.writelines(result_line + "\n")
@@ -32,7 +34,7 @@ def load_logs(log_path, unlabel_label='unlabeled', ignore_unlabeled=False):
     label_dict = {}
     target_names = []
     with open(log_path) as IN:
-        for line in IN:
+        for line in tqdm(IN):
             L = line.strip().split()
             label = L[0]
             if label not in label_dict:
@@ -47,4 +49,5 @@ def load_logs(log_path, unlabel_label='unlabeled', ignore_unlabeled=False):
             y_data.append(label_dict[label])
     x_data = np.array(x_data)
     y_data = np.array(y_data)
+    print(np.unique(y_data, return_counts=True))
     return x_data, y_data, target_names
