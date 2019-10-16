@@ -11,25 +11,16 @@ from .puLearning.puAdapter import PUAdapter
 from sklearn import metrics
 from sklearn.metrics import f1_score
 from .feature_engineering.vectorizer import (
-    get_tf,
-    get_lf,
-    calculate_idf,
-    calculate_ilf,
     build_vocabulary,
     log_to_vector,
-    calculate_tf_invf_train,
-    create_invf_vector,
 )
-from .utils import TestingParameters
+from .utils import TestingParameters, save_params, load_params
 import pickle
-import json
 from .preprocess import registry as preprocess_registry
 from .preprocess.utils import load_logs
 from .feature_engineering import registry as feature_registry
 from .feature_engineering.utils import (
     save_vocabulary,
-    save_invf,
-    load_invf,
     load_vocabulary,
     binary_train_gtruth,
     multi_class_gtruth,
@@ -168,7 +159,10 @@ def parse_args(args):
         "logs_type": args.logs_type[0],
         "features": args.features,
     }
+    return params
 
+
+def print_params(params):
     print("{:-^80}".format("params"))
     print("Beginning binary classification "
           + "using the following configuration:\n")
@@ -176,7 +170,6 @@ def parse_args(args):
         print("\t{:>13}: {}".format(param, value))
     print()
     print("-" * 80)
-    return params
 
 
 def get_feature_names(vocabulary, add_length=True):
@@ -266,22 +259,10 @@ def save_multi(params, multi_classifier):
 # preprocessing and also feature engineering
 def inference(params, x_data, y_data):
     # Inference
-    vocab_file = os.path.join(params['base_dir'], 'vocab.json')
-    # TODO: Esto hay que abstraerlo tambien para que si en otro momento
-    # se quiere cambiar el metodo de guardar y cargar los datos se pueda
-    # hacer facilmente
-    # puede ir todo en feature_engineering me parece
-    with open(vocab_file, "r") as fp:
-        vocabulary = json.load(fp)
-    invf_dict_file = os.path.join(params['base_dir'],
-                                  'invf_dict.pkl')
-    with open(invf_dict_file, "rb") as fp:
-        invf_dict = pickle.load(fp)
-    x_vector = log_to_vector(x_data, vocabulary)
-    x_test = create_invf_vector(x_vector, invf_dict, vocabulary)
+    vocabulary = load_vocabulary(params)
     # Feature engineering
-    if params["add_length"]:
-        x_test = addLengthInFeature(x_test, x_vector)
+    x_vector = log_to_vector(x_data, vocabulary)
+    x_test = get_features_vector(x_vector, vocabulary, params)
     # Binary training features
     y_test = binary_train_gtruth(y_data)
     # Binary PU estimator with RF
@@ -349,7 +330,7 @@ def train(params, x_data, y_data, target_names):
         if better_results:
             if pu_f1_score > best_pu_fs:
                 best_pu_fs = pu_f1_score
-            # save_transform()
+            save_params(params)
             if score > best_multi:
                 best_multi = score
             save_pu(params, pu_estimator)
@@ -374,8 +355,11 @@ def main():
         params['logs'],
         unlabel_label=params['healthy_label'])
     if params['train']:
+        print_params(params)
         train(params, x_data, y_data, target_names)
     else:
+        load_params(params)
+        print_params(params)
         inference(params, x_data, y_data)
 
 
