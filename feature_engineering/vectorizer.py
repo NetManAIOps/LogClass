@@ -91,7 +91,7 @@ def get_lf(inputVector):
     return token_index_ilf_dict
 
 
-def calculate_idf(token_index_dict, inputVector, vocabulary):
+def calculate_idf(token_index_dict, inputVector):
     idf_dict = {}
     total_log_num = len(inputVector)
     for token in token_index_dict:
@@ -100,7 +100,7 @@ def calculate_idf(token_index_dict, inputVector, vocabulary):
     return idf_dict
 
 
-def calculate_ilf(token_index_dict, inputVector, vocabulary):
+def calculate_ilf(token_index_dict, inputVector):
     ilf_dict = {}
     max_length = get_max_line(inputVector)
     # calculating ilf for each token
@@ -131,8 +131,8 @@ def normalize_tfinvf(tfinvf):
 
 # TODO: Refactor this further, this should be just create invf_dict
 def calculate_tf_invf_train(
-    inputVector, vocabulary, get_f=get_tf, calc_invf=calculate_idf
+    inputVector, get_f=get_tf, calc_invf=calculate_idf
 ):
     token_index_dict = get_f(inputVector)
-    invf_dict = calc_invf(token_index_dict, inputVector, vocabulary)
+    invf_dict = calc_invf(token_index_dict, inputVector)
     return invf_dict

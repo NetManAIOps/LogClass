@@ -32,6 +32,6 @@ def process_line_bgl(line):
 @register("bgl")
 def preprocess_bgl(input_source, output):
     """
-    Returns BGL logs preprocessing executor.
+    Runs BGL logs preprocessing executor.
     """
     process_logs(input_source, output, process_line_bgl)

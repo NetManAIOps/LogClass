@@ -5,12 +5,12 @@ from tqdm import tqdm
 
 def remove_parameters(msg):
     # Removing parameters with Regex
-    msg = re.sub("(:(?=\s))|((?<=\s):)", "", msg)
-    msg = re.sub("(\d+\.)+\d+", "", msg)
-    msg = re.sub("\d{2}:\d{2}:\d{2}", "", msg)
-    msg = re.sub("Mar|Apr|Dec|Jan|Feb|Nov|Oct|May|Jun|Jul|Aug|Sep", "", msg)
-    msg = re.sub(":?(\w+:)+", "", msg)
-    msg = re.sub("\.|\(|\)|\<|\>|\/|\-|\=|\[|\]", " ", msg)
+    msg = re.sub(r"(:(?=\s))|((?<=\s):)", "", msg)
+    msg = re.sub(r"(\d+\.)+\d+", "", msg)
+    msg = re.sub(r"\d{2}:\d{2}:\d{2}", "", msg)
+    msg = re.sub(r"Mar|Apr|Dec|Jan|Feb|Nov|Oct|May|Jun|Jul|Aug|Sep", "", msg)
+    msg = re.sub(r":?(\w+:)+", "", msg)
+    msg = re.sub(r"\.|\(|\)|\<|\>|\/|\-|\=|\[|\]", " ", msg)
     L = msg.split()
     p = re.compile("[^(A-Za-z)]")
     # Filtering strings that have non-letter tokens

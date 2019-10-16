@@ -10,7 +10,7 @@ from sklearn.ensemble import RandomForestClassifier
 from .puLearning.puAdapter import PUAdapter
 from sklearn import metrics
 from sklearn.metrics import f1_score
-from .vectorizer import (
+from .feature_engineering.vectorizer import (
     get_tf,
     get_lf,
     calculate_idf,
@@ -20,12 +20,22 @@ from .vectorizer import (
     calculate_tf_invf_train,
     create_invf_vector,
 )
-from .utils import addLengthInFeature
+from .utils import TestingParameters
 import pickle
 import json
 from .preprocess import registry as preprocess_registry
 from .preprocess.utils import load_logs
+from .feature_engineering import registry as feature_registry
+from .feature_engineering.utils import (
+    save_vocabulary,
+    save_invf,
+    load_invf,
+    load_vocabulary,
+    binary_train_gtruth,
+    multi_class_gtruth,
+)
 from tqdm import tqdm
+import time
 
 
 def init_flags():
@@ -96,16 +106,13 @@ def init_flags():
         help="the labels of unlabeled logs",
     )
     parser.add_argument(
-        "--add_ilf",
-        action="store_true",
-        default=True,
-        help="if set, LogClass will use ilf to generate ferture vector",
-    )
-    parser.add_argument(
-        "--add_length",
-        action="store_true",
-        default=False,
-        help="if set, LogClass will add length as feature",
+        "--features",
+        metavar="features",
+        type=str,
+        nargs='+',
+        default=["tfilf"],
+        choices=["tfidf", "tfilf", "length"],
+        help="Features to be extracted from the logs messages.",
     )
     parser.add_argument(
         "--report",
@@ -152,8 +159,6 @@ def parse_args(args):
         "kfold": args.kfold[0],
         "iterations": args.iterations[0],
         "healthy_label": args.healthy_label[0],
-        "add_ilf": args.add_ilf,
-        "add_length": args.add_length,
         "report": args.report,
         "top10": args.top10,
         "train": args.train,
@@ -161,6 +166,7 @@ def parse_args(args):
         "force": args.force,
         "base_dir": args.base_dir[0],
         "logs_type": args.logs_type[0],
+        "features": args.features,
     }
 
     print("{:-^80}".format("params"))
@@ -171,35 +177,6 @@ def parse_args(args):
     print()
     print("-" * 80)
     return params
-
-
-def filter_params(params):
-    return_code = subprocess.call([
-        sys.executable,
-        './LogClass/filterparams.py',
-        '--input',
-        params['raw_logs'],
-        '--output',
-        params['logs']
-        ])
-    if return_code != 0:
-        raise RuntimeError(f'filterparams failed, {return_code}')
-
-
-def calculate_invf_dict(params, train_vector, vocabulary):
-    if params['add_ilf']:
-        freq = get_lf
-        invf = calculate_ilf
-    else:
-        freq = get_tf
-        invf = calculate_idf
-    invf_dict = calculate_tf_invf_train(
-        train_vector,
-        vocabulary,
-        get_f=freq,
-        calc_invf=invf
-        )
-    return invf_dict
 
 
 def get_feature_names(vocabulary, add_length=True):
@@ -217,7 +194,7 @@ def get_top_k_SVM_features(svm_clf: LinearSVC, vocabulary,
     feature_names = get_feature_names(vocabulary)
     for i, label in enumerate(target_names):
         if len(target_names) < 3 and i == 1:
-            break # coef is unidemensional when there's only two labels
+            break  # coef is unidemensional when there's only two labels
         coef = svm_clf.coef_[i]
         top_coefficients = np.argsort(coef)[-top_features:]
         top_k_features = feature_names[top_coefficients]
@@ -243,41 +220,31 @@ def file_handling(params):
             )
 
 
+def get_features_vector(log_vector, vocabulary, params):
+    feature_vectors = []
+    for feature in params['features']:
+        extract_feature = feature_registry.get_feature_extractor(feature)
+        feature_vector = extract_feature(
+            params, log_vector, vocabulary=vocabulary)
+        feature_vectors.append(feature_vector)
+    X = np.hstack(feature_vectors)
+    return X
+
+
 def extract_features(x_train, x_test, y_train, y_test, params):
     # Build Vocabulary
-    vocabulary = build_vocabulary(x_train)
+    if params['train']:
+        vocabulary = build_vocabulary(x_train)
+        save_vocabulary(params, vocabulary)
+    else:
+        vocabulary = load_vocabulary(params)
     # Feature Engineering
     x_train_vector = log_to_vector(x_train, vocabulary)
+    x_train = get_features_vector(x_train_vector, vocabulary, params)
     x_test_vector = log_to_vector(x_test, vocabulary)
-    invf_dict = calculate_invf_dict(params, x_train_vector, vocabulary)
-    x_train = create_invf_vector(x_train_vector, invf_dict, vocabulary)
-    x_test = create_invf_vector(x_test_vector, invf_dict, vocabulary)
-    # Further feature engineering
-    if params["add_length"]:
-        x_train = addLengthInFeature(x_train, x_train_vector)
-        x_test = addLengthInFeature(x_test, x_test_vector)
-
-    def save_transform():
-        vocab_file = os.path.join(params['base_dir'], 'vocab.json')
-        with open(vocab_file, "w") as fp:
-            json.dump(vocabulary, fp)
-        invf_dict_file = os.path.join(params['base_dir'],
-                                      'invf_dict.pkl')
-        with open(invf_dict_file, "wb") as fp:
-            pickle.dump(invf_dict, fp)
-
-    return x_train, x_test, vocabulary, save_transform
-
-
-def binary_train_features(y):
-    return np.where(y == -1.0, -1.0, 1.0)
-
-
-def multi_class_features(x, y):
-    anomalous = (y != -1)
-    x_multi, y_multi =\
-        x[anomalous], y[anomalous]
-    return x_multi, y_multi
+    with TestingParameters(params):
+        x_test = get_features_vector(x_test_vector, vocabulary, params)
+    return x_train, x_test, vocabulary
 
 
 def save_pu(params, pu_estimator):
@@ -300,6 +267,10 @@ def save_multi(params, multi_classifier):
 def inference(params, x_data, y_data):
     # Inference
     vocab_file = os.path.join(params['base_dir'], 'vocab.json')
+    # TODO: Esto hay que abstraerlo tambien para que si en otro momento
+    # se quiere cambiar el metodo de guardar y cargar los datos se pueda
+    # hacer facilmente
+    # puede ir todo en feature_engineering me parece
     with open(vocab_file, "r") as fp:
         vocabulary = json.load(fp)
     invf_dict_file = os.path.join(params['base_dir'],
@@ -312,11 +283,11 @@ def inference(params, x_data, y_data):
     if params["add_length"]:
         x_test = addLengthInFeature(x_test, x_vector)
     # Binary training features
-    y_test = binary_train_features(y_data)
+    y_test = binary_train_gtruth(y_data)
     # Binary PU estimator with RF
     # Load Trained PU Estimator
     pu_estimator_file = os.path.join(params['base_dir'],
-                                        'pu_estimator.pkl')
+                                     'pu_estimator.pkl')
     with open(pu_estimator_file, 'rb') as pu_estimator_file:
         pu_saver = pickle.load(pu_estimator_file)
         estimator = pu_saver['estimator']
@@ -327,7 +298,7 @@ def inference(params, x_data, y_data):
     y_pred_pu = pu_estimator.predict(x_test)
     pu_f1_score = f1_score(y_test, y_pred_pu)
     # MultiClass remove healthy logs
-    x_infer_multi, y_infer_multi = multi_class_features(x_test, y_data)
+    x_infer_multi, y_infer_multi = multi_class_gtruth(x_test, y_data)
     # Load MultiClass
     multi_file = os.path.join(params['base_dir'], 'multi.pkl')
     with open(multi_file, 'rb') as multi_clf_file:
@@ -344,13 +315,14 @@ def train(params, x_data, y_data, target_names):
     best_pu_fs = 0.
     best_multi = 0.
     for train_index, test_index in tqdm(kfold):
+        params['experiment_id'] = str(int(time.time()))
         x_train, x_test = x_data[train_index], x_data[test_index]
         y_train, y_test = y_data[train_index], y_data[test_index]
-        x_train, x_test, vocabulary, save_transform = extract_features(
+        x_train, x_test, vocabulary = extract_features(
             x_train, x_test, y_train, y_test, params)
         # Binary training features
-        y_test_pu = binary_train_features(y_test)
-        y_train_pu = binary_train_features(y_train)
+        y_test_pu = binary_train_gtruth(y_test)
+        y_train_pu = binary_train_gtruth(y_train)
         # Binary PULearning with RF
         estimator = RandomForestClassifier(
             n_estimators=10,
@@ -363,8 +335,8 @@ def train(params, x_data, y_data, target_names):
         y_pred_pu = pu_estimator.predict(x_test)
         pu_f1_score = f1_score(y_test_pu, y_pred_pu)
         x_train_multi, y_train_multi =\
-            multi_class_features(x_train, y_train)
-        x_test_multi, y_test_multi = multi_class_features(x_test, y_test)
+            multi_class_gtruth(x_train, y_train)
+        x_test_multi, y_test_multi = multi_class_gtruth(x_test, y_test)
         # MultiClass
         multi_classifier = LinearSVC(penalty="l2", dual=False, tol=1e-1)
         multi_classifier.fit(x_train_multi, y_train_multi)
@@ -377,7 +349,7 @@ def train(params, x_data, y_data, target_names):
         if better_results:
             if pu_f1_score > best_pu_fs:
                 best_pu_fs = pu_f1_score
-            save_transform()
+            # save_transform()
             if score > best_multi:
                 best_multi = score
             save_pu(params, pu_estimator)
