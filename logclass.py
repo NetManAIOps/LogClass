@@ -1,9 +1,7 @@
 import numpy as np
 import argparse
-import sys
 import os
 import shutil
-import subprocess
 from sklearn.model_selection import StratifiedKFold
 from sklearn.svm import LinearSVC
 from sklearn.ensemble import RandomForestClassifier
@@ -27,6 +25,8 @@ from .feature_engineering.utils import (
 )
 from tqdm import tqdm
 import time
+from .models import binary_registry as binary_classifier_registry
+from .models import multi_registry as multi_classifier_registry
 
 
 def init_flags():
@@ -240,21 +240,6 @@ def extract_features(x_train, x_test, y_train, y_test, params):
     return x_train, x_test, vocabulary
 
 
-def save_pu(params, pu_estimator):
-    pu_estimator_file = os.path.join(params['base_dir'],
-                                     'pu_estimator.pkl')
-    pu_saver = {'estimator': pu_estimator.estimator,
-                'c': pu_estimator.c}
-    with open(pu_estimator_file, 'wb') as pu_estimator_file:
-        pickle.dump(pu_saver, pu_estimator_file)
-
-
-def save_multi(params, multi_classifier):
-    multi_file = os.path.join(params['base_dir'], 'multi.pkl')
-    with open(multi_file, 'wb') as multi_clf_file:
-        pickle.dump(multi_classifier, multi_clf_file)
-
-
 # TODO: to be put in a separate module as there is modules for 
 # preprocessing and also feature engineering
 def inference(params, x_data, y_data):
@@ -267,23 +252,20 @@ def inference(params, x_data, y_data):
     y_test = binary_train_gtruth(y_data)
     # Binary PU estimator with RF
     # Load Trained PU Estimator
-    pu_estimator_file = os.path.join(params['base_dir'],
-                                     'pu_estimator.pkl')
-    with open(pu_estimator_file, 'rb') as pu_estimator_file:
-        pu_saver = pickle.load(pu_estimator_file)
-        estimator = pu_saver['estimator']
-        pu_estimator = PUAdapter(estimator)
-        pu_estimator.c = pu_saver['c']
-        pu_estimator.estimator_fitted = True
+    binary_clf_getter =\
+        binary_classifier_registry.get_binary_model('pu_learning')
+    binary_clf = binary_clf_getter(params)
+    binary_clf.load()
     # Anomaly detection
-    y_pred_pu = pu_estimator.predict(x_test)
+    y_pred_pu = binary_clf.predict(x_test)
     pu_f1_score = f1_score(y_test, y_pred_pu)
     # MultiClass remove healthy logs
     x_infer_multi, y_infer_multi = multi_class_gtruth(x_test, y_data)
     # Load MultiClass
-    multi_file = os.path.join(params['base_dir'], 'multi.pkl')
-    with open(multi_file, 'rb') as multi_clf_file:
-        multi_classifier = pickle.load(multi_clf_file)
+    multi_classifier_getter =\
+        multi_classifier_registry.get_multi_model('svm')
+    multi_classifier = multi_classifier_getter(params)
+    multi_classifier.load()
     # Anomaly Classification
     pred = multi_classifier.predict(x_infer_multi)
     score = metrics.accuracy_score(y_infer_multi, pred)
@@ -305,21 +287,20 @@ def train(params, x_data, y_data, target_names):
         y_test_pu = binary_train_gtruth(y_test)
         y_train_pu = binary_train_gtruth(y_train)
         # Binary PULearning with RF
-        estimator = RandomForestClassifier(
-            n_estimators=10,
-            criterion="entropy",
-            bootstrap=True,
-            n_jobs=-1,
-        )
-        pu_estimator = PUAdapter(estimator)
-        pu_estimator.fit(x_train, y_train_pu)
-        y_pred_pu = pu_estimator.predict(x_test)
+        binary_clf_getter =\
+            binary_classifier_registry.get_binary_model("pu_learning")
+        binary_clf = binary_clf_getter(params)
+        binary_clf.fit(x_train, y_train_pu)
+        y_pred_pu = binary_clf.predict(x_test)
         pu_f1_score = f1_score(y_test_pu, y_pred_pu)
+        # Multi-class training features
         x_train_multi, y_train_multi =\
             multi_class_gtruth(x_train, y_train)
         x_test_multi, y_test_multi = multi_class_gtruth(x_test, y_test)
         # MultiClass
-        multi_classifier = LinearSVC(penalty="l2", dual=False, tol=1e-1)
+        multi_classifier_getter =\
+            multi_classifier_registry.get_multi_model('svm')
+        multi_classifier = multi_classifier_getter(params)
         multi_classifier.fit(x_train_multi, y_train_multi)
         pred = multi_classifier.predict(x_test_multi)
         score = metrics.accuracy_score(y_test_multi, pred)
@@ -333,8 +314,8 @@ def train(params, x_data, y_data, target_names):
             save_params(params)
             if score > best_multi:
                 best_multi = score
-            save_pu(params, pu_estimator)
-            save_multi(params, multi_classifier)
+            binary_clf.save()
+            multi_classifier.save()
             print(pu_f1_score, score)
         if params['top10']:
             print(get_top_k_SVM_features(
