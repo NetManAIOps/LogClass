@@ -38,7 +38,7 @@ def binary_train_gtruth(y):
     return np.where(y == -1.0, -1.0, 1.0)
 
 
-def multi_class_gtruth(x, y):
+def multi_features(x, y):
     anomalous = (y != -1)
     x_multi, y_multi =\
         x[anomalous], y[anomalous]

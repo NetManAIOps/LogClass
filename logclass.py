@@ -4,16 +4,11 @@ import os
 import shutil
 from sklearn.model_selection import StratifiedKFold
 from sklearn.svm import LinearSVC
-from sklearn.ensemble import RandomForestClassifier
-from .puLearning.puAdapter import PUAdapter
-from sklearn import metrics
-from sklearn.metrics import f1_score
 from .feature_engineering.vectorizer import (
     build_vocabulary,
     log_to_vector,
 )
 from .utils import TestingParameters, save_params, load_params
-import pickle
 from .preprocess import registry as preprocess_registry
 from .preprocess.utils import load_logs
 from .feature_engineering import registry as feature_registry
@@ -21,12 +16,14 @@ from .feature_engineering.utils import (
     save_vocabulary,
     load_vocabulary,
     binary_train_gtruth,
-    multi_class_gtruth,
+    multi_features,
 )
 from tqdm import tqdm
 import time
 from .models import binary_registry as binary_classifier_registry
 from .models import multi_registry as multi_classifier_registry
+from .reporting import bb_registry as black_box_report_registry
+from .reporting import wb_registry as white_box_report_registry
 
 
 def init_flags():
@@ -172,29 +169,6 @@ def print_params(params):
     print("-" * 80)
 
 
-def get_feature_names(vocabulary, add_length=True):
-    feature_names = zip(vocabulary.keys(), vocabulary.values())
-    feature_names = sorted(feature_names, key=lambda x: x[1])
-    feature_names = [x[0] for x in feature_names]
-    if add_length:
-        feature_names.append('LENGTH')
-    return np.array(feature_names)
-
-
-def get_top_k_SVM_features(svm_clf: LinearSVC, vocabulary,
-                           target_names, top_features=3):
-    top_k_label = {}
-    feature_names = get_feature_names(vocabulary)
-    for i, label in enumerate(target_names):
-        if len(target_names) < 3 and i == 1:
-            break  # coef is unidemensional when there's only two labels
-        coef = svm_clf.coef_[i]
-        top_coefficients = np.argsort(coef)[-top_features:]
-        top_k_features = feature_names[top_coefficients]
-        top_k_label[label] = list(reversed(top_k_features))
-    return top_k_label
-
-
 def file_handling(params):
     if params['train']:
         if os.path.exists(params["base_dir"]) and not params["force"]:
@@ -258,9 +232,10 @@ def inference(params, x_data, y_data):
     binary_clf.load()
     # Anomaly detection
     y_pred_pu = binary_clf.predict(x_test)
-    pu_f1_score = f1_score(y_test, y_pred_pu)
+    get_accuracy = black_box_report_registry.get_bb_report('acc')
+    binary_acc = get_accuracy(y_test, y_pred_pu)
     # MultiClass remove healthy logs
-    x_infer_multi, y_infer_multi = multi_class_gtruth(x_test, y_data)
+    x_infer_multi, y_infer_multi = multi_features(x_test, y_data)
     # Load MultiClass
     multi_classifier_getter =\
         multi_classifier_registry.get_multi_model('svm')
@@ -268,8 +243,9 @@ def inference(params, x_data, y_data):
     multi_classifier.load()
     # Anomaly Classification
     pred = multi_classifier.predict(x_infer_multi)
-    score = metrics.accuracy_score(y_infer_multi, pred)
-    print(pu_f1_score, score)
+    get_multi_acc = black_box_report_registry.get_bb_report('multi_acc')
+    score = get_multi_acc(y_infer_multi, pred)
+    print(binary_acc, score)
 
 
 def train(params, x_data, y_data, target_names):
@@ -292,34 +268,44 @@ def train(params, x_data, y_data, target_names):
         binary_clf = binary_clf_getter(params)
         binary_clf.fit(x_train, y_train_pu)
         y_pred_pu = binary_clf.predict(x_test)
-        pu_f1_score = f1_score(y_test_pu, y_pred_pu)
+        get_accuracy = black_box_report_registry.get_bb_report('acc')
+        binary_acc = get_accuracy(y_test_pu, y_pred_pu)
         # Multi-class training features
         x_train_multi, y_train_multi =\
-            multi_class_gtruth(x_train, y_train)
-        x_test_multi, y_test_multi = multi_class_gtruth(x_test, y_test)
+            multi_features(x_train, y_train)
+        x_test_multi, y_test_multi = multi_features(x_test, y_test)
         # MultiClass
         multi_classifier_getter =\
             multi_classifier_registry.get_multi_model('svm')
         multi_classifier = multi_classifier_getter(params)
         multi_classifier.fit(x_train_multi, y_train_multi)
         pred = multi_classifier.predict(x_test_multi)
-        score = metrics.accuracy_score(y_test_multi, pred)
+        get_multi_acc = black_box_report_registry.get_bb_report('multi_acc')
+        score = get_multi_acc(y_test_multi, pred)
         better_results = (
-            pu_f1_score > best_pu_fs
-            or (pu_f1_score == best_pu_fs and score > best_multi)
+            binary_acc > best_pu_fs
+            or (binary_acc == best_pu_fs and score > best_multi)
         )
+        # TODO: FOR LOOP WITH ALL THE REPORTING & METRICS EVALUATION
+        # Both fro black and white box reporting
         if better_results:
-            if pu_f1_score > best_pu_fs:
-                best_pu_fs = pu_f1_score
+            if binary_acc > best_pu_fs:
+                best_pu_fs = binary_acc
             save_params(params)
             if score > best_multi:
                 best_multi = score
             binary_clf.save()
             multi_classifier.save()
-            print(pu_f1_score, score)
+            print(binary_acc, score)
         if params['top10']:
-            print(get_top_k_SVM_features(
-                multi_classifier, vocabulary, target_names))
+            get_top_k = white_box_report_registry.get_wb_report('top_k_svm')
+            print(get_top_k(
+                params,
+                multi_classifier.model,
+                vocabulary,
+                target_names=target_names,
+                top_features=5
+                ))
 
 
 def main():
