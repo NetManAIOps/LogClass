@@ -104,16 +104,30 @@ def init_flags():
     )
     parser.add_argument(
         "--report",
-        action="store_true",
-        default=False,
-        help="Print a detailed classification report.",
+        metavar="report",
+        type=str,
+        nargs='+',
+        default=["confusion_matrix"],
+        choices=["confusion_matrix", "accuracy", "multi_class_acc", "top_k_svm"],
+        help="Reports to be generated from the model and its predictions.",
     )
     parser.add_argument(
-        "--top10",
-        action="store_true",
-        default=False,
-        help="Print ten most discriminative terms"
-        + " per class for every classifier.",
+        "--binary_classifier",
+        metavar="binary_classifier",
+        type=str,
+        nargs=1,
+        default=["pu_learning"],
+        choices=["pu_learning", "regular"],
+        help="Binary classifier to be used as anomaly detector.",
+    )
+    parser.add_argument(
+        "--multi_classifier",
+        metavar="multi_classifier",
+        type=str,
+        nargs=1,
+        default=["svm"],
+        choices=["svm"],
+        help="Multi-clas classifier to classify anomalies.",
     )
     parser.add_argument(
         "--train",
@@ -148,13 +162,14 @@ def parse_args(args):
         "iterations": args.iterations[0],
         "healthy_label": args.healthy_label[0],
         "report": args.report,
-        "top10": args.top10,
         "train": args.train,
         "preprocess": args.preprocess,
         "force": args.force,
         "base_dir": args.base_dir[0],
         "logs_type": args.logs_type[0],
         "features": args.features,
+        "binary_classifier": args.binary_classifier[0],
+        "multi_classifier": args.multi_classifier[0],
     }
     return params
 
@@ -216,7 +231,7 @@ def extract_features(x_train, x_test, y_train, y_test, params):
 
 # TODO: to be put in a separate module as there is modules for 
 # preprocessing and also feature engineering
-def inference(params, x_data, y_data):
+def inference(params, x_data, y_data, target_names):
     # Inference
     vocabulary = load_vocabulary(params)
     # Feature engineering
@@ -227,7 +242,8 @@ def inference(params, x_data, y_data):
     # Binary PU estimator with RF
     # Load Trained PU Estimator
     binary_clf_getter =\
-        binary_classifier_registry.get_binary_model('pu_learning')
+        binary_classifier_registry.get_binary_model(
+            params['binary_classifier'])
     binary_clf = binary_clf_getter(params)
     binary_clf.load()
     # Anomaly detection
@@ -238,14 +254,44 @@ def inference(params, x_data, y_data):
     x_infer_multi, y_infer_multi = multi_features(x_test, y_data)
     # Load MultiClass
     multi_classifier_getter =\
-        multi_classifier_registry.get_multi_model('svm')
+        multi_classifier_registry.get_multi_model(params['multi_classifier'])
     multi_classifier = multi_classifier_getter(params)
     multi_classifier.load()
     # Anomaly Classification
     pred = multi_classifier.predict(x_infer_multi)
     get_multi_acc = black_box_report_registry.get_bb_report('multi_acc')
     score = get_multi_acc(y_infer_multi, pred)
+
     print(binary_acc, score)
+    for report in params['report']:
+        try:
+            get_bb_report = black_box_report_registry.get_bb_report(report)
+            result = get_bb_report(y_test, y_pred_pu)
+        except Exception:
+            pass
+        else:
+            print(f'Binary classification {report} report:')
+            print(result)
+
+        try:
+            get_bb_report = black_box_report_registry.get_bb_report(report)
+            result = get_bb_report(y_infer_multi, pred)
+        except Exception:
+            pass
+        else:
+            print(f'Multi classification {report} report:')
+            print(result)
+
+        try:
+            get_wb_report = white_box_report_registry.get_wb_report(report)
+            result =\
+                get_wb_report(params, binary_clf.model, vocabulary,
+                                target_names=target_names, top_features=5)
+        except Exception:
+            pass
+        else:
+            print(f'Multi classification {report} report:')
+            print(result)
 
 
 def train(params, x_data, y_data, target_names):
@@ -264,7 +310,8 @@ def train(params, x_data, y_data, target_names):
         y_train_pu = binary_train_gtruth(y_train)
         # Binary PULearning with RF
         binary_clf_getter =\
-            binary_classifier_registry.get_binary_model("pu_learning")
+            binary_classifier_registry.get_binary_model(
+                params['binary_classifier'])
         binary_clf = binary_clf_getter(params)
         binary_clf.fit(x_train, y_train_pu)
         y_pred_pu = binary_clf.predict(x_test)
@@ -276,7 +323,7 @@ def train(params, x_data, y_data, target_names):
         x_test_multi, y_test_multi = multi_features(x_test, y_test)
         # MultiClass
         multi_classifier_getter =\
-            multi_classifier_registry.get_multi_model('svm')
+            multi_classifier_registry.get_multi_model(params['multi_classifier'])
         multi_classifier = multi_classifier_getter(params)
         multi_classifier.fit(x_train_multi, y_train_multi)
         pred = multi_classifier.predict(x_test_multi)
@@ -286,8 +333,7 @@ def train(params, x_data, y_data, target_names):
             binary_acc > best_pu_fs
             or (binary_acc == best_pu_fs and score > best_multi)
         )
-        # TODO: FOR LOOP WITH ALL THE REPORTING & METRICS EVALUATION
-        # Both fro black and white box reporting
+
         if better_results:
             if binary_acc > best_pu_fs:
                 best_pu_fs = binary_acc
@@ -297,15 +343,36 @@ def train(params, x_data, y_data, target_names):
             binary_clf.save()
             multi_classifier.save()
             print(binary_acc, score)
-        if params['top10']:
-            get_top_k = white_box_report_registry.get_wb_report('top_k_svm')
-            print(get_top_k(
-                params,
-                multi_classifier.model,
-                vocabulary,
-                target_names=target_names,
-                top_features=5
-                ))
+
+        for report in params['report']:
+            try:
+                get_bb_report = black_box_report_registry.get_bb_report(report)
+                result = get_bb_report(y_test_pu, y_pred_pu)
+            except Exception:
+                pass
+            else:
+                print(f'Binary classification {report} report:')
+                print(result)
+
+            try:
+                get_bb_report = black_box_report_registry.get_bb_report(report)
+                result = get_bb_report(y_test_multi, pred)
+            except Exception:
+                pass
+            else:
+                print(f'Multi classification {report} report:')
+                print(result)
+
+            try:
+                get_wb_report = white_box_report_registry.get_wb_report(report)
+                result =\
+                    get_wb_report(params, binary_clf.model, vocabulary,
+                                  target_names=target_names, top_features=5)
+            except Exception:
+                pass
+            else:
+                print(f'Multi classification {report} report:')
+                print(result)
 
 
 def main():
@@ -313,6 +380,8 @@ def main():
     params = parse_args(init_flags())
     file_handling(params)
     # Filter params from raw logs
+    # TODO: use only params as attribute and set unlabel_label with the
+    # preprocessor instead of the cli as an argument to parse
     if params['preprocess']:
         preprocess = preprocess_registry.get_preprocessor(params['logs_type'])
         preprocess(params['raw_logs'], params['logs'])
@@ -327,7 +396,7 @@ def main():
     else:
         load_params(params)
         print_params(params)
-        inference(params, x_data, y_data)
+        inference(params, x_data, y_data, target_names)
 
 
 if __name__ == "__main__":
