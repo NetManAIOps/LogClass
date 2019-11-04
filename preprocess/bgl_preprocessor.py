@@ -36,4 +36,5 @@ def preprocess_bgl(params):
     """
     input_source = params['raw_logs']
     output = params['logs']
+    params['healthy_label'] = 'unlabeled'
     process_logs(input_source, output, process_line_bgl)
