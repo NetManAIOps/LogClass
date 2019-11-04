@@ -22,8 +22,10 @@ def getMsgFromNewSyslog(log):
 
 
 @register("original")
-def preprocess_original(input_source, output):
+def preprocess_original(params):
     """
     Returns original logs from the paper preprocessing executor.
     """
+    input_source = params['raw_logs']
+    output = params['logs']
     process_logs(input_source, output, getMsgFromNewSyslog)

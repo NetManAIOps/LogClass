@@ -28,7 +28,9 @@ def process_logs(input_source, output, process_line=None):
                     f.writelines(result_line + "\n")
 
 
-def load_logs(log_path, unlabel_label='unlabeled', ignore_unlabeled=False):
+def load_logs(params, ignore_unlabeled=False):
+    log_path = params['logs']
+    unlabel_label = params['healthy_label']
     x_data = []
     y_data = []
     label_dict = {}

@@ -30,8 +30,10 @@ def process_line_bgl(line):
 
 
 @register("bgl")
-def preprocess_bgl(input_source, output):
+def preprocess_bgl(params):
     """
     Runs BGL logs preprocessing executor.
     """
+    input_source = params['raw_logs']
+    output = params['logs']
     process_logs(input_source, output, process_line_bgl)

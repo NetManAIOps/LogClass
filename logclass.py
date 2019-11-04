@@ -87,13 +87,6 @@ def init_flags():
         help="number of training iterations",
     )
     parser.add_argument(
-        "--healthy_label",
-        type=str,
-        nargs=1,
-        default=["unlabeled"],
-        help="the labels of unlabeled logs",
-    )
-    parser.add_argument(
         "--features",
         metavar="features",
         type=str,
@@ -160,7 +153,6 @@ def parse_args(args):
         "raw_logs": args.raw_logs[0],
         "kfold": args.kfold[0],
         "iterations": args.iterations[0],
-        "healthy_label": args.healthy_label[0],
         "report": args.report,
         "train": args.train,
         "preprocess": args.preprocess,
@@ -286,7 +278,7 @@ def inference(params, x_data, y_data, target_names):
             get_wb_report = white_box_report_registry.get_wb_report(report)
             result =\
                 get_wb_report(params, binary_clf.model, vocabulary,
-                                target_names=target_names, top_features=5)
+                              target_names=target_names, top_features=5)
         except Exception:
             pass
         else:
@@ -344,6 +336,8 @@ def train(params, x_data, y_data, target_names):
             multi_classifier.save()
             print(binary_acc, score)
 
+        # TryCatch with are just necessary since I'm trying to consider all
+        # reports the same when they are not
         for report in params['report']:
             try:
                 get_bb_report = black_box_report_registry.get_bb_report(report)
@@ -380,16 +374,12 @@ def main():
     params = parse_args(init_flags())
     file_handling(params)
     # Filter params from raw logs
-    # TODO: use only params as attribute and set unlabel_label with the
-    # preprocessor instead of the cli as an argument to parse
     if params['preprocess']:
         preprocess = preprocess_registry.get_preprocessor(params['logs_type'])
-        preprocess(params['raw_logs'], params['logs'])
+        preprocess(params)
     # Load filtered params from file
     print('Loading logs')
-    x_data, y_data, target_names = load_logs(
-        params['logs'],
-        unlabel_label=params['healthy_label'])
+    x_data, y_data, target_names = load_logs(params)
     if params['train']:
         print_params(params)
         train(params, x_data, y_data, target_names)
