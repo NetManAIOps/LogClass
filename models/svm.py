@@ -10,12 +10,16 @@ class SVMWrapper(BaseModel):
         super().__init__(model, params)
 
     def save(self, **kwargs):
-        multi_file = os.path.join(self.params['base_dir'], 'multi.pkl')
+        multi_file =\
+            os.path.join(self.params['base_dir'],
+                         f"multi_{self.params['experiment_id']}.pkl")
         with open(multi_file, 'wb') as multi_clf_file:
             pickle.dump(self.model, multi_clf_file)
 
     def load(self, **kwargs):
-        multi_file = os.path.join(self.params['base_dir'], 'multi.pkl')
+        multi_file =\
+            os.path.join(self.params['base_dir'],
+                         f"multi_{self.params['experiment_id']}.pkl")
         with open(multi_file, 'rb') as multi_clf_file:
             multi_classifier = pickle.load(multi_clf_file)
             self.model = multi_classifier

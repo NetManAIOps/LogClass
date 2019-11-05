@@ -27,6 +27,7 @@ def load_params(params):
         best_params = json.load(fp)
     params['experiment_id'] = best_params['experiment_id']
     params['features'] = best_params['features']
+    params['healthy_label'] = best_params['healthy_label']
 
 
 def save_params(params):

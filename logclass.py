@@ -19,7 +19,7 @@ from .feature_engineering.utils import (
     multi_features,
 )
 from tqdm import tqdm
-import time
+from uuid import uuid4
 from .models import binary_registry as binary_classifier_registry
 from .models import multi_registry as multi_classifier_registry
 from .reporting import bb_registry as black_box_report_registry
@@ -79,12 +79,11 @@ def init_flags():
         help="kfold crossvalidation",
     )
     parser.add_argument(
-        "--iterations",
-        metavar="iterations",
-        type=int,
+        "--healthy_label",
+        type=str,
         nargs=1,
-        default=[10],
-        help="number of training iterations",
+        default=["unlabeled"],
+        help="the labels of unlabeled logs",
     )
     parser.add_argument(
         "--features",
@@ -152,7 +151,7 @@ def parse_args(args):
         "logs": args.logs[0],
         "raw_logs": args.raw_logs[0],
         "kfold": args.kfold[0],
-        "iterations": args.iterations[0],
+        "healthy_label": args.healthy_label[0],
         "report": args.report,
         "train": args.train,
         "preprocess": args.preprocess,
@@ -292,7 +291,8 @@ def train(params, x_data, y_data, target_names):
     best_pu_fs = 0.
     best_multi = 0.
     for train_index, test_index in tqdm(kfold):
-        params['experiment_id'] = str(int(time.time()))
+        params['experiment_id'] = str(uuid4().time_low)
+        print(f"\nExperiment ID: {params['experiment_id']}")
         x_train, x_test = x_data[train_index], x_data[test_index]
         y_train, y_test = y_data[train_index], y_data[test_index]
         x_train, x_test, vocabulary = extract_features(
@@ -332,12 +332,10 @@ def train(params, x_data, y_data, target_names):
             save_params(params)
             if score > best_multi:
                 best_multi = score
-            binary_clf.save()
-            multi_classifier.save()
             print(binary_acc, score)
 
-        # TryCatch with are just necessary since I'm trying to consider all
-        # reports the same when they are not
+        # TryCatch are necessary since I'm trying to consider all 
+        # reports the same when they are not 
         for report in params['report']:
             try:
                 get_bb_report = black_box_report_registry.get_bb_report(report)
@@ -372,8 +370,13 @@ def train(params, x_data, y_data, target_names):
 def main():
     # Init params
     params = parse_args(init_flags())
+    if not params['train']:
+        load_params(params)
+    print_params(params)
     file_handling(params)
     # Filter params from raw logs
+    # TODO: use only params as attribute and set unlabel_label with the
+    # preprocessor instead of the cli as an argument to parse
     if params['preprocess']:
         preprocess = preprocess_registry.get_preprocessor(params['logs_type'])
         preprocess(params)
@@ -381,11 +384,8 @@ def main():
     print('Loading logs')
     x_data, y_data, target_names = load_logs(params)
     if params['train']:
-        print_params(params)
         train(params, x_data, y_data, target_names)
     else:
-        load_params(params)
-        print_params(params)
         inference(params, x_data, y_data, target_names)
 
 
