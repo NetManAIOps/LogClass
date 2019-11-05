@@ -1,20 +1,16 @@
-import numpy as np
 import argparse
 import os
-import shutil
 from sklearn.model_selection import StratifiedKFold
-from sklearn.svm import LinearSVC
-from .feature_engineering.vectorizer import (
-    build_vocabulary,
-    log_to_vector,
+from .utils import (
+    save_params,
+    load_params,
+    file_handling,
+    extract_features,
+    TestingParameters,
 )
-from .utils import TestingParameters, save_params, load_params
 from .preprocess import registry as preprocess_registry
 from .preprocess.utils import load_logs
-from .feature_engineering import registry as feature_registry
 from .feature_engineering.utils import (
-    save_vocabulary,
-    load_vocabulary,
     binary_train_gtruth,
     multi_features,
 )
@@ -175,59 +171,12 @@ def print_params(params):
     print("-" * 80)
 
 
-def file_handling(params):
-    if params['train']:
-        if os.path.exists(params["base_dir"]) and not params["force"]:
-            raise FileExistsError(
-                "directory '{} already exists. ".format(params["base_dir"])
-                + "Run with --force to overwrite."
-            )
-        if os.path.exists(params["base_dir"]):
-            shutil.rmtree(params["base_dir"])
-        os.makedirs(params["base_dir"])
-    else:
-        if not os.path.exists(params["base_dir"]):
-            raise FileNotFoundError(
-                "directory '{} doesn't exist. ".format(params["base_dir"])
-                + "Run train first before running inference."
-            )
-
-
-def get_features_vector(log_vector, vocabulary, params):
-    feature_vectors = []
-    for feature in params['features']:
-        extract_feature = feature_registry.get_feature_extractor(feature)
-        feature_vector = extract_feature(
-            params, log_vector, vocabulary=vocabulary)
-        feature_vectors.append(feature_vector)
-    X = np.hstack(feature_vectors)
-    return X
-
-
-def extract_features(x_train, x_test, y_train, y_test, params):
-    # Build Vocabulary
-    if params['train']:
-        vocabulary = build_vocabulary(x_train)
-        save_vocabulary(params, vocabulary)
-    else:
-        vocabulary = load_vocabulary(params)
-    # Feature Engineering
-    x_train_vector = log_to_vector(x_train, vocabulary)
-    x_train = get_features_vector(x_train_vector, vocabulary, params)
-    x_test_vector = log_to_vector(x_test, vocabulary)
-    with TestingParameters(params):
-        x_test = get_features_vector(x_test_vector, vocabulary, params)
-    return x_train, x_test, vocabulary
-
-
-# TODO: to be put in a separate module as there is modules for 
+# TODO: to be put in a separate module as there is modules for
 # preprocessing and also feature engineering
 def inference(params, x_data, y_data, target_names):
     # Inference
-    vocabulary = load_vocabulary(params)
     # Feature engineering
-    x_vector = log_to_vector(x_data, vocabulary)
-    x_test = get_features_vector(x_vector, vocabulary, params)
+    x_test, vocabulary = extract_features(x_data, params)
     # Binary training features
     y_test = binary_train_gtruth(y_data)
     # Binary PU estimator with RF
@@ -295,8 +244,9 @@ def train(params, x_data, y_data, target_names):
         print(f"\nExperiment ID: {params['experiment_id']}")
         x_train, x_test = x_data[train_index], x_data[test_index]
         y_train, y_test = y_data[train_index], y_data[test_index]
-        x_train, x_test, vocabulary = extract_features(
-            x_train, x_test, y_train, y_test, params)
+        x_train, vocabulary = extract_features(x_train, params)
+        with TestingParameters(params):
+            x_test, _ = extract_features(x_test, params)
         # Binary training features
         y_test_pu = binary_train_gtruth(y_test)
         y_train_pu = binary_train_gtruth(y_train)
