@@ -20,9 +20,9 @@ def process_line_bgl(line):
         if recid and error_label and len(msg) > 20:
             # recid = recid.group(1).strip() We may want to use it later
             label = error_label.group(1)
-            # if label == 'WARN':
-            #     return None
-            if label == 'INFO' or label == 'WARN':
+            if label == 'WARN':
+                return None
+            if label == 'INFO':  # or label == 'WARN':
                 label = 'unlabeled'
             msg = remove_parameters(msg)
             if msg:
