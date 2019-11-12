@@ -43,7 +43,7 @@ def save_params(params):
 
 
 def file_handling(params):
-    if params['train']:
+    if params['train'] and params['preprocess']:
         if os.path.exists(params["base_dir"]) and not params["force"]:
             raise FileExistsError(
                 "directory '{} already exists. ".format(params["base_dir"])
