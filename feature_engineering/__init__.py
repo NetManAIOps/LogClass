@@ -1,1 +1,1 @@
-__all__ = ["length", "tf_idf", "tf_ilf"]
+__all__ = ["length", "tf_idf", "tf_ilf", "tf"]
