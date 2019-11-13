@@ -1,17 +1,14 @@
 from sklearn.model_selection import StratifiedKFold
 from .utils import (
     save_params,
-    load_params,
     file_handling,
     extract_features,
     TestingParameters,
+    print_params,
 )
 from .preprocess import registry as preprocess_registry
 from .preprocess.utils import load_logs
-from .feature_engineering import registry as feature_registry
 from .feature_engineering.utils import (
-    save_vocabulary,
-    load_vocabulary,
     binary_train_gtruth,
 )
 from tqdm import tqdm
@@ -31,17 +28,8 @@ def init_args():
 def parse_args(args):
     """Parse provided args for runtime configuration."""
     params = parse_main_args(args)
+    params.update({'train': True})
     return params
-
-
-def print_params(params):
-    print("{:-^80}".format("params"))
-    print("Beginning binary classification "
-          + "using the following configuration:\n")
-    for param, value in params.items():
-        print("\t{:>13}: {}".format(param, value))
-    print()
-    print("-" * 80)
 
 
 def train(params, x_data, y_data, target_names):
@@ -50,10 +38,12 @@ def train(params, x_data, y_data, target_names):
     best_pu_fs = 0.
     for train_index, test_index in tqdm(kfold):
         params['experiment_id'] = str(uuid4().time_low)
+        print(f"\nExperiment ID: {params['experiment_id']}")
         x_train, x_test = x_data[train_index], x_data[test_index]
         y_train, y_test = y_data[train_index], y_data[test_index]
-        x_train, x_test, _ = extract_features(
-            x_train, x_test, y_train, y_test, params)
+        x_train, _ = extract_features(x_train, params)
+        with TestingParameters(params):
+            x_test, _ = extract_features(x_test, params)
         # Binary training features
         y_test_pu = binary_train_gtruth(y_test)
         y_train_pu = binary_train_gtruth(y_train)

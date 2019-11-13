@@ -3,6 +3,7 @@ from .utils import (
     file_handling,
     extract_features,
     TestingParameters,
+    print_params,
 )
 from .preprocess import registry as preprocess_registry
 from .preprocess.utils import load_logs
@@ -56,16 +57,6 @@ def parse_args(args):
                         }
     params.update(additional_params)
     return params
-
-
-def print_params(params):
-    print("{:-^80}".format("params"))
-    print("Beginning binary classification "
-          + "using the following configuration:\n")
-    for param, value in params.items():
-        print("\t{:>13}: {}".format(param, value))
-    print()
-    print("-" * 80)
 
 
 def force_ratio(params, x_data, y_data):

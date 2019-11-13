@@ -82,3 +82,13 @@ def extract_features(x, params):
     x_vector = log_to_vector(x, vocabulary)
     x_features = get_features_vector(x_vector, vocabulary, params)
     return x_features, vocabulary
+
+
+def print_params(params):
+    print("{:-^80}".format("params"))
+    print("Beginning binary classification "
+          + "using the following configuration:\n")
+    for param, value in params.items():
+        print("\t{:>13}: {}".format(param, value))
+    print()
+    print("-" * 80)

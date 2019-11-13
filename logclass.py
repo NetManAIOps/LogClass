@@ -1,5 +1,3 @@
-import argparse
-import os
 from sklearn.model_selection import StratifiedKFold
 from .utils import (
     save_params,
@@ -7,6 +5,7 @@ from .utils import (
     file_handling,
     extract_features,
     TestingParameters,
+    print_params,
 )
 from .preprocess import registry as preprocess_registry
 from .preprocess.utils import load_logs
@@ -36,18 +35,6 @@ def parse_args(args):
     return params
 
 
-def print_params(params):
-    print("{:-^80}".format("params"))
-    print("Beginning binary classification "
-          + "using the following configuration:\n")
-    for param, value in params.items():
-        print("\t{:>13}: {}".format(param, value))
-    print()
-    print("-" * 80)
-
-
-# TODO: to be put in a separate module as there is modules for
-# preprocessing and also feature engineering
 def inference(params, x_data, y_data, target_names):
     # Inference
     # Feature engineering
