@@ -191,7 +191,6 @@ def main():
         preprocess = preprocess_registry.get_preprocessor(params['logs_type'])
         preprocess(params)
     # Load filtered params from file
-    print('Loading logs')
     x_data, y_data, target_names = load_logs(params)
     if params['train']:
         train(params, x_data, y_data, target_names)

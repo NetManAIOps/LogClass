@@ -5,6 +5,7 @@ from .feature_engineering.vectorizer import log_to_vector, build_vocabulary
 from .feature_engineering.utils import save_vocabulary, load_vocabulary
 from .feature_engineering import registry as feature_registry
 import numpy as np
+from .decorators import print_step
 
 
 # trim is only used when showing the top keywords for each class
@@ -60,6 +61,7 @@ def file_handling(params):
             )
 
 
+@print_step
 def get_features_vector(log_vector, vocabulary, params):
     feature_vectors = []
     for feature in params['features']:
@@ -71,6 +73,7 @@ def get_features_vector(log_vector, vocabulary, params):
     return X
 
 
+@print_step
 def extract_features(x, params):
     # Build Vocabulary
     if params['train']:

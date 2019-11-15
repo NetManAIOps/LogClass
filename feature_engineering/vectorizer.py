@@ -1,4 +1,5 @@
 import numpy as np
+from ..decorators import print_step
 
 
 def get_ngrams(n, line):
@@ -24,6 +25,7 @@ def tokenize(line):
     return line.strip().split()
 
 
+@print_step
 def build_vocabulary(inputData):
     """
         Divides log into tokens and creates vocabulary.
@@ -41,6 +43,7 @@ def build_vocabulary(inputData):
     return vocabulary
 
 
+@print_step
 def log_to_vector(inputData, vocabulary):
     result = []
     for line in inputData:

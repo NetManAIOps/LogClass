@@ -1,6 +1,7 @@
 import re
 import numpy as np
 from tqdm import tqdm
+from ..decorators import print_step
 
 
 def remove_parameters(msg):
@@ -19,15 +20,19 @@ def remove_parameters(msg):
     return msg
 
 
+@print_step
 def process_logs(input_source, output, process_line=None):
-    with open(output, "w") as f:
+    with open(output, "w", encoding='latin-1') as f:
         with open(input_source, 'r', encoding='latin-1') as IN:
-            for line in tqdm(IN):
+            line_count = sum(1 for line in IN)
+        with open(input_source, 'r', encoding='latin-1') as IN:
+            for line in tqdm(IN, total=line_count):
                 result_line = process_line(line)
                 if result_line:
                     f.writelines(result_line + "\n")
 
 
+@print_step
 def load_logs(params, ignore_unlabeled=False):
     log_path = params['logs']
     unlabel_label = params['healthy_label']
@@ -35,8 +40,10 @@ def load_logs(params, ignore_unlabeled=False):
     y_data = []
     label_dict = {}
     target_names = []
-    with open(log_path) as IN:
-        for line in tqdm(IN):
+    with open(log_path, 'r', encoding='latin-1') as IN:
+        line_count = sum(1 for line in IN)
+    with open(log_path, 'r', encoding='latin-1') as IN:
+        for line in tqdm(IN, total=line_count):
             L = line.strip().split()
             label = L[0]
             if label not in label_dict:

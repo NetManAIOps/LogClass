@@ -1,6 +1,7 @@
 import functools
 
 
+# Borrowed from https://realpython.com/primer-on-python-decorators/
 def debug(func):
     """Print the function signature and return value"""
     @functools.wraps(func)
@@ -13,3 +14,13 @@ def debug(func):
         print(f"{func.__name__!r} returned {value!r}")           # 4
         return value
     return wrapper_debug
+
+
+def print_step(func):
+    """Print the function signature and return value"""
+    @functools.wraps(func)
+    def wrapper_print_name(*args, **kwargs):
+        print(f"Calling {func.__qualname__}")
+        value = func(*args, **kwargs)
+        return value
+    return wrapper_print_name
