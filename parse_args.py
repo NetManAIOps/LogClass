@@ -43,7 +43,7 @@ def init_main_args():
         type=str,
         nargs=1,
         default=["original"],
-        choices=["original", "bgl"],
+        choices=["original", "bgl", "bgl_old"],
         help="Input type of logs.",
     )
     parser.add_argument(
@@ -76,7 +76,13 @@ def init_main_args():
         type=str,
         nargs='+',
         default=["confusion_matrix"],
-        choices=["confusion_matrix", "acc", "multi_acc", "top_k_svm"],
+        choices=["confusion_matrix",
+                 "acc",
+                 "multi_acc",
+                 "top_k_svm",
+                 "micro",
+                 "macro"
+                 ],
         help="Reports to be generated from the model and its predictions.",
     )
     parser.add_argument(
