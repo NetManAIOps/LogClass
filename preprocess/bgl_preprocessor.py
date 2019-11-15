@@ -4,9 +4,9 @@ import re
 
 
 recid_regx = re.compile(r"^(\d+)")
-separator = re.compile("(?:-.{1,3}){2} (.+)$")
+separator = re.compile(r"(?:-.{1,3}){2} (.+)$")
 msg_split_regx = re.compile(r"x'.+'")
-severity = re.compile(r"(INFO|WARN|ERROR|FATAL)")
+severity = re.compile(r"(\w+)\s+(INFO|WARN|ERROR|FATAL)")
 
 
 def process_line_bgl(line):
@@ -19,10 +19,11 @@ def process_line_bgl(line):
         recid = recid_regx.search(line)
         if recid and error_label and len(msg) > 20:
             # recid = recid.group(1).strip() We may want to use it later
+            general_label = error_label.group(2)
             label = error_label.group(1)
-            if label == 'WARN':
+            if general_label == 'WARN':
                 return None
-            if label == 'INFO':  # or label == 'WARN':
+            if general_label == 'INFO':  # or label == 'WARN':
                 label = 'unlabeled'
             msg = remove_parameters(msg)
             if msg:
