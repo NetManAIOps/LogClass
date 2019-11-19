@@ -58,5 +58,4 @@ def load_logs(params, ignore_unlabeled=False):
             y_data.append(label_dict[label])
     x_data = np.array(x_data)
     y_data = np.array(y_data)
-    print(np.unique(y_data, return_counts=True))
     return x_data, y_data, target_names

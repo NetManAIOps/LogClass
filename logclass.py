@@ -170,7 +170,7 @@ def train(params, x_data, y_data, target_names):
             try:
                 get_wb_report = white_box_report_registry.get_wb_report(report)
                 result =\
-                    get_wb_report(params, binary_clf.model, vocabulary,
+                    get_wb_report(params, multi_classifier.model, vocabulary,
                                   target_names=target_names, top_features=5)
             except Exception:
                 pass
