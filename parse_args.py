@@ -43,7 +43,7 @@ def init_main_args():
         type=str,
         nargs=1,
         default=["original"],
-        choices=["original", "bgl", "bgl_old"],
+        choices=["original", "bgl", "bgl_old", "open_source"],
         help="Input type of logs.",
     )
     parser.add_argument(
@@ -123,6 +123,20 @@ def init_main_args():
         default=False,
         help="force training overwriting previous output.",
     )
+    parser.add_argument(
+        "--name",
+        metavar="name",
+        type=str,
+        nargs=1,
+        default=["LogClass"],
+        help="Arbitrary experiment name.",
+    )
+    parser.add_argument(
+        "--swap",
+        action="store_true",
+        default=False,
+        help="Swap testing/training data in kfold cross validation.",
+    )
 
     return parser
 
@@ -130,8 +144,9 @@ def init_main_args():
 def parse_main_args(args):
     """Parse provided args for runtime configuration."""
     params = {
-        "logs": args.logs[0],
-        "raw_logs": args.raw_logs[0],
+        "name": args.name[0],
+        "logs": os.path.normpath(args.logs[0]),
+        "raw_logs": os.path.normpath(args.raw_logs[0]),
         "kfold": args.kfold[0],
         "healthy_label": args.healthy_label[0],
         "report": args.report,
@@ -143,5 +158,6 @@ def parse_main_args(args):
         "features": args.features,
         "binary_classifier": args.binary_classifier[0],
         "multi_classifier": args.multi_classifier[0],
+        "swap": args.swap,
     }
     return params
