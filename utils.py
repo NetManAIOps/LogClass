@@ -6,6 +6,7 @@ from .feature_engineering.utils import save_vocabulary, load_vocabulary
 from .feature_engineering import registry as feature_registry
 import numpy as np
 from .decorators import print_step
+import pandas as pd
 
 
 # trim is only used when showing the top keywords for each class

@@ -13,6 +13,8 @@ from .models import binary_registry as binary_classifier_registry
 from .reporting import bb_registry as black_box_report_registry
 from .parse_args import init_main_args, parse_main_args
 import numpy as np
+import os
+import pandas as pd
 
 
 def init_flags():
@@ -59,6 +61,20 @@ def parse_args(args):
     return params
 
 
+def save_results(experiment, results, params):
+    col_names = [
+        'exp_name',
+        'logs_type',
+        'percentage',
+        'pu_f1',
+        f"{params['binary_classifier']}_f1",
+        ]
+    df = pd.DataFrame(results, columns=col_names)
+    file_name = os.path.join(
+        params['base_dir'], f"{experiment}_results.csv")
+    df.to_csv(file_name, index=False)
+
+
 def force_ratio(params, x_data, y_data):
     """Force a ratio between anomalous and healthy logs"""
     ratio = params['ratio']
@@ -85,6 +101,7 @@ def force_ratio(params, x_data, y_data):
 
 
 def run_test(params, x_data, y_data):
+    results = []
     # Binary training features
     y_data = binary_train_gtruth(y_data)
     x_data, y_data = force_ratio(params, x_data, y_data)
@@ -138,14 +155,24 @@ def run_test(params, x_data, y_data):
             binary_clf.fit(x_train, y_train_pu)
             y_pred = binary_clf.predict(x_test)
             b_clf_acc = get_accuracy(y_test, y_pred)
-            print(f"PU Acc: {pu_acc}\n{params['binary_classifier']} Acc: {b_clf_acc}")
+            print(f"PU Acc: {pu_acc}\n{params['binary_classifier']}"
+                  + " Acc: {b_clf_acc}")
+            result = (
+                params['name'],
+                params['logs_type'],
+                i,  # current percentage of anomalous data in unlabeled data
+                pu_acc,
+                b_clf_acc,
+            )
+            results.append(result)
+    save_results(f"test_pu_{params['name']}", results, params)
 
 
 def main():
     # Init params
     params = parse_args(init_flags())
     print_params(params)
-    file_handling(params)
+    # file_handling(params)
     # Filter params from raw logs
     if params['preprocess']:
         preprocess = preprocess_registry.get_preprocessor(params['logs_type'])
