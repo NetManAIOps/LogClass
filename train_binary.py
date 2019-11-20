@@ -15,7 +15,7 @@ from tqdm import tqdm
 from uuid import uuid4
 from .models import binary_registry as binary_classifier_registry
 from .reporting import bb_registry as black_box_report_registry
-from .parse_args import init_main_args, parse_main_args
+from .init_params import init_main_args, parse_main_args
 
 
 def init_args():
@@ -37,8 +37,6 @@ def train(params, x_data, y_data, target_names):
     kfold = StratifiedKFold(n_splits=params['kfold']).split(x_data, y_data)
     best_pu_fs = 0.
     for train_index, test_index in tqdm(kfold):
-        params['experiment_id'] = str(uuid4().time_low)
-        print(f"\nExperiment ID: {params['experiment_id']}")
         x_train, x_test = x_data[train_index], x_data[test_index]
         y_train, y_test = y_data[train_index], y_data[test_index]
         x_train, _ = extract_features(x_train, params)

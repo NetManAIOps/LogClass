@@ -5,6 +5,7 @@ from .utils import (
     extract_features,
     TestingParameters,
     print_params,
+    save_results,
 )
 from .preprocess import registry as preprocess_registry
 from .preprocess.utils import load_logs
@@ -15,9 +16,7 @@ from tqdm import tqdm
 from uuid import uuid4
 from .models import multi_registry as multi_classifier_registry
 from .reporting import bb_registry as black_box_report_registry
-from .parse_args import init_main_args, parse_main_args
-import os
-import pandas as pd
+from .init_params import init_main_args, parse_main_args
 
 
 def init_args():
@@ -34,23 +33,33 @@ def parse_args(args):
     return params
 
 
-def save_results(experiment, results, params):
-    col_names =\
-        ['exp_name', 'logs_type', 'macro', 'micro', 'train_time', 'run_time']
-    df = pd.DataFrame(results, columns=col_names)
-    file_name = os.path.join(
-        params['base_dir'], f"{experiment}_results.csv")
-    df.to_csv(file_name, index=False)
+def init_results():
+    results = {
+        'exp_name': [],
+        'logs_type': [],
+        'macro': [],
+        'micro': [],
+        'train_time': [],
+        'run_time': [],
+    }
+    return results
+
+
+def add_result(results, params, macro, micro, train_time, run_time):
+    results['exp_name'].append(params['id'])
+    results['logs_type'].append(params['logs_type'])
+    results['macro'].append(macro)
+    results['micro'].append(micro)
+    results['train_time'].append(train_time)
+    results['run_time'].append(run_time)
 
 
 def train(params, x_data, y_data, target_names):
-    results = []
+    results = init_results()
     # KFold Cross Validation
     kfold = StratifiedKFold(n_splits=params['kfold']).split(x_data, y_data)
     best_multi = 0.
     for train_index, test_index in tqdm(kfold):
-        params['experiment_id'] = str(uuid4().time_low)
-        print(f"\nExperiment ID: {params['experiment_id']}")
         # Test & Train are interchanged to enable testing with 10% of the data
         if params['swap']:
             x_test, x_train = x_data[train_index], x_data[test_index]
@@ -82,23 +91,23 @@ def train(params, x_data, y_data, target_names):
             best_multi = macro
             print(macro)
 
-        result = (
-            params['name'],
-            params['logs_type'],
+        add_result(
+            results,
+            params,
             macro,
             micro,
             multi_classifier.train_time,
-            multi_classifier.run_time,
+            multi_classifier.run_time
             )
-        results.append(result)
-    save_results(f"multi_{params['name']}", results, params)
+
+    save_results(results, params)
 
 
 def main():
     # Init params
     params = parse_args(init_args())
     print_params(params)
-    # file_handling(params)
+    file_handling(params)
     # Filter params from raw logs
     if params['preprocess']:
         preprocess = preprocess_registry.get_preprocessor(params['logs_type'])

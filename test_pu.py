@@ -4,6 +4,7 @@ from .utils import (
     extract_features,
     TestingParameters,
     print_params,
+    save_results,
 )
 from .preprocess import registry as preprocess_registry
 from .preprocess.utils import load_logs
@@ -11,10 +12,8 @@ from .feature_engineering.utils import binary_train_gtruth
 from uuid import uuid4
 from .models import binary_registry as binary_classifier_registry
 from .reporting import bb_registry as black_box_report_registry
-from .parse_args import init_main_args, parse_main_args
+from .init_params import init_main_args, parse_main_args
 import numpy as np
-import os
-import pandas as pd
 
 
 def init_flags():
@@ -61,20 +60,6 @@ def parse_args(args):
     return params
 
 
-def save_results(experiment, results, params):
-    col_names = [
-        'exp_name',
-        'logs_type',
-        'percentage',
-        'pu_f1',
-        f"{params['binary_classifier']}_f1",
-        ]
-    df = pd.DataFrame(results, columns=col_names)
-    file_name = os.path.join(
-        params['base_dir'], f"{experiment}_results.csv")
-    df.to_csv(file_name, index=False)
-
-
 def force_ratio(params, x_data, y_data):
     """Force a ratio between anomalous and healthy logs"""
     ratio = params['ratio']
@@ -100,8 +85,27 @@ def force_ratio(params, x_data, y_data):
         return x_data, y_data
 
 
+def init_results(params):
+    results = {
+        'exp_name': [],
+        'logs_type': [],
+        'percentage': [],
+        'pu_f1': [],
+        f"{params['binary_classifier']}_f1": [],
+    }
+    return results
+
+
+def add_result(results, params, percentage, pu_acc, b_clf_acc):
+    results['exp_name'].append(params['id'])
+    results['logs_type'].append(params['logs_type'])
+    results['percentage'].append(percentage)
+    results['pu_f1'].append(pu_acc)
+    results[f"{params['binary_classifier']}_f1"].append(b_clf_acc)
+
+
 def run_test(params, x_data, y_data):
-    results = []
+    results = init_results(params)
     # Binary training features
     y_data = binary_train_gtruth(y_data)
     x_data, y_data = force_ratio(params, x_data, y_data)
@@ -111,8 +115,6 @@ def run_test(params, x_data, y_data):
     # KFold Cross Validation
     kfold = StratifiedKFold(n_splits=params['kfold']).split(x_data, y_data)
     for train_index, test_index in kfold:
-        params['experiment_id'] = str(uuid4().time_low)
-        print(f"\nExperiment ID: {params['experiment_id']}")
         x_train, x_test = x_data[train_index], x_data[test_index]
         y_train, y_test = y_data[train_index], y_data[test_index]
         x_train, _ = extract_features(x_train, params)
@@ -157,22 +159,23 @@ def run_test(params, x_data, y_data):
             b_clf_acc = get_accuracy(y_test, y_pred)
             print(f"PU Acc: {pu_acc}\n{params['binary_classifier']}"
                   + " Acc: {b_clf_acc}")
-            result = (
-                params['name'],
-                params['logs_type'],
-                i,  # current percentage of anomalous data in unlabeled data
+
+            add_result(
+                results,
+                params,
+                i,
                 pu_acc,
-                b_clf_acc,
+                b_clf_acc
             )
-            results.append(result)
-    save_results(f"test_pu_{params['name']}", results, params)
+
+    save_results(results, params)
 
 
 def main():
     # Init params
     params = parse_args(init_flags())
     print_params(params)
-    # file_handling(params)
+    file_handling(params)
     # Filter params from raw logs
     if params['preprocess']:
         preprocess = preprocess_registry.get_preprocessor(params['logs_type'])

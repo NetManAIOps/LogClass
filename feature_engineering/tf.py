@@ -8,15 +8,13 @@ import numpy as np
 
 
 def save_tf(params, tf_dict):
-    tf_dict_file = os.path.join(
-        params['base_dir'], f"tf_dict_{params['experiment_id']}.pkl")
+    tf_dict_file = os.path.join(params['features_dir'], "tf_dict.pkl")
     with open(tf_dict_file, "wb") as fp:
         pickle.dump(tf_dict, fp)
 
 
 def load_tf(params):
-    tf_dict_file = os.path.join(
-        params['base_dir'], f"tf_dict_{params['experiment_id']}.pkl")
+    tf_dict_file = os.path.join(params['features_dir'], "tf_dict.pkl")
     with open(tf_dict_file, "rb") as fp:
         tf_dict = pickle.load(fp)
     return tf_dict

@@ -1,5 +1,6 @@
 import os
 import argparse
+from uuid import uuid4
 
 
 def init_main_args():
@@ -19,7 +20,7 @@ def init_main_args():
         help="input logs file path",
     )
     base_dir_default = os.path.join(
-        os.path.dirname(os.path.realpath(__file__)), "outputs"
+        os.path.dirname(os.path.realpath(__file__)), "output"
     )
     parser.add_argument(
         "--base_dir",
@@ -34,8 +35,21 @@ def init_main_args():
         metavar="logs",
         type=str,
         nargs=1,
-        default=[os.path.join(base_dir_default, "logs_without_paras.txt")],
-        help="input logs file path",
+        help="input logs file path and output for raw logs preprocessing",
+    )
+    parser.add_argument(
+        "--models_dir",
+        metavar="models_dir",
+        type=str,
+        nargs=1,
+        help="trained models input/output directory path",
+    )
+    parser.add_argument(
+        "--features_dir",
+        metavar="features_dir",
+        type=str,
+        nargs=1,
+        help="trained features_dir input/output directory path",
     )
     parser.add_argument(
         "--logs_type",
@@ -124,12 +138,11 @@ def init_main_args():
         help="force training overwriting previous output.",
     )
     parser.add_argument(
-        "--name",
-        metavar="name",
+        "--id",
+        metavar="id",
         type=str,
         nargs=1,
-        default=["LogClass"],
-        help="Arbitrary experiment name.",
+        help="Experiment id.",
     )
     parser.add_argument(
         "--swap",
@@ -144,8 +157,6 @@ def init_main_args():
 def parse_main_args(args):
     """Parse provided args for runtime configuration."""
     params = {
-        "name": args.name[0],
-        "logs": os.path.normpath(args.logs[0]),
         "raw_logs": os.path.normpath(args.raw_logs[0]),
         "kfold": args.kfold[0],
         "healthy_label": args.healthy_label[0],
@@ -160,4 +171,38 @@ def parse_main_args(args):
         "multi_classifier": args.multi_classifier[0],
         "swap": args.swap,
     }
+    if args.logs:
+        params['logs'] = os.path.normpath(args.logs[0])
+    else:
+        params['logs'] = os.path.join(
+            params['base_dir'],
+            "preprocessed_logs",
+            f"{params['logs_type']}.txt"
+        )
+    if args.id:
+        params['id'] = args.id[0]
+    else:
+        params['id'] = str(uuid4().time_low)
+    print(f"\nExperiment ID: {params['id']}")
+
+    params['id_dir'] = os.path.join(
+            params['base_dir'],
+            params['id'],
+        )
+    if args.models_dir:
+        params['models_dir'] = os.path.normpath(args.models_dir[0])
+    else:
+        params['models_dir'] = os.path.join(
+            params['id_dir'],
+            "models",
+        )
+    if args.features_dir:
+        params['features_dir'] = os.path.normpath(args.features_dir[0])
+    else:
+        params['features_dir'] = os.path.join(
+            params['id_dir'],
+            "features",
+        )
+    params['results_dir'] = os.path.join(params['id_dir'], "results")
+
     return params

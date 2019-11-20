@@ -11,18 +11,20 @@ class PUAdapterWrapper(BaseModel):
         super().__init__(model, params)
 
     def save(self, **kwargs):
-        pu_estimator_file =\
-             os.path.join(self.params['base_dir'],
-                          f"pu_estimator_{self.params['experiment_id']}.pkl")
+        pu_estimator_file = os.path.join(
+            self.params['models_dir'],
+            "pu_estimator.pkl"
+            )
         pu_saver = {'estimator': self.model.estimator,
                     'c': self.model.c}
         with open(pu_estimator_file, 'wb') as pu_estimator_file:
             pickle.dump(pu_saver, pu_estimator_file)
 
     def load(self, **kwargs):
-        pu_estimator_file =\
-             os.path.join(self.params['base_dir'],
-                          f"pu_estimator_{self.params['experiment_id']}.pkl")
+        pu_estimator_file = os.path.join(
+            self.params['models_dir'],
+            "pu_estimator.pkl"
+            )
         with open(pu_estimator_file, 'rb') as pu_estimator_file:
             pu_saver = pickle.load(pu_estimator_file)
             estimator = pu_saver['estimator']

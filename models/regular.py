@@ -10,16 +10,18 @@ class RegularClassifierWrapper(BaseModel):
         super().__init__(model, params)
 
     def save(self, **kwargs):
-        regular_file =\
-            os.path.join(self.params['base_dir'],
-                         f"regular_{self.params['experiment_id']}.pkl")
+        regular_file = os.path.join(
+            self.params['models_dir'],
+            "regular.pkl"
+            )
         with open(regular_file, 'wb') as regular_clf_file:
             pickle.dump(self.model, regular_clf_file)
 
     def load(self, **kwargs):
-        regular_file =\
-            os.path.join(self.params['base_dir'],
-                         f"regular_{self.params['experiment_id']}.pkl")
+        regular_file = os.path.join(
+            self.params['models_dir'],
+            "regular.pkl"
+            )
         with open(regular_file, 'rb') as regular_clf_file:
             regular_classifier = pickle.load(regular_clf_file)
             self.model = regular_classifier

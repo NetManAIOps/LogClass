@@ -11,7 +11,7 @@ from .feature_engineering.utils import (
 )
 from .models import binary_registry as binary_classifier_registry
 from .reporting import bb_registry as black_box_report_registry
-from .parse_args import init_main_args, parse_main_args
+from .init_params import init_main_args, parse_main_args
 
 
 def init_args():
