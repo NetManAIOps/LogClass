@@ -49,9 +49,9 @@ def file_handling(params):
                 f"File {params['raw_logs']} doesn't exist. "
                 + "Please provide the raw logs path."
             )
-        if not os.path.exists(params['logs']):
-            directory = os.path.dirname(params['logs'])
-            os.makedirs(directory)
+        logs_directory = os.path.dirname(params['logs'])
+        if not os.path.exists(logs_directory):
+            os.makedirs(logs_directory)
     else:
         # Checks if preprocessed logs exist as input
         if not os.path.exists(params['logs']):
