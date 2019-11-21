@@ -1,6 +1,7 @@
 import os
 import argparse
 from uuid import uuid4
+import sys
 
 
 def init_main_args():
@@ -57,7 +58,18 @@ def init_main_args():
         type=str,
         nargs=1,
         default=["original"],
-        choices=["original", "bgl", "bgl_old", "open_source"],
+        choices=[
+            "original",
+            "bgl",
+            "bgl_old",
+            "open_Apache",
+            "open_bgl",
+            "open_hadoop",
+            "open_hdfs",
+            "open_hpc",
+            "open_proxifier",
+            "open_zookeeper",
+            ],
         help="Input type of logs.",
     )
     parser.add_argument(
@@ -184,10 +196,14 @@ def parse_main_args(args):
     else:
         params['id'] = str(uuid4().time_low)
     print(f"\nExperiment ID: {params['id']}")
-
+    # Creating experiments results folder with the format
+    # {experiment_module_name}_{logs_type}_{id}
+    experiment_name = os.path.basename(sys.argv[0]).split('.')[0]
     params['id_dir'] = os.path.join(
             params['base_dir'],
-            params['id'],
+            '_'.join((
+                experiment_name, params['logs_type'], params['id']
+                ))
         )
     if args.models_dir:
         params['models_dir'] = os.path.normpath(args.models_dir[0])

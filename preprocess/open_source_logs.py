@@ -27,12 +27,25 @@ def process_open_source(input_source, output):
                         f.writelines(result_line + "\n")
 
 
-@register("open_source")
-def preprocess_open_source(params):
-    """
-    Runs open source logs preprocessing executor.
-    """
-    input_source = params['raw_logs']
-    output = params['logs']
-    params['healthy_label'] = 'NA'
-    process_open_source(input_source, output)
+open_source_datasets = [
+    'open_Apache',
+    'open_bgl',
+    'open_hadoop',
+    'open_hdfs',
+    'open_hpc',
+    'open_proxifier',
+    'open_zookeeper',
+]
+for dataset in open_source_datasets:
+    @register(dataset)
+    def preprocess_open_source(params):
+        """
+        Runs open source logs preprocessing executor.
+        """
+        input_source = os.path.join(
+            params['raw_logs'],
+            dataset.split('_')[-1]
+        )
+        output = params['logs']
+        params['healthy_label'] = 'NA'
+        process_open_source(input_source, output)
