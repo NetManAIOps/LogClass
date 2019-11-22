@@ -2,7 +2,6 @@ from sklearn.model_selection import StratifiedKFold
 from .utils import (
     save_params,
     file_handling,
-    extract_features,
     TestingParameters,
     print_params,
     save_results,
@@ -11,6 +10,7 @@ from .preprocess import registry as preprocess_registry
 from .preprocess.utils import load_logs
 from .feature_engineering.utils import (
     multi_features,
+    extract_features,
 )
 from tqdm import tqdm
 from .models import multi_registry as multi_classifier_registry

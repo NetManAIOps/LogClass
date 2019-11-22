@@ -1,11 +1,6 @@
 import os
 import json
 import shutil
-from .feature_engineering.vectorizer import log_to_vector, build_vocabulary
-from .feature_engineering.utils import save_vocabulary, load_vocabulary
-from .feature_engineering import registry as feature_registry
-import numpy as np
-from .decorators import print_step
 import pandas as pd
 
 
@@ -81,32 +76,6 @@ def file_handling(params):
                     "directory '{} doesn't exist. ".format(target_path)
                     + "Run train first before running inference."
                 )
-
-
-@print_step
-def get_features_vector(log_vector, vocabulary, params):
-    feature_vectors = []
-    for feature in params['features']:
-        extract_feature = feature_registry.get_feature_extractor(feature)
-        feature_vector = extract_feature(
-            params, log_vector, vocabulary=vocabulary)
-        feature_vectors.append(feature_vector)
-    X = np.hstack(feature_vectors)
-    return X
-
-
-@print_step
-def extract_features(x, params):
-    # Build Vocabulary
-    if params['train']:
-        vocabulary = build_vocabulary(x)
-        save_vocabulary(params, vocabulary)
-    else:
-        vocabulary = load_vocabulary(params)
-    # Feature Engineering
-    x_vector = log_to_vector(x, vocabulary)
-    x_features = get_features_vector(x_vector, vocabulary, params)
-    return x_features, vocabulary
 
 
 def print_params(params):

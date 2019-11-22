@@ -3,7 +3,6 @@ from .utils import (
     save_params,
     load_params,
     file_handling,
-    extract_features,
     TestingParameters,
     print_params,
 )
@@ -12,9 +11,9 @@ from .preprocess.utils import load_logs
 from .feature_engineering.utils import (
     binary_train_gtruth,
     multi_features,
+    extract_features,
 )
 from tqdm import tqdm
-from uuid import uuid4
 from .models import binary_registry as binary_classifier_registry
 from .models import multi_registry as multi_classifier_registry
 from .reporting import bb_registry as black_box_report_registry

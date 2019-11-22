@@ -5,7 +5,7 @@ from .vectorizer import (
     calculate_tf_invf_train,
     create_invf_vector,
 )
-from .utils import save_invf, load_invf
+from .utils import save_feature_dict, load_feature_dict
 
 
 @register("tfidf")
@@ -19,9 +19,9 @@ def create_tfidf_feature(params, train_vector, **kwargs):
             get_f=get_tf,
             calc_invf=calculate_idf
             )
-        save_invf(params, invf_dict)
+        save_feature_dict(params, invf_dict, "tfidf")
     else:
-        invf_dict = load_invf(params)
+        invf_dict = load_feature_dict(params, "tfidf")
 
     features = create_invf_vector(
         train_vector, invf_dict, kwargs['vocabulary'])

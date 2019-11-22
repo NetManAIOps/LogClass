@@ -1,23 +1,7 @@
 from .registry import register
-from .vectorizer import (
-    get_tf,
-)
-import pickle
-import os
+from .vectorizer import get_tf
 import numpy as np
-
-
-def save_tf(params, tf_dict):
-    tf_dict_file = os.path.join(params['features_dir'], "tf_dict.pkl")
-    with open(tf_dict_file, "wb") as fp:
-        pickle.dump(tf_dict, fp)
-
-
-def load_tf(params):
-    tf_dict_file = os.path.join(params['features_dir'], "tf_dict.pkl")
-    with open(tf_dict_file, "rb") as fp:
-        tf_dict = pickle.load(fp)
-    return tf_dict
+from .utils import save_feature_dict, load_feature_dict
 
 
 def create_tf_vector(input_vector, tf_dict, vocabulary):
@@ -40,9 +24,9 @@ def create_term_count_feature(params, input_vector, **kwargs):
     """
     if params['train']:
         tf_dict = get_tf(input_vector)
-        save_tf(params, tf_dict)
+        save_feature_dict(params, tf_dict, "tf")
     else:
-        tf_dict = load_tf(params)
+        tf_dict = load_feature_dict(params, "tf")
 
     tf_features =\
         create_tf_vector(input_vector, tf_dict, kwargs['vocabulary'])
