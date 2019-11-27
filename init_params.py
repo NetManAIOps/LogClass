@@ -17,8 +17,7 @@ def init_main_args():
         metavar="raw_logs",
         type=str,
         nargs=1,
-        default=["./LogClass/data/rawlog.txt"],
-        help="input logs file path",
+        help="input raw logs file path",
     )
     base_dir_default = os.path.join(
         os.path.dirname(os.path.realpath(__file__)), "output"
@@ -77,11 +76,11 @@ def init_main_args():
         metavar="kfold",
         type=int,
         nargs=1,
-        default=[3],
         help="kfold crossvalidation",
     )
     parser.add_argument(
         "--healthy_label",
+        metavar='healthy_label',
         type=str,
         nargs=1,
         default=["unlabeled"],
@@ -101,7 +100,6 @@ def init_main_args():
         metavar="report",
         type=str,
         nargs='+',
-        default=["confusion_matrix"],
         choices=["confusion_matrix",
                  "acc",
                  "multi_acc",
@@ -137,24 +135,17 @@ def init_main_args():
              + "it will run inference on it.",
     )
     parser.add_argument(
-        "--preprocess",
-        action="store_true",
-        default=False,
-        help="If set, the raw logs parameters will be preprocessed and a "
-             + "new file created with the preprocessed logs.",
-    )
-    parser.add_argument(
         "--force",
         action="store_true",
         default=False,
-        help="force training overwriting previous output.",
+        help="Force training overwriting previous output with same id.",
     )
     parser.add_argument(
         "--id",
         metavar="id",
         type=str,
         nargs=1,
-        help="Experiment id.",
+        help="Experiment id. Automatically generated if not specified.",
     )
     parser.add_argument(
         "--swap",
@@ -169,20 +160,21 @@ def init_main_args():
 def parse_main_args(args):
     """Parse provided args for runtime configuration."""
     params = {
-        "raw_logs": os.path.normpath(args.raw_logs[0]),
-        "kfold": args.kfold[0],
-        "healthy_label": args.healthy_label[0],
         "report": args.report,
         "train": args.train,
-        "preprocess": args.preprocess,
         "force": args.force,
         "base_dir": args.base_dir[0],
         "logs_type": args.logs_type[0],
+        "healthy_label": args.healthy_label[0],
         "features": args.features,
         "binary_classifier": args.binary_classifier[0],
         "multi_classifier": args.multi_classifier[0],
         "swap": args.swap,
     }
+    if args.raw_logs:
+        params["raw_logs"] = os.path.normpath(args.raw_logs[0])
+    if args.kfold:
+        params["kfold"] = args.kfold[0]
     if args.logs:
         params['logs'] = os.path.normpath(args.logs[0])
     else:

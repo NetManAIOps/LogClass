@@ -65,7 +65,7 @@ def main():
     print_params(params)
     file_handling(params)
     # Filter params from raw logs
-    if params['preprocess']:
+    if "raw_logs" in params:
         preprocess = preprocess_registry.get_preprocessor(params['logs_type'])
         preprocess(params)
     # Load filtered params from file

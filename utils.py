@@ -38,7 +38,7 @@ def save_params(params):
 
 
 def file_handling(params):
-    if params['preprocess']:
+    if "raw_logs" in params:
         if not os.path.exists(params['raw_logs']):
             raise FileNotFoundError(
                 f"File {params['raw_logs']} doesn't exist. "
