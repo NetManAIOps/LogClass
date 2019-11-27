@@ -9,15 +9,93 @@ LogClass combines a word representation method and the [PU learning model](https
 
 ### Requirements
 
+Requirements are listed in `requirements.txt`. To install these, run:
+
+```
+pip install -r requirements.txt
+```
+
 
 
 ### Quick Start
 
-Several experiments using LogClass are included. To run training of the global experiment doing anomaly detection and classification run the following command in the home directory of this project: 
+Several example experiments using LogClass are included in this repository. 
+
+Here is an example to run one of them -  training of the global experiment doing anomaly detection and classification.  Run the following command in the home directory of this project: 
 
 ```
 python -m LogClass.logclass --train --logs_type "bgl" --raw_logs "./Data/RAS_LOGS" --report macro
 ```
+
+
+
+#### Run LogParse
+
+##### Arguments
+
+```
+python -m LogClass.logclass --help
+usage: logclass.py [-h] [--raw_logs raw_logs] [--base_dir base_dir]
+                   [--logs logs] [--models_dir models_dir]
+                   [--features_dir features_dir] [--logs_type logs_type]
+                   [--kfold kfold] [--healthy_label HEALTHY_LABEL]
+                   [--features features [features ...]]
+                   [--report report [report ...]]
+                   [--binary_classifier binary_classifier]
+                   [--multi_classifier multi_classifier] [--train]
+                   [--preprocess] [--force] [--id id] [--swap]
+
+Runs binary classification with PULearning to detect anomalous logs.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --raw_logs raw_logs   input logs file path (default:
+                        ['./LogClass/data/rawlog.txt'])
+  --base_dir base_dir   base output directory for pipeline output files
+                        (default: ['D:\\Federico\\Tsinghua
+                        MAC\\NetMan\\LogClass\\LogClass\\output'])
+  --logs logs           input logs file path and output for raw logs
+                        preprocessing (default: None)
+  --models_dir models_dir
+                        trained models input/output directory path (default:
+                        None)
+  --features_dir features_dir
+                        trained features_dir input/output directory path
+                        (default: None)
+  --logs_type logs_type
+                        Input type of logs. (default: ['original'])
+  --kfold kfold         kfold crossvalidation (default: [3])
+  --healthy_label HEALTHY_LABEL
+                        the labels of unlabeled logs (default: ['unlabeled'])
+  --features features [features ...]
+                        Features to be extracted from the logs messages.
+                        (default: ['tfilf'])
+  --report report [report ...]
+                        Reports to be generated from the model and its
+                        predictions. (default: ['confusion_matrix'])
+  --binary_classifier binary_classifier
+                        Binary classifier to be used as anomaly detector.
+                        (default: ['pu_learning'])
+  --multi_classifier multi_classifier
+                        Multi-clas classifier to classify anomalies. (default:
+                        ['svm'])
+  --train               If set, logclass will train on the given data.
+                        Otherwiseit will run inference on it. (default: False)
+  --preprocess          If set, the raw logs parameters will be preprocessed
+                        and a new file created with the preprocessed logs.
+                        (default: False)
+  --force               force training overwriting previous output. (default:
+                        False)
+  --id id               Experiment id. (default: None)
+  --swap                Swap testing/training data in kfold cross validation.
+                        (default: False)
+```
+
+#### Datasets
+
+High overview of the datasets. Maybe cite the sources. See how others show this in their repos.
+
+BGL, Paper BGL, Open-source datasets
 
 
 
@@ -92,84 +170,6 @@ python -m LogClass.logclass --train --logs_type "bgl" --raw_logs "./Data/RAS_LOG
 └── utils.py
 ```
 
-#### Datasets
-
-High overview of the datasets. Maybe cite the sources. See how others show this in their repos.
-
-BGL, Paper BGL, Open-source datasets
-
-#### Run LogParse
-
-##### Arguments
-
-```
-python -m LogClass.logclass --help
-usage: logclass.py [-h] [--raw_logs raw_logs] [--base_dir base_dir]
-                   [--logs logs] [--models_dir models_dir]
-                   [--features_dir features_dir] [--logs_type logs_type]
-                   [--kfold kfold] [--healthy_label HEALTHY_LABEL]
-                   [--features features [features ...]]
-                   [--report report [report ...]]
-                   [--binary_classifier binary_classifier]
-                   [--multi_classifier multi_classifier] [--train]
-                   [--preprocess] [--force] [--id id] [--swap]
-
-Runs binary classification with PULearning to detect anomalous logs.
-
-optional arguments:
-  -h, --help            show this help message and exit
-  --raw_logs raw_logs   input logs file path (default:
-                        ['./LogClass/data/rawlog.txt'])
-  --base_dir base_dir   base output directory for pipeline output files
-                        (default: ['D:\\Federico\\Tsinghua
-                        MAC\\NetMan\\LogClass\\LogClass\\output'])
-  --logs logs           input logs file path and output for raw logs
-                        preprocessing (default: None)
-  --models_dir models_dir
-                        trained models input/output directory path (default:
-                        None)
-  --features_dir features_dir
-                        trained features_dir input/output directory path
-                        (default: None)
-  --logs_type logs_type
-                        Input type of logs. (default: ['original'])
-  --kfold kfold         kfold crossvalidation (default: [3])
-  --healthy_label HEALTHY_LABEL
-                        the labels of unlabeled logs (default: ['unlabeled'])
-  --features features [features ...]
-                        Features to be extracted from the logs messages.
-                        (default: ['tfilf'])
-  --report report [report ...]
-                        Reports to be generated from the model and its
-                        predictions. (default: ['confusion_matrix'])
-  --binary_classifier binary_classifier
-                        Binary classifier to be used as anomaly detector.
-                        (default: ['pu_learning'])
-  --multi_classifier multi_classifier
-                        Multi-clas classifier to classify anomalies. (default:
-                        ['svm'])
-  --train               If set, logclass will train on the given data.
-                        Otherwiseit will run inference on it. (default: False)
-  --preprocess          If set, the raw logs parameters will be preprocessed
-                        and a new file created with the preprocessed logs.
-                        (default: False)
-  --force               force training overwriting previous output. (default:
-                        False)
-  --id id               Experiment id. (default: None)
-  --swap                Swap testing/training data in kfold cross validation.
-                        (default: False)
-```
-
-
-
-### Experiments
-
-High level overview of each of the experiments before explaining the others
-
-#### Testing PULearning
-
-#### Testing Anomaly Classification on open-source datasets
-
 
 
 ### How to
@@ -183,6 +183,14 @@ Explain how to easily extend this framework and the expected outputs at each sta
 #### How to add a new model
 
 #### How to extract a new feature
+
+### Experiments
+
+High level overview of each of the experiments before explaining the others
+
+#### Testing PULearning
+
+#### Testing Anomaly Classification on open-source datasets
 
 ### Citing
 
