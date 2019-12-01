@@ -9,7 +9,7 @@ msg_split_regx = re.compile(r"x'.+'")
 severity = re.compile(r"(\w+)\s+(INFO|WARN|ERROR|FATAL)")
 
 
-def process_line_bgl(line):
+def process_line(line):
     line = line.strip()
     sep = separator.search(line)
     if sep:
@@ -31,11 +31,11 @@ def process_line_bgl(line):
 
 
 @register("bgl")
-def preprocess_bgl(params):
+def preprocess_dataset(params):
     """
     Runs BGL logs preprocessing executor.
     """
     input_source = params['raw_logs']
     output = params['logs']
     params['healthy_label'] = 'unlabeled'
-    process_logs(input_source, output, process_line_bgl)
+    process_logs(input_source, output, process_line)

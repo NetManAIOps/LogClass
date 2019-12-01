@@ -38,7 +38,7 @@ open_source_datasets = [
 ]
 for dataset in open_source_datasets:
     @register(dataset)
-    def preprocess_open_source(params):
+    def preprocess_dataset(params):
         """
         Runs open source logs preprocessing executor.
         """
