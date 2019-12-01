@@ -17,8 +17,8 @@ from .init_params import init_main_args, parse_main_args
 import numpy as np
 
 
-def init_flags():
-    """Init command line flags used for configuration."""
+def init_args():
+    """Init command line args used for configuration."""
 
     parser = init_main_args()
     parser.add_argument(
@@ -174,7 +174,7 @@ def run_test(params, x_data, y_data):
 
 def main():
     # Init params
-    params = parse_args(init_flags())
+    params = parse_args(init_args())
     print_params(params)
     file_handling(params)
     # Filter params from raw logs
