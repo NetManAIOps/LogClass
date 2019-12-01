@@ -27,12 +27,16 @@ def tokenize(line):
 
 @print_step
 def build_vocabulary(inputData):
-    """
-        Divides log into tokens and creates vocabulary.
-        Args:
-            inputData: list of log lines
-        Returns:
-            Vocabulary to index dict
+    """ Divides log into tokens and creates vocabulary.
+
+    Parameter
+    ---------
+    inputData: list of log message lines
+
+    Returns
+    -------
+    vocabulary : word to index dict
+
     """
     vocabulary = {}
     for line in inputData:
@@ -45,6 +49,18 @@ def build_vocabulary(inputData):
 
 @print_step
 def log_to_vector(inputData, vocabulary):
+    """ Vectorizes each log message using a dict of words to index.
+
+    Parameter
+    ---------
+    inputData: list of log message lines.
+    vocabulary : word to index dict.
+
+    Returns
+    -------
+    numpy Array vector of word indexes from each log message line.
+
+    """
     result = []
     for line in inputData:
         temp = []

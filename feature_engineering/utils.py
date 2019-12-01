@@ -31,6 +31,24 @@ def multi_features(x, y):
 
 @print_step
 def get_features_vector(log_vector, vocabulary, params):
+    """ Extracts all specified features from the vectorized logs.
+
+    For each feature specified in params it gets the feature function from the
+    feature registry and applies to the data.
+    A numpy array vector of shape (number_of_logs, N) is expected for each to
+    be concatenated along the second axis.
+
+    Parameters
+    ----------
+    log_vector : numpy Array vector of word indexes from each log message line.
+    vocabulary : dict mapping a word to an index.
+    params : dict of experiment parameters.
+
+    Returns
+    -------
+    x_features : numpy ndArray of all specified features.
+
+    """
     feature_vectors = []
     for feature in params['features']:
         extract_feature = feature_registry.get_feature_extractor(feature)
@@ -43,6 +61,23 @@ def get_features_vector(log_vector, vocabulary, params):
 
 @print_step
 def extract_features(x, params):
+    """ Gets vocabulary and specified features from the preprocessed logs.
+
+    Creates a vocabulary from the preprocessed logs to vectorize each message.
+    Extracts all specified features in params from the logs vector and
+    vocabulary, then returns them both.
+
+    Parameters
+    ----------
+    x : list of preprocessed logs. One log message per line.
+    params : dict of experiment parameters.
+
+    Returns
+    -------
+    x_features : numpy ndArray of all specified features.
+    vocabulary : dict mapping a word to an index.
+
+    """
     # Build Vocabulary
     if params['train']:
         vocabulary = build_vocabulary(x)
