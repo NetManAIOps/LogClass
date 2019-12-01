@@ -19,7 +19,7 @@ pip install -r requirements.txt
 
 ### Quick Start
 
-#### Run LogParse
+#### Run LogClass
 
 Several example experiments using LogClass are included in this repository. 
 
