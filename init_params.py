@@ -56,11 +56,9 @@ def init_main_args():
         metavar="logs_type",
         type=str,
         nargs=1,
-        default=["original"],
+        default=["open_Apache"],
         choices=[
-            "original",
             "bgl",
-            "bgl_old",
             "open_Apache",
             "open_bgl",
             "open_hadoop",
