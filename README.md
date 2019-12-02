@@ -211,18 +211,22 @@ This format is ensured by the `process_line` function which is to be defined in 
 
 ```python
 def process_line(line):
-""" Processes a given line from the raw logs 
-Parameter
----------
-line : str
-	One line from the raw logs.
+    """ 
+    Processes a given line from the raw logs.
 
-Returns
--------
-str
-	String with the format f"{label} {msg}" where the `label` indicates whether the log is anomalous and if so, which anomaly category, and `msg` is the filtered log message without parameters.
+    Parameter
+    ---------
+    line : str
+        One line from the raw logs.
 
-"""
+    Returns
+    -------
+    str
+        String with the format f"{label} {msg}" where the `label` indicates whether
+        the log is anomalous and if so, which anomaly category, and `msg` is the
+        filtered log message without parameters.
+
+    """
 # your code
 ```
 
