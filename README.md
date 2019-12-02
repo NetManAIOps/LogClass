@@ -117,7 +117,7 @@ optional arguments:
 ```
 .
 ├── Data
-│   └── open_source_logs				# Included open-source log datasets
+│   └── open_source_logs		# Included open-source log datasets
 │       ├── Apache
 │       ├── bgl
 │       ├── hadoop
@@ -125,8 +125,8 @@ optional arguments:
 │       ├── hpc
 │       ├── proxifier
 │       └── zookeeper
-├── output								# Example output folder
-│   ├── preprocessed_logs				# Saved preprocessed logs for reuse
+├── output				# Example output folder
+│   ├── preprocessed_logs		# Saved preprocessed logs for reuse
 │   │   ├── open_Apache.txt
 │   │   └── open_bgl.txt
 │   └── train_multi_open_bgl_2283696426	# Example experiment output
@@ -144,11 +144,11 @@ optional arguments:
 │   ├── tf_ilf.py
 │   ├── tf.py
 │   ├── registry.py
-│   ├── vectorizer.py					# Log message vectorizing utilities
+│   ├── vectorizer.py			# Log message vectorizing utilities
 │   └── utils.py
 ├── models
 │   ├── __init__.py
-│   ├── base_model.py					# BaseModel class extended by all models
+│   ├── base_model.py			# BaseModel class extended by all models
 │   ├── pu_learning.py
 │   ├── regular.py
 │   ├── svm.py
@@ -170,19 +170,19 @@ optional arguments:
 │   ├── top_k_svm.py
 │   ├── bb_registry.py
 │   └── wb_registry.py
-├── puLearning							# PULearning third party implementation
+├── puLearning				# PULearning third party implementation
 │   ├── __init__.py
 │   └── puAdapter.py
 ├── __init__.py
 ├── LICENSE
 ├── README.md
 ├── requirements.txt
-├── init_params.py						# Parses arguments, initializes global parameters
-├── logclass.py							# Performs training and inference of LogClass
-├── test_pu.py							# Compares robustness of LogClass
-├── train_multi.py						# Trains LogClass for anomalies classification
-├── train_binary.py						# Trains LogClass for log anomaly detection
-├── run_binary.py						# Loads trained LogClass and detects anomalies
+├── init_params.py			# Parses arguments, initializes global parameters
+├── logclass.py				# Performs training and inference of LogClass
+├── test_pu.py				# Compares robustness of LogClass
+├── train_multi.py			# Trains LogClass for anomalies classification
+├── train_binary.py			# Trains LogClass for log anomaly detection
+├── run_binary.py			# Loads trained LogClass and detects anomalies
 ├── decorators.py
 └── utils.py
 ```
