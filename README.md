@@ -1,7 +1,7 @@
 ## LogClass
 This repository provides an open-source toolkit for LogClass framework from Meng, Weibin, et al. "[Device-agnostic log anomaly classification with partial labels](https://ieeexplore.ieee.org/abstract/document/8624141)." *2018 IEEE/ACM 26th International Symposium on Quality of Service (IWQoS)*. IEEE, 2018.
 
-LogClass combines a word representation method and the [PU learning model](https://github.com/aldro61/pu-learning) to construct a device-agnostic vocabulary based on partial labels. 
+LogClass automatically and accurately detects and classifies anomalous logs based on partial labels.
 
 ### Table of Contents
 
