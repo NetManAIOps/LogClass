@@ -5,33 +5,28 @@ LogClass combines a word representation method and the [PU learning model](https
 
 ### Table of Contents
 
-[TOC]
+[LogClass](#logclass)
 
-LogClass
-
-​	Table of Contents
-
-​	Requirements
-
-​	Quick Start
-
-​		RunLogClass
-
-​		Arguments
-
-​		Directory Structure
-
-​		Datasets
-
-​	How to
-
-​		How to add a new dataset
-
-​			Preprocessed logs flormat
-
-​		How to add a new experiment
-
-​			Custom experiment
+- [Table of Contents](#table-of-contents)
+- [Requirements](#requirements)
+- [Quick Start](#quick-start)
+	- [Run LogClass](#run-logclass)
+	- [Arguments](#arguments)
+	- [Directory Structure](#directory-structure)
+	- [Datasets](#datasets)
+- [How to](#how-to)
+	- [How to add a new dataset](#how-to-add-a-new-dataset)
+		- [Preprocessed Logs Format](#preprocessed-logs-format)
+	- [How to run a new experiment](#how-to-run-a-new-experiment)
+		- [Custom experiment](#custom-experiment)
+	- [How to add a new model](#how-to-add-a-new-model)
+	- [How to extract a new feature](#how-to-extract-a-new-feature)
+- [Included Experiments](#included-experiments)
+	- [Testing PULearning](#testing-pulearning)
+	- [Testing Anomaly Classification](#testing-anomaly-classification)
+	- [Global LogClass](#global-logclass)
+	- [Binary training/inference](#binary-traininginference)
+- [Citing](#citing)
 
 ​		
 
@@ -182,7 +177,6 @@ optional arguments:
 ├── LICENSE
 ├── README.md
 ├── requirements.txt
-├── LogClass.pdf						# Original paper
 ├── init_params.py						# Parses arguments, initializes global parameters
 ├── logclass.py							# Performs training and inference of LogClass
 ├── test_pu.py							# Compares robustness of LogClass
