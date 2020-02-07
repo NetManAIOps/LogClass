@@ -116,7 +116,7 @@ optional arguments:
 
 ```
 .
-├── Data
+├── data
 │   └── open_source_logs		# Included open-source log datasets
 │       ├── Apache
 │       ├── bgl
@@ -189,7 +189,7 @@ optional arguments:
 
 #### Datasets
 
-In this repository we include various [open-source logs datasets](https://github.com/logpai/loghub) in the `data` folder as well as their corresponding preprocessing module in the `preprocess` package. Additionally there is  another preprocessor provided for [BGL](https://www.usenix.org/cfdr-data#hpc4) logs data, which can be downloaded from the link.
+In this repository we include various [open-source logs datasets](https://github.com/logpai/loghub) in the `data` folder as well as their corresponding preprocessing module in the `preprocess` package. Additionally there is  another preprocessor provided for [BGL logs data](https://www.usenix.org/cfdr-data#hpc4), which can be downloaded from [here](https://www.usenix.org/cfdr-data#hpc4).
 
 
 

@@ -110,4 +110,6 @@ venv.bak/
 
 # data
 *.txt
-data/
+data/**
+!data/open_source_logs/
+!data/open_source_logs/**
