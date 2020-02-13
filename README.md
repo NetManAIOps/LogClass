@@ -84,7 +84,7 @@ optional arguments:
                         trained features_dir input/output directory path
                         (default: None)
   --logs_type logs_type
-                        Input type of logs. (default: ['original'])
+                        Input type of logs. (default: ['open_Apache'])
   --kfold kfold         kfold crossvalidation (default: None)
   --healthy_label healthy_label
                         the labels of unlabeled logs (default: ['unlabeled'])
@@ -313,7 +313,7 @@ High level overview of each of the experiments included in the repository.
 It would compare PULearning+RandomForest with any other given anomaly detection algorithm. Using the given data, it would start with having only healthy logs on the unlabeled data and gradually increase this up to 10%. To test PULearning, run the following command in the home directory of this project: 
 
 ```
-python -m LogClass.test_pu --logs_type "bgl_old" --raw_logs "./Data/RAS from Weibin/RAS_raw_label.dat" --binary_classifier regular --ratio 8 --step 1 --top_percentage 11 --kfold 3
+python -m LogClass.test_pu --logs_type "bgl" --raw_logs "./Data/RAS from Weibin/RAS_raw_label.dat" --binary_classifier regular --ratio 8 --step 1 --top_percentage 11 --kfold 3
 ```
 
 This would first preprocess the logs. Then, for each kfold iteration, it will perform feature extraction and force a 1:8 ratio of anomalous:healthy logs. Finally with a step of 1% it will go from 0% to 10% anomalous logs in the unlabeled set and compare the accuracy of both anomaly detection algorithms. If none specified it will default to a plain RF. 

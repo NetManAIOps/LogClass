@@ -21,7 +21,6 @@ def remove_parameters(msg):
     msg = re.sub(re_sub_5, "", msg)
     msg = re.sub(re_sub_6, " ", msg)
     L = msg.split()
-    # p = re.compile("[^(A-Za-z)]")
     # Filtering strings that have non-letter tokens
     new_msg = [k for k in L if not p.search(k)]
     msg = " ".join(new_msg)
