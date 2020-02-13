@@ -98,6 +98,7 @@ def init_main_args():
         metavar="report",
         type=str,
         nargs='+',
+        default=["confusion_matrix"],
         choices=["confusion_matrix",
                  "acc",
                  "multi_acc",

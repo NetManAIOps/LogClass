@@ -4,7 +4,31 @@ from tqdm import tqdm
 from ..decorators import print_step
 
 
+# Compiling for optimization
+re_sub_1 = re.compile(r"(:(?=\s))|((?<=\s):)")
+re_sub_2 = re.compile(r"(\d+\.)+\d+")
+re_sub_3 = re.compile(r"\d{2}:\d{2}:\d{2}")
+re_sub_4 = re.compile(r"Mar|Apr|Dec|Jan|Feb|Nov|Oct|May|Jun|Jul|Aug|Sep")
+re_sub_5 = re.compile(r":?(\w+:)+")
+re_sub_6 = re.compile(r"\.|\(|\)|\<|\>|\/|\-|\=|\[|\]")
+p = re.compile(r"[^(A-Za-z)]")
 def remove_parameters(msg):
+    # Removing parameters with Regex
+    msg = re.sub(re_sub_1, "", msg)
+    msg = re.sub(re_sub_2, "", msg)
+    msg = re.sub(re_sub_3, "", msg)
+    msg = re.sub(re_sub_4, "", msg)
+    msg = re.sub(re_sub_5, "", msg)
+    msg = re.sub(re_sub_6, " ", msg)
+    L = msg.split()
+    # p = re.compile("[^(A-Za-z)]")
+    # Filtering strings that have non-letter tokens
+    new_msg = [k for k in L if not p.search(k)]
+    msg = " ".join(new_msg)
+    return msg
+
+
+def remove_parameters_slower(msg):
     # Removing parameters with Regex
     msg = re.sub(r"(:(?=\s))|((?<=\s):)", "", msg)
     msg = re.sub(r"(\d+\.)+\d+", "", msg)
@@ -29,7 +53,7 @@ def process_logs(input_source, output, process_line=None):
             for line in tqdm(IN, total=line_count):
                 result_line = process_line(line)
                 if result_line:
-                    f.writelines(result_line + "\n")
+                    f.write(''.join((result_line, "\n")))
 
 
 @print_step

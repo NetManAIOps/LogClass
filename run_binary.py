@@ -1,13 +1,13 @@
 from .utils import (
     load_params,
     file_handling,
-    extract_features,
     print_params,
 )
 from .preprocess import registry as preprocess_registry
 from .preprocess.utils import load_logs
 from .feature_engineering.utils import (
     binary_train_gtruth,
+    extract_features,
 )
 from .models import binary_registry as binary_classifier_registry
 from .reporting import bb_registry as black_box_report_registry
