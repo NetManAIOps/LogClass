@@ -2,6 +2,7 @@ import re
 import numpy as np
 from tqdm import tqdm
 from ..decorators import print_step
+from multiprocessing import Pool
 
 
 # Compiling for optimization
@@ -46,13 +47,13 @@ def remove_parameters_slower(msg):
 @print_step
 def process_logs(input_source, output, process_line=None):
     with open(output, "w", encoding='latin-1') as f:
+        # counting first to show progress with tqdm
         with open(input_source, 'r', encoding='latin-1') as IN:
             line_count = sum(1 for line in IN)
         with open(input_source, 'r', encoding='latin-1') as IN:
-            for line in tqdm(IN, total=line_count):
-                result_line = process_line(line)
-                if result_line:
-                    f.write(''.join((result_line, "\n")))
+            with Pool() as pool:
+                results = pool.imap(process_line, IN, chunksize=10000)
+                f.writelines(tqdm(results, total=line_count))
 
 
 @print_step
