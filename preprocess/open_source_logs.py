@@ -2,6 +2,7 @@ from .registry import register
 from .utils import remove_parameters
 from tqdm import tqdm
 import os
+from multiprocessing import Pool
 
 
 def process_line(line):
@@ -9,7 +10,10 @@ def process_line(line):
     msg = ' '.join(line[1].strip().split()[1:])
     msg = remove_parameters(msg)
     if msg:
-        return label + ' ' + msg
+        msg = ' '.join((label, msg))
+        msg = ''.join((msg, '\n'))
+        return msg
+    return ''
 
 
 def process_open_source(input_source, output):
@@ -21,10 +25,9 @@ def process_open_source(input_source, output):
         with open(gtruth, 'r', encoding='latin-1') as in_gtruth:
             with open(rawlog, 'r', encoding='latin-1') as in_log:
                 IN = zip(in_gtruth, in_log)
-                for line in tqdm(IN, total=line_count):
-                    result_line = process_line(line)
-                    if result_line:
-                        f.writelines(result_line + "\n")
+                with Pool() as pool:
+                    results = pool.imap(process_line, IN, chunksize=10000)
+                    f.writelines(tqdm(results, total=line_count))
 
 
 open_source_datasets = [

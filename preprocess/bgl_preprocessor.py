@@ -22,12 +22,15 @@ def process_line(line):
             general_label = error_label.group(2)
             label = error_label.group(1)
             if general_label == 'WARN':
-                return None
+                return ''
             if general_label == 'INFO':  # or label == 'WARN':
                 label = 'unlabeled'
             msg = remove_parameters(msg)
             if msg:
-                return label + ' ' + msg
+                msg = ' '.join((label, msg))
+                msg = ''.join((msg, '\n'))
+                return msg
+    return ''
 
 
 @register("bgl")
