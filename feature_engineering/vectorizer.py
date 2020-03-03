@@ -1,5 +1,6 @@
 import numpy as np
 from ..decorators import print_step
+from collections import defaultdict, Counter
 
 
 def get_ngrams(n, line):
@@ -47,7 +48,6 @@ def build_vocabulary(inputData):
     return vocabulary
 
 
-@print_step
 def log_to_vector(inputData, vocabulary):
     """ Vectorizes each log message using a dict of words to index.
 
@@ -90,22 +90,18 @@ def get_max_line(inputVector):
 
 
 def get_tf(inputVector):
-    token_index_dict = {}
+    token_index_dict = defaultdict(set)
     # Counting the number of logs the word appears in
     for index, line in enumerate(inputVector):
         for token in line:
-            if token not in token_index_dict:
-                token_index_dict[token] = set()
             token_index_dict[token].add(index)
     return token_index_dict
 
 
 def get_lf(inputVector):
-    token_index_ilf_dict = {}
+    token_index_ilf_dict = defaultdict(set)
     for line in inputVector:
         for location, token in enumerate(line):
-            if token not in token_index_ilf_dict:
-                token_index_ilf_dict[token] = set()
             token_index_ilf_dict[token].add(location)
     return token_index_ilf_dict
 
@@ -134,12 +130,12 @@ def create_invf_vector(inputVector, invf_dict, vocabulary):
     # Creating the idf/ilf vector for each log message
     for line in inputVector:
         cur_tfinvf = np.zeros(len(vocabulary))
+        count_dict = Counter(line)
         for token_index in line:
             cur_tfinvf[token_index] = (
-                float(line.count(token_index)) * invf_dict[token_index]
+                float(count_dict[token_index]) * invf_dict[token_index]
             )
         tfinvf.append(cur_tfinvf)
-
     tfinvf = np.array(tfinvf)
     return tfinvf
 
@@ -148,7 +144,6 @@ def normalize_tfinvf(tfinvf):
     return 2.*(tfinvf - np.min(tfinvf))/np.ptp(tfinvf)-1
 
 
-# TODO: Refactor this further, this should be just create invf_dict
 def calculate_tf_invf_train(
     inputVector, get_f=get_tf, calc_invf=calculate_idf
 ):
