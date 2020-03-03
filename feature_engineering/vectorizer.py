@@ -48,6 +48,7 @@ def build_vocabulary(inputData):
     return vocabulary
 
 
+@print_step
 def log_to_vector(inputData, vocabulary):
     """ Vectorizes each log message using a dict of words to index.
 
