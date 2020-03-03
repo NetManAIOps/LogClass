@@ -35,7 +35,7 @@ def instatiate_regular_classifier(params, **kwargs):
     hparms = {
         'n_estimators': 10,
         'bootstrap': True,
-        'n_jobs': 1,
+        'n_jobs': -1,
     }
     hparms.update(kwargs)
     wrapped_regular = RegularClassifierWrapper(

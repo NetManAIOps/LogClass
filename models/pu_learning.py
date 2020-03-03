@@ -43,7 +43,7 @@ def instatiate_pu_adapter(params, **kwargs):
         'n_estimators': 10,
         'criterion': "entropy",
         'bootstrap': True,
-        'n_jobs': 1,
+        'n_jobs': -1,
     }
     hparms.update(kwargs)
     estimator = RandomForestClassifier(**hparms)
