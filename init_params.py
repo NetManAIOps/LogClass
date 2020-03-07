@@ -8,8 +8,7 @@ def init_main_args():
     """Init command line args used for configuration."""
 
     parser = argparse.ArgumentParser(
-        description="Runs binary classification with "
-                    + "PULearning to detect anomalous logs.",
+        description="Runs experiment using LogClass Framework",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(

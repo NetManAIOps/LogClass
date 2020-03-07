@@ -80,8 +80,7 @@ def file_handling(params):
 
 def print_params(params):
     print("{:-^80}".format("params"))
-    print("Beginning binary classification "
-          + "using the following configuration:\n")
+    print("Beginning experiment using the following configuration:\n")
     for param, value in params.items():
         print("\t{:>13}: {}".format(param, value))
     print()
