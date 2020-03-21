@@ -109,7 +109,6 @@ venv.bak/
 .vscode/
 
 # data
-*.txt
 data/**
 !data/open_source_logs/
 !data/open_source_logs/**
