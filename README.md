@@ -189,7 +189,7 @@ optional arguments:
 
 #### Datasets
 
-In this repository we include various [open-source logs datasets](https://github.com/logpai/loghub) in the `data` folder as well as their corresponding preprocessing module in the `preprocess` package. Additionally there is  another preprocessor provided for [BGL logs data](https://www.usenix.org/cfdr-data#hpc4), which can be downloaded from [here](https://www.usenix.org/cfdr-data#hpc4).
+In this repository we include various [open-source logs datasets](https://github.com/logpai/loghub) in the `data` folder as well as their corresponding preprocessing module in the `preprocess` package. Additionally there is  another preprocessor provided for [BGL logs data](https://www.usenix.org/cfdr-data#hpc4), which can be downloaded directly from [here](https://www.usenix.org/sites/default/files/4372-intrepid_ras_0901_0908_scrubbed.zip.tar).
 
 
 
