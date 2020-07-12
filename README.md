@@ -49,7 +49,7 @@ Several example experiments using LogClass are included in this repository.
 Here is an example to run one of them -  training of the global experiment doing anomaly detection and classification.  Run the following command in the home directory of this project: 
 
 ```
-python -m LogClass.logclass --train --logs_type "bgl" --raw_logs "./Data/RAS_LOGS" --report macro
+python -m LogClass.logclass --train --kfold 3 --logs_type "bgl" --raw_logs "./Data/RAS_LOGS" --report macro
 ```
 
 
