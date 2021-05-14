@@ -1,5 +1,5 @@
 ## LogClass
-This repository provides an open-source toolkit for LogClass framework from Meng, Weibin, et al. "[Device-agnostic log anomaly classification with partial labels](https://ieeexplore.ieee.org/abstract/document/8624141)." *2018 IEEE/ACM 26th International Symposium on Quality of Service (IWQoS)*. IEEE, 2018.
+This repository provides an open-source toolkit for LogClass framework from W. Meng et al., "[LogClass: Anomalous Log Identification and Classification with Partial Labels](https://ieeexplore.ieee.org/document/9339940)," in IEEE Transactions on Network and Service Management, doi: 10.1109/TNSM.2021.3055425.
 
 LogClass automatically and accurately detects and classifies anomalous logs based on partial labels.
 
@@ -355,13 +355,11 @@ In this case it would load the learned feature extraction approach, both learned
 If you find LogClass is useful for your research, please consider citing the paper:
 
 ```
-@inproceedings{meng2018device,
-  title={Device-agnostic log anomaly classification with partial labels},
-  author={Meng, Weibin and Liu, Ying and Zhang, Shenglin and Pei, Dan and Dong, Hui and Song, Lei and Luo, Xulong},
-  booktitle={2018 IEEE/ACM 26th International Symposium on Quality of Service (IWQoS)},
-  pages={1--6},
-  year={2018},
-  organization={IEEE}
+@ARTICLE{9339940,  author={Meng, Weibin and Liu, Ying and Zhang, Shenglin and Zaiter, Federico and Zhang, Yuzhe and Huang, Yuheng and Yu, Zhaoyang and Zhang, Yuzhi and Song, Lei and Zhang, Ming and Pei, Dan},
+journal={IEEE Transactions on Network and Service Management},
+title={LogClass: Anomalous Log Identification and Classification with Partial Labels},
+year={2021},
+doi={10.1109/TNSM.2021.3055425}
 }
 ```
 
