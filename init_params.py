@@ -1,7 +1,8 @@
-import os
 import argparse
-from uuid import uuid4
+import os
 import sys
+import warnings
+from uuid import uuid4
 
 
 def init_main_args():
@@ -184,7 +185,15 @@ def parse_main_args(args):
     if args.id:
         params['id'] = args.id[0]
     else:
+        if not params["train"]:
+            warnings.warn(
+                "--id parameter is not set when running inference."
+                "If --train is not set, you might want to provide the"
+                "experiment id of your best training experiment run,"
+                " E.g. `--id 2310136305`"
+                )
         params['id'] = str(uuid4().time_low)
+
     print(f"\nExperiment ID: {params['id']}")
     # Creating experiments results folder with the format
     # {experiment_module_name}_{logs_type}_{id}
